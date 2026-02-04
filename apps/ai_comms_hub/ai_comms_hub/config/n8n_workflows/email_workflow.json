@@ -1,0 +1,239 @@
+{
+  "name": "Email Handler (SendGrid Inbound Parse)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "sendgrid-inbound",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-sendgrid",
+      "name": "Webhook - SendGrid Inbound",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "sendgrid-inbound-parse"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse SendGrid Inbound Parse webhook data\nconst data = $input.item.json.body;\n\n// Extract email components\nconst fromEmail = data.from || \"\";\nconst toEmail = data.to || \"\";\nconst subject = data.subject || \"\";\nconst textContent = data.text || \"\";\nconst htmlContent = data.html || \"\";\nconst headers = data.headers || \"\";\n\n// Parse headers\nconst headerLines = headers.split(\"\\n\");\nconst headerMap = {};\n\nfor (const line of headerLines) {\n  const colonIndex = line.indexOf(\":\");\n  if (colonIndex > 0) {\n    const key = line.substring(0, colonIndex).trim();\n    const value = line.substring(colonIndex + 1).trim();\n    headerMap[key] = value;\n  }\n}\n\n// Extract threading information\nconst messageId = headerMap[\"Message-ID\"] || \"\";\nconst inReplyTo = headerMap[\"In-Reply-To\"] || \"\";\nconst references = headerMap[\"References\"] || \"\";\n\n// Parse attachments\nconst attachmentInfo = data.attachment-info ? JSON.parse(data.attachment-info) : {};\nconst attachments = [];\n\nfor (const [filename, info] of Object.entries(attachmentInfo)) {\n  attachments.push({\n    filename: filename,\n    type: info.type,\n    size: info.length\n  });\n}\n\n// Clean email content (remove quoted replies)\nfunction cleanEmailContent(text) {\n  if (!text) return \"\";\n  \n  const lines = text.split(\"\\n\");\n  const cleanedLines = [];\n  \n  for (const line of lines) {\n    // Stop at signature markers\n    if (line.match(/^--\\s*$/) || \n        line.match(/^Sent from/) || \n        line.match(/^Best regards/) ||\n        line.match(/^Thanks/)) {\n      break;\n    }\n    \n    // Skip quoted lines\n    if (line.trim().startsWith(\">\")) {\n      continue;\n    }\n    \n    cleanedLines.push(line);\n  }\n  \n  return cleanedLines.join(\"\\n\").trim();\n}\n\nconst cleanedText = cleanEmailContent(textContent);\n\nreturn [{\n  json: {\n    platform: \"Email\",\n    from_email: fromEmail,\n    to_email: toEmail,\n    subject: subject,\n    text_content: textContent,\n    cleaned_text: cleanedText,\n    html_content: htmlContent,\n    message_id: messageId,\n    in_reply_to: inReplyTo,\n    references: references,\n    attachments: attachments,\n    raw_headers: headers,\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "parse-email",
+      "name": "Parse Email Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.cleaned_text}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "check-has-content",
+      "name": "Check - Has Content",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Classify email intent based on content\nconst text = ($json.cleaned_text || \"\").toLowerCase();\nconst subject = ($json.subject || \"\").toLowerCase();\n\nlet intent = \"general_inquiry\";\n\n// Order-related\nif (text.match(/order|purchase|buy|delivery|shipping|tracking/) || \n    subject.match(/order|purchase/)) {\n  intent = \"order_inquiry\";\n}\n// Product-related\nelse if (text.match(/product|item|price|cost|specification/) ||\n         subject.match(/product|item/)) {\n  intent = \"product_inquiry\";\n}\n// Quote-related\nelse if (text.match(/quote|quotation|estimate|pricing/) ||\n         subject.match(/quote|quotation/)) {\n  intent = \"quote_request\";\n}\n// Support-related\nelse if (text.match(/help|support|problem|issue|not working/) ||\n         subject.match(/help|support|issue/)) {\n  intent = \"support_request\";\n}\n// Complaint\nelse if (text.match(/complaint|unhappy|dissatisfied|refund/) ||\n         subject.match(/complaint/)) {\n  intent = \"complaint\";\n}\n\nreturn [{\n  json: {\n    ...$json,\n    intent: intent\n  }\n}];"
+      },
+      "id": "classify-intent",
+      "name": "Classify Intent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 200]
+    },
+    {
+      "parameters": {
+        "url": "http://erpnext-backend:8000/api/method/ai_comms_hub.webhooks.email_handler.handle_sendgrid_webhook",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "from_email",
+              "value": "={{$json.from_email}}"
+            },
+            {
+              "name": "to_email",
+              "value": "={{$json.to_email}}"
+            },
+            {
+              "name": "subject",
+              "value": "={{$json.subject}}"
+            },
+            {
+              "name": "text_content",
+              "value": "={{$json.cleaned_text}}"
+            },
+            {
+              "name": "html_content",
+              "value": "={{$json.html_content}}"
+            },
+            {
+              "name": "message_id",
+              "value": "={{$json.message_id}}"
+            },
+            {
+              "name": "in_reply_to",
+              "value": "={{$json.in_reply_to}}"
+            },
+            {
+              "name": "references",
+              "value": "={{$json.references}}"
+            },
+            {
+              "name": "intent",
+              "value": "={{$json.intent}}"
+            },
+            {
+              "name": "attachments",
+              "value": "={{JSON.stringify($json.attachments)}}"
+            },
+            {
+              "name": "headers",
+              "value": "={{$json.raw_headers}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "http-frappe-api",
+      "name": "HTTP Request - Frappe API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1050, 200],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "frappe-api-key",
+          "name": "Frappe API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{JSON.stringify({\"success\": true, \"message\": \"Email processed\"})}}"
+      },
+      "id": "respond-success",
+      "name": "Respond - Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1250, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{JSON.stringify({\"success\": false, \"message\": \"No content in email\"})}}"
+      },
+      "id": "respond-no-content",
+      "name": "Respond - No Content",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [850, 400]
+    },
+    {
+      "parameters": {
+        "mode": "logToConsole",
+        "message": "={{\"Error processing email: \" + JSON.stringify($json)}}"
+      },
+      "id": "error-handler",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [1050, 500]
+    }
+  ],
+  "connections": {
+    "Webhook - SendGrid Inbound": {
+      "main": [
+        [
+          {
+            "node": "Parse Email Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Email Data": {
+      "main": [
+        [
+          {
+            "node": "Check - Has Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check - Has Content": {
+      "main": [
+        [
+          {
+            "node": "Classify Intent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond - No Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify Intent": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Frappe API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Frappe API": {
+      "main": [
+        [
+          {
+            "node": "Respond - Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "Email",
+      "id": "email-automation"
+    },
+    {
+      "name": "SendGrid",
+      "id": "sendgrid-integration"
+    }
+  ],
+  "pinData": {},
+  "versionId": "1.0.0"
+}

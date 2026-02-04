@@ -1,0 +1,95 @@
+{
+  "doctype": "DocType",
+  "name": "OPS Quote Product Option",
+  "module": "OPS Integration",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+  "field_order": [
+    "quote_products_id",
+    "product_title",
+    "column_break_product_ref",
+    "option_id",
+    "attribute_id",
+    "section_break_option",
+    "option_name",
+    "option_value"
+  ],
+  "fields": [
+    {
+      "fieldname": "quote_products_id",
+      "fieldtype": "Int",
+      "label": "Quote Product ID",
+      "in_list_view": 1,
+      "bold": 1,
+      "description": "Links to the quote product this option belongs to"
+    },
+    {
+      "fieldname": "product_title",
+      "fieldtype": "Data",
+      "label": "Product",
+      "in_list_view": 1,
+      "read_only": 1,
+      "description": "Product name for reference"
+    },
+    {
+      "fieldname": "column_break_product_ref",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "option_id",
+      "fieldtype": "Data",
+      "label": "Option ID",
+      "description": "OnPrintShop optionId"
+    },
+    {
+      "fieldname": "attribute_id",
+      "fieldtype": "Data",
+      "label": "Attribute ID",
+      "description": "OnPrintShop attributeId"
+    },
+    {
+      "fieldname": "section_break_option",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "option_name",
+      "fieldtype": "Data",
+      "label": "Option Name",
+      "in_list_view": 1,
+      "columns": 3,
+      "reqd": 1,
+      "description": "Option heading/name (e.g., Product Sizes, Print Sides)"
+    },
+    {
+      "fieldname": "option_value",
+      "fieldtype": "Small Text",
+      "label": "Option Value",
+      "in_list_view": 1,
+      "columns": 4,
+      "description": "Selected value for this option (may contain HTML)"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Sales User",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Sales Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}

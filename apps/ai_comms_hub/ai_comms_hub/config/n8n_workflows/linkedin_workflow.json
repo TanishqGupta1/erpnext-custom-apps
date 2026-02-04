@@ -1,0 +1,254 @@
+{
+  "name": "LinkedIn Messages Handler",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "linkedin-webhook",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-linkedin",
+      "name": "Webhook - LinkedIn",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "linkedin-message-handler"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse LinkedIn webhook data\nconst data = $input.item.json.body;\n\n// LinkedIn sends different event types\nconst eventType = data.eventType || \"\";\n\nif (eventType === \"MESSAGE_CREATED\") {\n  const message = data.message || {};\n  const conversation = data.conversation || {};\n  const sender = data.sender || {};\n  \n  return [{\n    json: {\n      platform: \"LinkedIn\",\n      event_type: eventType,\n      message_id: message.id,\n      conversation_id: conversation.id,\n      sender_id: sender.id,\n      sender_name: sender.name || \"\",\n      sender_profile_url: sender.profileUrl || \"\",\n      message_text: message.text || \"\",\n      message_type: message.messageType || \"TEXT\",\n      timestamp: message.createdAt,\n      // Additional LinkedIn fields\n      organization_id: data.organizationId || \"\",\n      attachments: message.attachments || []\n    }\n  }];\n} else {\n  // Return empty for other event types (typing indicators, read receipts)\n  return [];\n}"
+      },
+      "id": "parse-linkedin-data",
+      "name": "Parse LinkedIn Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.event_type}}",
+              "operation": "equals",
+              "value2": "MESSAGE_CREATED"
+            }
+          ]
+        }
+      },
+      "id": "filter-message-created",
+      "name": "Filter - Message Created",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.message_text}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "check-has-content",
+      "name": "Check - Has Content",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://erpnext-backend:8000/api/method/ai_comms_hub.webhooks.social.handle_linkedin_webhook",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "platform",
+              "value": "LinkedIn"
+            },
+            {
+              "name": "message_id",
+              "value": "={{$json.message_id}}"
+            },
+            {
+              "name": "conversation_id",
+              "value": "={{$json.conversation_id}}"
+            },
+            {
+              "name": "sender_id",
+              "value": "={{$json.sender_id}}"
+            },
+            {
+              "name": "sender_name",
+              "value": "={{$json.sender_name}}"
+            },
+            {
+              "name": "sender_profile_url",
+              "value": "={{$json.sender_profile_url}}"
+            },
+            {
+              "name": "message_text",
+              "value": "={{$json.message_text}}"
+            },
+            {
+              "name": "message_type",
+              "value": "={{$json.message_type}}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{$json.timestamp}}"
+            },
+            {
+              "name": "organization_id",
+              "value": "={{$json.organization_id}}"
+            },
+            {
+              "name": "attachments",
+              "value": "={{JSON.stringify($json.attachments)}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "http-frappe-api",
+      "name": "HTTP Request - Frappe API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1050, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "frappe-api-key",
+          "name": "Frappe API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{JSON.stringify({\"success\": true})}}"
+      },
+      "id": "respond-success",
+      "name": "Respond - Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{JSON.stringify({\"success\": true, \"skipped\": true})}}"
+      },
+      "id": "respond-skipped",
+      "name": "Respond - Skipped",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1050, 500]
+    },
+    {
+      "parameters": {
+        "mode": "logToConsole",
+        "message": "={{\"Error processing LinkedIn message: \" + JSON.stringify($json)}}"
+      },
+      "id": "error-handler",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [850, 600]
+    }
+  ],
+  "connections": {
+    "Webhook - LinkedIn": {
+      "main": [
+        [
+          {
+            "node": "Parse LinkedIn Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse LinkedIn Data": {
+      "main": [
+        [
+          {
+            "node": "Filter - Message Created",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter - Message Created": {
+      "main": [
+        [
+          {
+            "node": "Check - Has Content",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond - Skipped",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check - Has Content": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Frappe API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond - Skipped",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Frappe API": {
+      "main": [
+        [
+          {
+            "node": "Respond - Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "Social Media",
+      "id": "social-automation"
+    },
+    {
+      "name": "LinkedIn",
+      "id": "linkedin-integration"
+    }
+  ],
+  "pinData": {},
+  "versionId": "1.0.0"
+}

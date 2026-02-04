@@ -1,0 +1,168 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"hitl_header_1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Human-in-the-Loop Workspace</b></span>\",\"col\":12}},{\"id\":\"hitl_shortcut_1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pending Reviews\",\"col\":3}},{\"id\":\"hitl_shortcut_2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Escalated Conversations\",\"col\":3}},{\"id\":\"hitl_shortcut_3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"My Active\",\"col\":3}},{\"id\":\"hitl_shortcut_4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"All Hubs\",\"col\":3}},{\"id\":\"hitl_header_2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\"><b>Console</b></span>\",\"col\":12}},{\"id\":\"hitl_page_1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"HITL Console\",\"col\":6}},{\"id\":\"hitl_page_2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Takeover Console\",\"col\":6}},{\"id\":\"hitl_header_3\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\"><b>Quick Access</b></span>\",\"col\":12}},{\"id\":\"hitl_card_1\",\"type\":\"card\",\"data\":{\"card_name\":\"Communication Hubs\",\"col\":4}},{\"id\":\"hitl_card_2\",\"type\":\"card\",\"data\":{\"card_name\":\"Knowledge Base\",\"col\":4}},{\"id\":\"hitl_card_3\",\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":4}}]",
+ "creation": "2025-01-25 10:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "users",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "HITL Workspace",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Conversations",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "HITL Console",
+   "link_count": 0,
+   "link_to": "hitl-console",
+   "link_type": "Page",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Communication Hub",
+   "link_count": 0,
+   "link_to": "Communication Hub",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Communication Message",
+   "link_count": 0,
+   "link_to": "Communication Message",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Knowledge Base",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Chatwoot FAQ",
+   "link_count": 0,
+   "link_to": "Chatwoot FAQ",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "FAQ Categories",
+   "link_count": 0,
+   "link_to": "Chatwoot FAQ Category",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Settings",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "AI Communications Hub Settings",
+   "link_count": 0,
+   "link_to": "AI Communications Hub Settings",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  }
+ ],
+ "modified": "2025-01-25 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "AI Comms Hub",
+ "name": "HITL Workspace",
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Customer Support"
+  }
+ ],
+ "sequence_id": 5,
+ "shortcuts": [
+  {
+   "color": "Orange",
+   "format": "{} Pending",
+   "label": "Pending Reviews",
+   "link_to": "Communication Hub",
+   "stats_filter": "{\"status\": \"Pending Review\"}",
+   "type": "DocType"
+  },
+  {
+   "color": "Red",
+   "format": "{} Escalated",
+   "label": "Escalated Conversations",
+   "link_to": "Communication Hub",
+   "stats_filter": "{\"status\": \"Escalated\"}",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "format": "{} Active",
+   "label": "My Active",
+   "link_to": "Communication Hub",
+   "stats_filter": "{\"assigned_to\": \"frappe.session.user\", \"status\": [\"in\", [\"Open\", \"In Progress\"]]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "label": "All Hubs",
+   "link_to": "Communication Hub",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "label": "HITL Console",
+   "link_to": "hitl-console",
+   "type": "Page"
+  },
+  {
+   "color": "Purple",
+   "label": "Takeover Console",
+   "link_to": "takeover-console",
+   "type": "Page"
+  }
+ ],
+ "title": "HITL Workspace"
+}

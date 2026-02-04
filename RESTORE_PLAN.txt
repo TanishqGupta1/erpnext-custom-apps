@@ -1,0 +1,234 @@
+================================================================================
+                    ERPNEXT BACKUP RESTORATION PLAN
+                    Created: 2026-01-30
+================================================================================
+
+BACKUP CONTENTS
+---------------
+- Database backup: 372 MB (compressed SQL)
+- Private files: 40 MB (attachments, documents)
+- Public files: 530 KB
+- Apps source code: ~1.9 GB
+- Site configuration
+
+================================================================================
+STEP 1: PREPARE NEW ENVIRONMENT
+================================================================================
+
+1.1 Install Docker and Docker Compose (if not installed)
+
+1.2 Create a new directory for ERPNext:
+    mkdir E:\Docker\erpnext-new
+    cd E:\Docker\erpnext-new
+
+1.3 Create docker-compose.yml with these services:
+    - MariaDB (database)
+    - Redis (cache & queue)
+    - ERPNext backend
+    - ERPNext frontend
+    - ERPNext scheduler
+    - ERPNext queue workers
+
+1.4 Create required directories:
+    mkdir -p volumes/mariadb
+    mkdir -p volumes/redis
+    mkdir -p volumes/sites
+    mkdir -p volumes/apps
+
+================================================================================
+STEP 2: START DATABASE AND REDIS FIRST
+================================================================================
+
+2.1 Start only MariaDB and Redis:
+    docker compose up -d mariadb redis
+
+2.2 Wait for MariaDB to be ready (check logs):
+    docker logs -f mariadb
+
+2.3 Create the database and user:
+    docker exec -it mariadb mariadb -u root -p
+
+    CREATE DATABASE erpnext;
+    CREATE USER 'erpnext'@'%' IDENTIFIED BY 'ErpNextSecure2024!';
+    GRANT ALL PRIVILEGES ON erpnext.* TO 'erpnext'@'%';
+    FLUSH PRIVILEGES;
+    EXIT;
+
+================================================================================
+STEP 3: RESTORE DATABASE
+================================================================================
+
+3.1 Copy the database backup to a location accessible by MariaDB container:
+    copy "F:\erpnext_backup_20260130\backups\20260130_075819-erp_visualgraphx_com-database.sql.gz" E:\Docker\erpnext-new\
+
+3.2 Decompress the backup:
+    gunzip 20260130_075819-erp_visualgraphx_com-database.sql.gz
+
+3.3 Restore the database:
+    docker exec -i mariadb mariadb -u erpnext -pErpNextSecure2024! erpnext < 20260130_075819-erp_visualgraphx_com-database.sql
+
+    OR from inside the container:
+    docker cp 20260130_075819-erp_visualgraphx_com-database.sql mariadb:/tmp/
+    docker exec mariadb sh -c "mariadb -u erpnext -pErpNextSecure2024! erpnext < /tmp/20260130_075819-erp_visualgraphx_com-database.sql"
+
+================================================================================
+STEP 4: COPY APPS TO NEW INSTALLATION
+================================================================================
+
+4.1 Copy all apps from backup to the new apps volume:
+    xcopy /E /I "F:\erpnext_backup_20260130\apps\frappe" "E:\Docker\erpnext-new\volumes\apps\frappe"
+    xcopy /E /I "F:\erpnext_backup_20260130\apps\erpnext" "E:\Docker\erpnext-new\volumes\apps\erpnext"
+    xcopy /E /I "F:\erpnext_backup_20260130\apps\crm" "E:\Docker\erpnext-new\volumes\apps\crm"
+    xcopy /E /I "F:\erpnext_backup_20260130\apps\ops_ziflow" "E:\Docker\erpnext-new\volumes\apps\ops_ziflow"
+    xcopy /E /I "F:\erpnext_backup_20260130\apps\next_crm" "E:\Docker\erpnext-new\volumes\apps\next_crm"
+    xcopy /E /I "F:\erpnext_backup_20260130\apps\chat_bridge" "E:\Docker\erpnext-new\volumes\apps\chat_bridge"
+    xcopy /E /I "F:\erpnext_backup_20260130\apps\chatwoot_bridge" "E:\Docker\erpnext-new\volumes\apps\chatwoot_bridge"
+    xcopy /E /I "F:\erpnext_backup_20260130\apps\frappe_search" "E:\Docker\erpnext-new\volumes\apps\frappe_search"
+    xcopy /E /I "F:\erpnext_backup_20260130\apps\ai_comms_hub" "E:\Docker\erpnext-new\volumes\apps\ai_comms_hub"
+
+================================================================================
+STEP 5: SETUP SITE DIRECTORY
+================================================================================
+
+5.1 Copy sites folder from backup:
+    xcopy /E /I "F:\erpnext_backup_20260130\sites" "E:\Docker\erpnext-new\volumes\sites"
+
+5.2 Update site_config.json if database credentials changed:
+    Edit: E:\Docker\erpnext-new\volumes\sites\erp.visualgraphx.com\site_config.json
+
+    Ensure these values match your new setup:
+    {
+        "db_name": "erpnext",
+        "db_password": "ErpNextSecure2024!",
+        "db_type": "mariadb",
+        "db_user": "erpnext",
+        ...
+    }
+
+================================================================================
+STEP 6: RESTORE FILES (ATTACHMENTS)
+================================================================================
+
+6.1 Extract private files:
+    cd E:\Docker\erpnext-new\volumes\sites\erp.visualgraphx.com\private
+    tar -xvf "F:\erpnext_backup_20260130\backups\20260130_075819-erp_visualgraphx_com-private-files.tar"
+
+6.2 Extract public files:
+    cd E:\Docker\erpnext-new\volumes\sites\erp.visualgraphx.com\public
+    tar -xvf "F:\erpnext_backup_20260130\backups\20260130_075819-erp_visualgraphx_com-files.tar"
+
+================================================================================
+STEP 7: START ERPNEXT CONTAINERS
+================================================================================
+
+7.1 Start all services:
+    docker compose up -d
+
+7.2 Check container logs for errors:
+    docker compose logs -f backend
+
+7.3 If needed, run migrations:
+    docker exec -it erpnext-backend bench --site erp.visualgraphx.com migrate
+
+================================================================================
+STEP 8: INSTALL APPS (IF NOT ALREADY INSTALLED)
+================================================================================
+
+8.1 Check installed apps:
+    docker exec -it erpnext-backend bench --site erp.visualgraphx.com list-apps
+
+8.2 Install missing apps:
+    docker exec -it erpnext-backend bench --site erp.visualgraphx.com install-app ops_ziflow
+    docker exec -it erpnext-backend bench --site erp.visualgraphx.com install-app next_crm
+    docker exec -it erpnext-backend bench --site erp.visualgraphx.com install-app chat_bridge
+    (repeat for other apps as needed)
+
+================================================================================
+STEP 9: VERIFY RESTORATION
+================================================================================
+
+9.1 Access ERPNext in browser:
+    https://erp.visualgraphx.com (or localhost:8000)
+
+9.2 Login with your credentials
+
+9.3 Verify data:
+    - Check OPS Orders exist
+    - Check OPS Quotes exist
+    - Check OPS Customers exist
+    - Check OPS Products exist
+    - Check dashboards are working
+    - Check file attachments are accessible
+
+================================================================================
+STEP 10: FIX COMMON ISSUES
+================================================================================
+
+Issue: Redis connection errors
+Fix: Ensure Redis is running and accessible
+    docker exec -it redis redis-cli ping
+
+Issue: Database connection refused
+Fix: Check MariaDB is running and credentials are correct
+    docker exec -it mariadb mariadb -u erpnext -pErpNextSecure2024! -e "SELECT 1"
+
+Issue: Missing assets/static files
+Fix: Rebuild assets
+    docker exec -it erpnext-backend bench build
+
+Issue: Permission errors
+Fix: Fix permissions inside container
+    docker exec -it erpnext-backend chown -R frappe:frappe /home/frappe/frappe-bench/sites
+
+Issue: Site not found
+Fix: Check currentsite.txt exists
+    echo "erp.visualgraphx.com" > volumes/sites/currentsite.txt
+
+================================================================================
+BACKUP FILE REFERENCE
+================================================================================
+
+Database Backups (use the latest - 075819):
+- 20260130_075819-erp_visualgraphx_com-database.sql.gz (372 MB)
+- 20260130_075819-erp_visualgraphx_com-private-files.tar (40 MB)
+- 20260130_075819-erp_visualgraphx_com-files.tar (530 KB)
+- 20260130_075819-erp_visualgraphx_com-site_config_backup.json
+
+Apps Included:
+- frappe (core framework)
+- erpnext (ERP modules)
+- crm (CRM module)
+- ops_ziflow (OPS integration - YOUR CUSTOM APP)
+- next_crm (Next CRM)
+- chat_bridge (Chat integration)
+- chatwoot_bridge (Chatwoot integration)
+- ai_comms_hub (AI communications)
+- frappe_search (Search module)
+
+OPS Data in Database:
+- 62+ OPS tables including:
+  - tabOPS Order
+  - tabOPS Quote
+  - tabOPS Customer
+  - tabOPS Product
+  - tabOPS Master Option
+  - tabOPS ZiFlow Proof
+  - And many more...
+
+================================================================================
+NOTES
+================================================================================
+
+1. The database backup contains ALL data including Custom DocTypes created
+   via UI (like OPS Master Option)
+
+2. Keep this backup folder safe - it contains everything needed to restore
+
+3. If using a different domain/hostname, update:
+   - site_config.json (host_name)
+   - Rename the site folder if needed
+   - Update nginx configuration
+
+4. Original site credentials and API keys are in site_config.json
+
+================================================================================

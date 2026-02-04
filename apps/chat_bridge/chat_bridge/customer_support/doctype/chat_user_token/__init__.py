@@ -1,0 +1,2 @@
+# DocType: Chat User Token
+

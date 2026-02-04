@@ -1,0 +1,3 @@
+chatwoot_bridge.patches.add_chatwoot_support_shortcut.execute
+chatwoot_bridge.patches.enhance_chatwoot_doctypes.execute
+

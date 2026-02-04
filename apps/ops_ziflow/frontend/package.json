@@ -1,0 +1,24 @@
+{
+  "name": "ops-ziflow-ui",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --base=/assets/ops_ziflow/frontend/",
+    "build:watch": "vite build --watch --base=/assets/ops_ziflow/frontend/"
+  },
+  "dependencies": {
+    "frappe-ui": "^0.1.201",
+    "vue": "^3.5.13",
+    "pinia": "^2.0.33",
+    "socket.io-client": "^4.7.2",
+    "feather-icons": "^4.29.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.3",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.5",
+    "tailwindcss": "^3.4.15",
+    "vite": "^6.4.1"
+  }
+}

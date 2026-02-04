@@ -1,0 +1,117 @@
+{
+	"actions": [],
+	"autoname": "WEEKLY-REPORT-.YYYY.-.####",
+	"creation": "2025-01-01 00:00:00.000000",
+	"doctype": "DocType",
+	"engine": "InnoDB",
+	"field_order": [
+		"week_start",
+		"week_end",
+		"column_break_1",
+		"total_conversations",
+		"section_break_metrics",
+		"ai_resolution_rate",
+		"escalation_rate",
+		"column_break_2",
+		"avg_resolution_time",
+		"section_break_data",
+		"report_data"
+	],
+	"fields": [
+		{
+			"fieldname": "week_start",
+			"fieldtype": "Date",
+			"in_list_view": 1,
+			"label": "Week Start",
+			"reqd": 1
+		},
+		{
+			"fieldname": "week_end",
+			"fieldtype": "Date",
+			"in_list_view": 1,
+			"label": "Week End",
+			"reqd": 1
+		},
+		{
+			"fieldname": "column_break_1",
+			"fieldtype": "Column Break"
+		},
+		{
+			"fieldname": "total_conversations",
+			"fieldtype": "Int",
+			"in_list_view": 1,
+			"label": "Total Conversations"
+		},
+		{
+			"fieldname": "section_break_metrics",
+			"fieldtype": "Section Break",
+			"label": "Performance Metrics"
+		},
+		{
+			"fieldname": "ai_resolution_rate",
+			"fieldtype": "Percent",
+			"in_list_view": 1,
+			"label": "AI Resolution Rate"
+		},
+		{
+			"fieldname": "escalation_rate",
+			"fieldtype": "Percent",
+			"label": "Escalation Rate"
+		},
+		{
+			"fieldname": "column_break_2",
+			"fieldtype": "Column Break"
+		},
+		{
+			"fieldname": "avg_resolution_time",
+			"fieldtype": "Float",
+			"label": "Avg Resolution Time (min)"
+		},
+		{
+			"fieldname": "section_break_data",
+			"fieldtype": "Section Break",
+			"label": "Report Data",
+			"collapsible": 1
+		},
+		{
+			"fieldname": "report_data",
+			"fieldtype": "Long Text",
+			"label": "Full Report JSON"
+		}
+	],
+	"index_web_pages_for_search": 1,
+	"links": [],
+	"modified": "2025-01-01 00:00:00.000000",
+	"modified_by": "Administrator",
+	"module": "AI Comms Hub",
+	"name": "Weekly Communication Report",
+	"naming_rule": "Expression",
+	"owner": "Administrator",
+	"permissions": [
+		{
+			"create": 1,
+			"delete": 1,
+			"email": 1,
+			"export": 1,
+			"print": 1,
+			"read": 1,
+			"report": 1,
+			"role": "System Manager",
+			"share": 1,
+			"write": 1
+		},
+		{
+			"email": 1,
+			"export": 1,
+			"print": 1,
+			"read": 1,
+			"report": 1,
+			"role": "Customer Support",
+			"share": 1
+		}
+	],
+	"sort_field": "week_start",
+	"sort_order": "DESC",
+	"states": [],
+	"track_changes": 1
+}

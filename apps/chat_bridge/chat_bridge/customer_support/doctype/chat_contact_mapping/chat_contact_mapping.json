@@ -1,0 +1,139 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-01-15 10:00:00.000000",
+ "custom": 0,
+ "doctype": "DocType",
+ "module": "Customer Support",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "erpnext_contact",
+  "section_break_contact_info",
+  "contact_email",
+  "contact_phone",
+  "column_break_contact",
+  "contact_mobile",
+  "contact_company",
+  "section_break_mapping",
+  "chat_contact_id",
+  "chat_account_id",
+  "column_break_sync",
+  "sync_direction",
+  "last_synced"
+ ],
+ "fields": [
+  {
+   "fieldname": "erpnext_contact",
+   "fieldtype": "Link",
+   "label": "ERPNext Contact",
+   "options": "Contact",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "section_break_contact_info",
+   "fieldtype": "Section Break",
+   "label": "Contact Information"
+  },
+  {
+   "fieldname": "contact_email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "read_only": 1,
+   "fetch_from": "erpnext_contact.email_id",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "contact_phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "read_only": 1,
+   "fetch_from": "erpnext_contact.phone",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_contact",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contact_mobile",
+   "fieldtype": "Data",
+   "label": "Mobile",
+   "read_only": 1,
+   "fetch_from": "erpnext_contact.mobile_no",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "contact_company",
+   "fieldtype": "Data",
+   "label": "Company",
+   "read_only": 1,
+   "fetch_from": "erpnext_contact.company_name",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "section_break_mapping",
+   "fieldtype": "Section Break",
+   "label": "Mapping Details"
+  },
+  {
+   "fieldname": "chat_contact_id",
+   "fieldtype": "Int",
+   "label": "Chat Contact ID",
+   "reqd": 1
+  },
+  {
+   "fieldname": "chat_account_id",
+   "fieldtype": "Int",
+   "label": "Chat Account ID",
+   "reqd": 1,
+   "default": 1
+  },
+  {
+   "fieldname": "column_break_sync",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sync_direction",
+   "fieldtype": "Select",
+   "label": "Sync Direction",
+   "options": "ERPNext → Chatwoot\nChat → ERPNext\nBidirectional",
+   "default": "Bidirectional",
+   "reqd": 1
+  },
+  {
+   "fieldname": "last_synced",
+   "fieldtype": "Datetime",
+   "label": "Last Synced",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2025-01-15 10:00:00.000000",
+ "modified_by": "Administrator",
+ "name": "Chat Contact Mapping",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
+

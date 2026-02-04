@@ -1,0 +1,326 @@
+{
+  "name": "Instagram DM Handler",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "=GET,POST",
+        "path": "instagram-webhook",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-instagram",
+      "name": "Webhook - Instagram",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "instagram-dm-handler"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.query[\"hub.mode\"]}}",
+              "operation": "equals",
+              "value2": "subscribe"
+            }
+          ]
+        }
+      },
+      "id": "check-verification",
+      "name": "Check - Is Verification",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Instagram webhook verification (same as Facebook)\nconst verifyToken = \"your_verify_token_here\";\nconst mode = $input.item.json.query[\"hub.mode\"];\nconst token = $input.item.json.query[\"hub.verify_token\"];\nconst challenge = $input.item.json.query[\"hub.challenge\"];\n\nif (mode === \"subscribe\" && token === verifyToken) {\n  return [{\n    json: {\n      challenge: challenge,\n      verified: true\n    }\n  }];\n} else {\n  throw new Error(\"Verification failed\");\n}"
+      },
+      "id": "verify-webhook",
+      "name": "Verify Webhook",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{$json.challenge}}"
+      },
+      "id": "respond-verification",
+      "name": "Respond - Verification",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [850, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process Instagram message webhook\nconst items = [];\n\nfor (const entry of $input.item.json.body.entry || []) {\n  for (const messaging of entry.messaging || []) {\n    if (messaging.message) {\n      items.push({\n        json: {\n          platform: \"Instagram\",\n          sender_id: messaging.sender.id,\n          recipient_id: messaging.recipient.id,\n          message_id: messaging.message.mid,\n          message_text: messaging.message.text || \"\",\n          timestamp: messaging.timestamp,\n          attachments: messaging.message.attachments || [],\n          entry_id: entry.id,\n          instagram_account_id: entry.id,\n          // Instagram-specific fields\n          is_echo: messaging.message.is_echo || false,\n          reply_to: messaging.message.reply_to || null\n        }\n      });\n    } else if (messaging.postback) {\n      items.push({\n        json: {\n          platform: \"Instagram\",\n          sender_id: messaging.sender.id,\n          recipient_id: messaging.recipient.id,\n          postback_payload: messaging.postback.payload,\n          postback_title: messaging.postback.title,\n          timestamp: messaging.timestamp,\n          is_postback: true\n        }\n      });\n    }\n  }\n}\n\nreturn items;"
+      },
+      "id": "process-messages",
+      "name": "Process Messages",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 400]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.is_echo}}",
+              "value2": false
+            }
+          ]
+        }
+      },
+      "id": "filter-echo",
+      "name": "Filter - Skip Echo",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [850, 400]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.is_postback}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "check-postback",
+      "name": "Check - Is Postback",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1050, 400]
+    },
+    {
+      "parameters": {
+        "url": "http://erpnext-backend:8000/api/method/ai_comms_hub.webhooks.social.handle_instagram_webhook",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "platform",
+              "value": "Instagram"
+            },
+            {
+              "name": "sender_id",
+              "value": "={{$json.sender_id}}"
+            },
+            {
+              "name": "message_text",
+              "value": "={{$json.message_text}}"
+            },
+            {
+              "name": "message_id",
+              "value": "={{$json.message_id}}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{$json.timestamp}}"
+            },
+            {
+              "name": "attachments",
+              "value": "={{JSON.stringify($json.attachments)}}"
+            },
+            {
+              "name": "reply_to",
+              "value": "={{$json.reply_to}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "http-frappe-message",
+      "name": "HTTP Request - Frappe (Message)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1250, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "frappe-api-key",
+          "name": "Frappe API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "http://erpnext-backend:8000/api/method/ai_comms_hub.webhooks.social.handle_instagram_postback",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "platform",
+              "value": "Instagram"
+            },
+            {
+              "name": "sender_id",
+              "value": "={{$json.sender_id}}"
+            },
+            {
+              "name": "payload",
+              "value": "={{$json.postback_payload}}"
+            },
+            {
+              "name": "title",
+              "value": "={{$json.postback_title}}"
+            }
+          ]
+        }
+      },
+      "id": "http-frappe-postback",
+      "name": "HTTP Request - Frappe (Postback)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1250, 500],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "frappe-api-key",
+          "name": "Frappe API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{JSON.stringify({\"success\": true})}}"
+      },
+      "id": "respond-success",
+      "name": "Respond - Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1450, 400]
+    }
+  ],
+  "connections": {
+    "Webhook - Instagram": {
+      "main": [
+        [
+          {
+            "node": "Check - Is Verification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check - Is Verification": {
+      "main": [
+        [
+          {
+            "node": "Verify Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Process Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond - Verification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Messages": {
+      "main": [
+        [
+          {
+            "node": "Filter - Skip Echo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter - Skip Echo": {
+      "main": [
+        [
+          {
+            "node": "Check - Is Postback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check - Is Postback": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Frappe (Postback)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request - Frappe (Message)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Frappe (Message)": {
+      "main": [
+        [
+          {
+            "node": "Respond - Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Frappe (Postback)": {
+      "main": [
+        [
+          {
+            "node": "Respond - Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "Social Media",
+      "id": "social-automation"
+    },
+    {
+      "name": "Instagram",
+      "id": "instagram-integration"
+    }
+  ],
+  "pinData": {},
+  "versionId": "1.0.0"
+}

@@ -1,0 +1,22 @@
+{
+  "creation": "2024-12-24 10:00:00.000000",
+  "doctype": "Page",
+  "icon": "fa fa-exclamation-triangle",
+  "modified": "2024-12-24 10:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "OPS Integration",
+  "name": "ops-error-dashboard",
+  "owner": "Administrator",
+  "page_name": "ops-error-dashboard",
+  "roles": [
+    {
+      "role": "System Manager"
+    },
+    {
+      "role": "Sales User"
+    }
+  ],
+  "standard": "Yes",
+  "system_page": 0,
+  "title": "OPS Error Dashboard"
+}

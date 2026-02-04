@@ -1,0 +1,134 @@
+{
+ "actions": [],
+ "creation": "2024-01-15 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "general_section",
+  "page_title",
+  "show_breadcrumb",
+  "column_break_general",
+  "cards_per_row",
+  "enable_product_inline_edit",
+  "cards_section",
+  "cards",
+  "products_section",
+  "show_products_table",
+  "products_columns",
+  "totals_section",
+  "show_totals_panel",
+  "totals_position"
+ ],
+ "fields": [
+  {
+   "fieldname": "general_section",
+   "fieldtype": "Section Break",
+   "label": "General Settings"
+  },
+  {
+   "fieldname": "page_title",
+   "fieldtype": "Data",
+   "label": "Page Title Template",
+   "default": "Order #{ops_order_id}",
+   "description": "Use {field_name} for dynamic values"
+  },
+  {
+   "fieldname": "show_breadcrumb",
+   "fieldtype": "Check",
+   "label": "Show Breadcrumb",
+   "default": 1
+  },
+  {
+   "fieldname": "column_break_general",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cards_per_row",
+   "fieldtype": "Select",
+   "label": "Cards Per Row",
+   "options": "2\n3\n4",
+   "default": "3"
+  },
+  {
+   "fieldname": "enable_product_inline_edit",
+   "fieldtype": "Check",
+   "label": "Enable Product Inline Edit",
+   "default": 1
+  },
+  {
+   "fieldname": "cards_section",
+   "fieldtype": "Section Break",
+   "label": "Summary Cards Configuration"
+  },
+  {
+   "fieldname": "cards",
+   "fieldtype": "Table",
+   "label": "Cards",
+   "options": "OPS Order View Card"
+  },
+  {
+   "fieldname": "products_section",
+   "fieldtype": "Section Break",
+   "label": "Products Table"
+  },
+  {
+   "fieldname": "show_products_table",
+   "fieldtype": "Check",
+   "label": "Show Products Table",
+   "default": 1
+  },
+  {
+   "fieldname": "products_columns",
+   "fieldtype": "Small Text",
+   "label": "Products Table Columns",
+   "description": "JSON array of column configs",
+   "default": "[{\"field\":\"products_name\",\"label\":\"Product\"},{\"field\":\"product_status\",\"label\":\"Status\"},{\"field\":\"products_quantity\",\"label\":\"Qty\"},{\"field\":\"products_price\",\"label\":\"Price\"},{\"field\":\"final_price\",\"label\":\"Total\"}]"
+  },
+  {
+   "fieldname": "totals_section",
+   "fieldtype": "Section Break",
+   "label": "Totals Panel"
+  },
+  {
+   "fieldname": "show_totals_panel",
+   "fieldtype": "Check",
+   "label": "Show Totals Panel",
+   "default": 1
+  },
+  {
+   "fieldname": "totals_position",
+   "fieldtype": "Select",
+   "label": "Totals Position",
+   "options": "Right Sidebar\nBelow Products\nTop Right",
+   "default": "Right Sidebar"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-01-15 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Ops Integration",
+ "name": "OPS Order View Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "All"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,233 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"_KpQN3pAqC\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Customer Support Dashboard</b></span>\",\"col\":12}},{\"id\":\"_nZ8sK2Mwf\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Chat Conversations\",\"col\":3}},{\"id\":\"_XpM9Rt5kB\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Conversation\",\"col\":3}},{\"id\":\"_DfG4Hy7nC\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Open Conversations\",\"col\":3}},{\"id\":\"_TrU2Pv6mD\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pending Conversations\",\"col\":3}},{\"id\":\"_Aa1Bb2Cc3\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\"><b>Quick Actions</b></span>\",\"col\":12}},{\"id\":\"_Dd4Ee5Ff6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sync Now\",\"col\":3}},{\"id\":\"_Gg7Hh8Ii9\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Contact Mappings\",\"col\":3}},{\"id\":\"_Jj0Kk1Ll2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"CRM Labels\",\"col\":3}},{\"id\":\"_Mm3Nn4Oo5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"User Tokens\",\"col\":3}},{\"id\":\"_Pp6Qq7Rr8\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\"><b>Settings & Configuration</b></span>\",\"col\":12}},{\"id\":\"_Ss9Tt0Uu1\",\"type\":\"card\",\"data\":{\"card_name\":\"Integration Settings\",\"col\":4}},{\"id\":\"_Vv2Ww3Xx4\",\"type\":\"card\",\"data\":{\"card_name\":\"Webhook Status\",\"col\":4}},{\"id\":\"_Yy5Zz6Aa7\",\"type\":\"card\",\"data\":{\"card_name\":\"Sync Status\",\"col\":4}},{\"id\":\"_Bb8Cc9Dd0\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\"><b>Reports & Analytics</b></span>\",\"col\":12}},{\"id\":\"_Ee1Ff2Gg3\",\"type\":\"card\",\"data\":{\"card_name\":\"Conversation Analytics\",\"col\":6}},{\"id\":\"_Hh4Ii5Jj6\",\"type\":\"card\",\"data\":{\"card_name\":\"Response Times\",\"col\":6}}]",
+ "creation": "2025-11-19 12:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "comments",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Customer Support",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Conversations",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Conversations (Chatwoot Style)",
+   "link_count": 0,
+   "link_to": "conversations",
+   "link_type": "Page",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Chat Conversation (Classic)",
+   "link_count": 0,
+   "link_to": "Chat Conversation",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Chat Conversation Mapping",
+   "link_count": 0,
+   "link_to": "Chat Conversation Mapping",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Contact Management",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Chat Contact Mapping",
+   "link_count": 0,
+   "link_to": "Chat Contact Mapping",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Contact",
+   "link_count": 0,
+   "link_to": "Contact",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Lead",
+   "link_count": 0,
+   "link_to": "Lead",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Organization",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "CRM Label",
+   "link_count": 0,
+   "link_to": "CRM Label",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Chat User Token",
+   "link_count": 0,
+   "link_to": "Chat User Token",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Settings",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Chat Integration Settings",
+   "link_count": 0,
+   "link_to": "Chat Integration Settings",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "External Links",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Open Chat Dashboard",
+   "link_count": 0,
+   "link_to": "https://msg.visualgraphx.com",
+   "link_type": "URL",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2025-11-19 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Customer Support",
+ "name": "Customer Support",
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 10,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "format": "",
+   "label": "Chat Conversations",
+   "link_to": "conversations",
+   "type": "Page"
+  },
+  {
+   "color": "Green",
+   "format": "",
+   "label": "New Conversation",
+   "link_to": "conversations",
+   "type": "Page"
+  },
+  {
+   "color": "Orange",
+   "format": "",
+   "label": "Open Conversations",
+   "link_to": "conversations",
+   "type": "Page"
+  },
+  {
+   "color": "Yellow",
+   "format": "",
+   "label": "Pending Conversations",
+   "link_to": "conversations",
+   "type": "Page"
+  },
+  {
+   "color": "Purple",
+   "format": "",
+   "label": "Sync Now",
+   "link_to": "sync_conversations",
+   "type": "Custom"
+  },
+  {
+   "color": "Grey",
+   "format": "{} Total",
+   "label": "Contact Mappings",
+   "link_to": "Chat Contact Mapping",
+   "type": "DocType"
+  },
+  {
+   "color": "Cyan",
+   "label": "CRM Labels",
+   "link_to": "CRM Label",
+   "type": "DocType"
+  },
+  {
+   "color": "Pink",
+   "label": "User Tokens",
+   "link_to": "Chat User Token",
+   "type": "DocType"
+  }
+ ],
+ "title": "Customer Support"
+}

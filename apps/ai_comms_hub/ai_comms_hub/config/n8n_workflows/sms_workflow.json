@@ -1,0 +1,239 @@
+{
+  "name": "SMS Handler (Twilio)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "twilio-sms-webhook",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-twilio-sms",
+      "name": "Webhook - Twilio SMS",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "twilio-sms-handler"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse Twilio SMS webhook data\nconst data = $input.item.json.body;\n\n// Extract message data from form-encoded body\nconst messageSid = data.MessageSid || data.SmsSid || \"\";\nconst from = data.From || \"\";\nconst to = data.To || \"\";\nconst body = data.Body || \"\";\nconst accountSid = data.AccountSid || \"\";\nconst messagingServiceSid = data.MessagingServiceSid || \"\";\nconst numMedia = parseInt(data.NumMedia || \"0\");\nconst messagingStatus = data.MessageStatus || data.SmsStatus || \"\";\n\n// Parse media attachments (MMS)\nconst media = [];\nfor (let i = 0; i < numMedia; i++) {\n  media.push({\n    url: data[`MediaUrl${i}`],\n    contentType: data[`MediaContentType${i}`]\n  });\n}\n\nreturn [{\n  json: {\n    platform: \"SMS\",\n    message_sid: messageSid,\n    from_number: from,\n    to_number: to,\n    message_body: body,\n    account_sid: accountSid,\n    messaging_service_sid: messagingServiceSid,\n    message_status: messagingStatus,\n    num_media: numMedia,\n    media: media,\n    timestamp: new Date().toISOString(),\n    // Additional Twilio fields\n    from_city: data.FromCity || \"\",\n    from_state: data.FromState || \"\",\n    from_country: data.FromCountry || \"\",\n    to_city: data.ToCity || \"\",\n    to_state: data.ToState || \"\",\n    to_country: data.ToCountry || \"\"\n  }\n}];"
+      },
+      "id": "parse-sms-data",
+      "name": "Parse SMS Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.message_body}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "check-has-message",
+      "name": "Check - Has Message",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Check for opt-out keywords\nconst body = ($json.message_body || \"\").toLowerCase().trim();\nconst optOutKeywords = [\"stop\", \"stopall\", \"unsubscribe\", \"cancel\", \"end\", \"quit\"];\nconst optInKeywords = [\"start\", \"yes\", \"unstop\"];\n\nlet isOptOut = false;\nlet isOptIn = false;\n\nfor (const keyword of optOutKeywords) {\n  if (body === keyword) {\n    isOptOut = true;\n    break;\n  }\n}\n\nfor (const keyword of optInKeywords) {\n  if (body === keyword) {\n    isOptIn = true;\n    break;\n  }\n}\n\nreturn [{\n  json: {\n    ...$json,\n    is_opt_out: isOptOut,\n    is_opt_in: isOptIn\n  }\n}];"
+      },
+      "id": "check-opt-out",
+      "name": "Check Opt-Out Keywords",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 200]
+    },
+    {
+      "parameters": {
+        "url": "http://erpnext-backend:8000/api/method/ai_comms_hub.webhooks.messaging.handle_sms_webhook",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "platform",
+              "value": "SMS"
+            },
+            {
+              "name": "message_sid",
+              "value": "={{$json.message_sid}}"
+            },
+            {
+              "name": "from_number",
+              "value": "={{$json.from_number}}"
+            },
+            {
+              "name": "to_number",
+              "value": "={{$json.to_number}}"
+            },
+            {
+              "name": "message_body",
+              "value": "={{$json.message_body}}"
+            },
+            {
+              "name": "message_status",
+              "value": "={{$json.message_status}}"
+            },
+            {
+              "name": "media",
+              "value": "={{JSON.stringify($json.media)}}"
+            },
+            {
+              "name": "is_opt_out",
+              "value": "={{$json.is_opt_out}}"
+            },
+            {
+              "name": "is_opt_in",
+              "value": "={{$json.is_opt_in}}"
+            },
+            {
+              "name": "location",
+              "value": "={{JSON.stringify({city: $json.from_city, state: $json.from_state, country: $json.from_country})}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "http-frappe-api",
+      "name": "HTTP Request - Frappe API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1050, 200],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "frappe-api-key",
+          "name": "Frappe API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "xml",
+        "responseBody": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response></Response>"
+      },
+      "id": "respond-twiml",
+      "name": "Respond - TwiML",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1250, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "xml",
+        "responseBody": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response></Response>"
+      },
+      "id": "respond-twiml-skip",
+      "name": "Respond - TwiML (Skip)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [850, 400]
+    },
+    {
+      "parameters": {
+        "mode": "logToConsole",
+        "message": "={{\"Error processing SMS: \" + JSON.stringify($json)}}"
+      },
+      "id": "error-handler",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [1050, 500]
+    }
+  ],
+  "connections": {
+    "Webhook - Twilio SMS": {
+      "main": [
+        [
+          {
+            "node": "Parse SMS Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse SMS Data": {
+      "main": [
+        [
+          {
+            "node": "Check - Has Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check - Has Message": {
+      "main": [
+        [
+          {
+            "node": "Check Opt-Out Keywords",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond - TwiML (Skip)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Opt-Out Keywords": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Frappe API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Frappe API": {
+      "main": [
+        [
+          {
+            "node": "Respond - TwiML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "Messaging",
+      "id": "messaging-automation"
+    },
+    {
+      "name": "SMS",
+      "id": "sms-integration"
+    },
+    {
+      "name": "Twilio",
+      "id": "twilio-integration"
+    }
+  ],
+  "pinData": {},
+  "versionId": "1.0.0"
+}

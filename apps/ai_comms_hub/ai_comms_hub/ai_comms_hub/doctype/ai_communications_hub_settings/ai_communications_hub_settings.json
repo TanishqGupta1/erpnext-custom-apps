@@ -1,0 +1,454 @@
+{
+ "actions": [],
+ "creation": "2025-01-24 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_llm",
+  "llm_api_url",
+  "llm_api_key",
+  "column_llm",
+  "llm_model",
+  "llm_max_tokens",
+  "llm_temperature",
+  "section_elevenlabs",
+  "elevenlabs_api_key",
+  "elevenlabs_agent_id",
+  "column_elevenlabs",
+  "elevenlabs_webhook_secret",
+  "elevenlabs_voice_id",
+  "section_qdrant",
+  "qdrant_url",
+  "qdrant_collection",
+  "column_qdrant",
+  "qdrant_api_key",
+  "qdrant_embedding_model",
+  "section_facebook",
+  "facebook_access_token",
+  "facebook_verify_token",
+  "column_facebook",
+  "facebook_page_id",
+  "facebook_app_secret",
+  "section_instagram",
+  "instagram_access_token",
+  "instagram_business_account_id",
+  "section_twitter",
+  "twitter_api_key",
+  "twitter_api_secret",
+  "twitter_bearer_token",
+  "column_twitter",
+  "twitter_consumer_secret",
+  "twitter_access_token",
+  "twitter_access_secret",
+  "section_linkedin",
+  "linkedin_client_id",
+  "linkedin_client_secret",
+  "column_linkedin",
+  "linkedin_access_token",
+  "linkedin_organization_id",
+  "section_sendgrid",
+  "sendgrid_api_key",
+  "sendgrid_from_email",
+  "column_sendgrid",
+  "sendgrid_from_name",
+  "sendgrid_domain",
+  "section_chatwoot",
+  "chatwoot_url",
+  "chatwoot_api_key",
+  "column_chatwoot",
+  "chatwoot_account_id",
+  "chatwoot_inbox_id",
+  "section_twilio",
+  "twilio_account_sid",
+  "twilio_auth_token",
+  "column_twilio",
+  "twilio_phone_number",
+  "twilio_whatsapp_number",
+  "section_ai_behavior",
+  "ai_autonomy_level",
+  "auto_escalate_on_negative",
+  "column_ai_behavior",
+  "rag_confidence_threshold",
+  "max_ai_retries"
+ ],
+ "fields": [
+  {
+   "collapsible": 0,
+   "fieldname": "section_llm",
+   "fieldtype": "Section Break",
+   "label": "LLM Provider (naga.ac)"
+  },
+  {
+   "default": "https://api.naga.ac/v1",
+   "fieldname": "llm_api_url",
+   "fieldtype": "Data",
+   "label": "API URL",
+   "reqd": 1
+  },
+  {
+   "fieldname": "llm_api_key",
+   "fieldtype": "Password",
+   "label": "API Key",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_llm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "gpt-4o-mini",
+   "fieldname": "llm_model",
+   "fieldtype": "Select",
+   "label": "Model",
+   "options": "gpt-4o\ngpt-4o-mini\ngpt-4-turbo\ngpt-3.5-turbo"
+  },
+  {
+   "default": "500",
+   "fieldname": "llm_max_tokens",
+   "fieldtype": "Int",
+   "label": "Max Tokens"
+  },
+  {
+   "default": "0.7",
+   "fieldname": "llm_temperature",
+   "fieldtype": "Float",
+   "label": "Temperature",
+   "precision": "2"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_elevenlabs",
+   "fieldtype": "Section Break",
+   "label": "Eleven Labs (Voice AI)"
+  },
+  {
+   "fieldname": "elevenlabs_api_key",
+   "fieldtype": "Password",
+   "label": "Eleven Labs API Key"
+  },
+  {
+   "description": "Agent ID from Eleven Labs Conversational AI dashboard",
+   "fieldname": "elevenlabs_agent_id",
+   "fieldtype": "Data",
+   "label": "Agent ID"
+  },
+  {
+   "fieldname": "column_elevenlabs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Webhook secret for signature verification",
+   "fieldname": "elevenlabs_webhook_secret",
+   "fieldtype": "Password",
+   "label": "Webhook Secret"
+  },
+  {
+   "description": "Default voice ID for outbound calls",
+   "fieldname": "elevenlabs_voice_id",
+   "fieldtype": "Data",
+   "label": "Voice ID"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_qdrant",
+   "fieldtype": "Section Break",
+   "label": "Qdrant (Vector Database)"
+  },
+  {
+   "default": "http://qdrant:6333",
+   "fieldname": "qdrant_url",
+   "fieldtype": "Data",
+   "label": "Qdrant URL"
+  },
+  {
+   "default": "knowledge_base",
+   "fieldname": "qdrant_collection",
+   "fieldtype": "Data",
+   "label": "Collection Name"
+  },
+  {
+   "fieldname": "column_qdrant",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "qdrant_api_key",
+   "fieldtype": "Password",
+   "label": "API Key (optional)"
+  },
+  {
+   "default": "text-embedding-ada-002",
+   "fieldname": "qdrant_embedding_model",
+   "fieldtype": "Data",
+   "label": "Embedding Model"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_facebook",
+   "fieldtype": "Section Break",
+   "label": "Facebook Messenger"
+  },
+  {
+   "fieldname": "facebook_access_token",
+   "fieldtype": "Password",
+   "label": "Page Access Token"
+  },
+  {
+   "fieldname": "facebook_verify_token",
+   "fieldtype": "Data",
+   "label": "Verify Token"
+  },
+  {
+   "fieldname": "column_facebook",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "facebook_page_id",
+   "fieldtype": "Data",
+   "label": "Page ID"
+  },
+  {
+   "fieldname": "facebook_app_secret",
+   "fieldtype": "Password",
+   "label": "App Secret"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_instagram",
+   "fieldtype": "Section Break",
+   "label": "Instagram DMs"
+  },
+  {
+   "fieldname": "instagram_access_token",
+   "fieldtype": "Password",
+   "label": "Access Token"
+  },
+  {
+   "fieldname": "instagram_business_account_id",
+   "fieldtype": "Data",
+   "label": "Business Account ID"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_twitter",
+   "fieldtype": "Section Break",
+   "label": "Twitter/X DMs"
+  },
+  {
+   "fieldname": "twitter_api_key",
+   "fieldtype": "Data",
+   "label": "API Key"
+  },
+  {
+   "fieldname": "twitter_api_secret",
+   "fieldtype": "Password",
+   "label": "API Secret"
+  },
+  {
+   "fieldname": "twitter_bearer_token",
+   "fieldtype": "Password",
+   "label": "Bearer Token"
+  },
+  {
+   "fieldname": "column_twitter",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "twitter_consumer_secret",
+   "fieldtype": "Password",
+   "label": "Consumer Secret"
+  },
+  {
+   "fieldname": "twitter_access_token",
+   "fieldtype": "Password",
+   "label": "Access Token"
+  },
+  {
+   "fieldname": "twitter_access_secret",
+   "fieldtype": "Password",
+   "label": "Access Token Secret"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_linkedin",
+   "fieldtype": "Section Break",
+   "label": "LinkedIn Messages"
+  },
+  {
+   "fieldname": "linkedin_client_id",
+   "fieldtype": "Data",
+   "label": "Client ID"
+  },
+  {
+   "fieldname": "linkedin_client_secret",
+   "fieldtype": "Password",
+   "label": "Client Secret"
+  },
+  {
+   "fieldname": "column_linkedin",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "linkedin_access_token",
+   "fieldtype": "Password",
+   "label": "Access Token"
+  },
+  {
+   "fieldname": "linkedin_organization_id",
+   "fieldtype": "Data",
+   "label": "Organization ID"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_sendgrid",
+   "fieldtype": "Section Break",
+   "label": "SendGrid (Email)"
+  },
+  {
+   "fieldname": "sendgrid_api_key",
+   "fieldtype": "Password",
+   "label": "API Key"
+  },
+  {
+   "fieldname": "sendgrid_from_email",
+   "fieldtype": "Data",
+   "label": "From Email"
+  },
+  {
+   "fieldname": "column_sendgrid",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sendgrid_from_name",
+   "fieldtype": "Data",
+   "label": "From Name"
+  },
+  {
+   "fieldname": "sendgrid_domain",
+   "fieldtype": "Data",
+   "label": "Verified Domain"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_chatwoot",
+   "fieldtype": "Section Break",
+   "label": "Chatwoot (Live Chat)"
+  },
+  {
+   "fieldname": "chatwoot_url",
+   "fieldtype": "Data",
+   "label": "Chatwoot URL"
+  },
+  {
+   "fieldname": "chatwoot_api_key",
+   "fieldtype": "Password",
+   "label": "API Key"
+  },
+  {
+   "fieldname": "column_chatwoot",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "chatwoot_account_id",
+   "fieldtype": "Data",
+   "label": "Account ID"
+  },
+  {
+   "fieldname": "chatwoot_inbox_id",
+   "fieldtype": "Data",
+   "label": "Default Inbox ID"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_twilio",
+   "fieldtype": "Section Break",
+   "label": "Twilio (SMS/WhatsApp)"
+  },
+  {
+   "fieldname": "twilio_account_sid",
+   "fieldtype": "Data",
+   "label": "Account SID"
+  },
+  {
+   "fieldname": "twilio_auth_token",
+   "fieldtype": "Password",
+   "label": "Auth Token"
+  },
+  {
+   "fieldname": "column_twilio",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "twilio_phone_number",
+   "fieldtype": "Data",
+   "label": "SMS Phone Number"
+  },
+  {
+   "fieldname": "twilio_whatsapp_number",
+   "fieldtype": "Data",
+   "label": "WhatsApp Number"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_ai_behavior",
+   "fieldtype": "Section Break",
+   "label": "AI Behavior Settings"
+  },
+  {
+   "default": "80",
+   "description": "Confidence threshold (0-100) below which AI escalates to human",
+   "fieldname": "ai_autonomy_level",
+   "fieldtype": "Int",
+   "label": "Autonomy Level (%)"
+  },
+  {
+   "default": "1",
+   "description": "Automatically escalate to HITL when negative sentiment detected",
+   "fieldname": "auto_escalate_on_negative",
+   "fieldtype": "Check",
+   "label": "Auto-Escalate on Negative Sentiment"
+  },
+  {
+   "fieldname": "column_ai_behavior",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "70",
+   "description": "Minimum RAG confidence score (0-100) to use knowledge base result",
+   "fieldname": "rag_confidence_threshold",
+   "fieldtype": "Int",
+   "label": "RAG Confidence Threshold (%)"
+  },
+  {
+   "default": "3",
+   "description": "Maximum number of times AI will retry before escalating",
+   "fieldname": "max_ai_retries",
+   "fieldtype": "Int",
+   "label": "Max AI Retries"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-01-24 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "AI Comms Hub",
+ "name": "AI Communications Hub Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

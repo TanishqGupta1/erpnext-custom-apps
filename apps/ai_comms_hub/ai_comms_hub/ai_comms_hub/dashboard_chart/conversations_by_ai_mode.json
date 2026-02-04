@@ -1,0 +1,16 @@
+{
+	"doctype": "Dashboard Chart",
+	"name": "Conversations by AI Mode",
+	"chart_name": "Conversations by AI Mode",
+	"chart_type": "Group By",
+	"document_type": "Communication Hub",
+	"group_by_type": "Count",
+	"group_by_based_on": "ai_mode",
+	"type": "Donut",
+	"is_public": 1,
+	"module": "AI Comms Hub",
+	"color": "#667eea",
+	"filters_json": "[]",
+	"timeseries": 0,
+	"timespan": "Last Month"
+}

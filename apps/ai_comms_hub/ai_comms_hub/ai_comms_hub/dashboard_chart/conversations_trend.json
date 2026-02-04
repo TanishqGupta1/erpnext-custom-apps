@@ -1,0 +1,16 @@
+{
+	"doctype": "Dashboard Chart",
+	"name": "Conversations Trend",
+	"chart_name": "Conversations Trend",
+	"chart_type": "Count",
+	"document_type": "Communication Hub",
+	"based_on": "created_at",
+	"type": "Line",
+	"is_public": 1,
+	"module": "AI Comms Hub",
+	"color": "#4299e1",
+	"filters_json": "[]",
+	"timeseries": 1,
+	"timespan": "Last Month",
+	"time_interval": "Daily"
+}

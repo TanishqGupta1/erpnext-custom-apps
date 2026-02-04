@@ -1,0 +1,15 @@
+{
+ "docstatus": 0,
+ "doctype": "Page",
+ "module": "Chat Bridge",
+ "name": "chatwoot-inbox",
+ "page_name": "chatwoot-inbox",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Chat Inbox"
+}
+

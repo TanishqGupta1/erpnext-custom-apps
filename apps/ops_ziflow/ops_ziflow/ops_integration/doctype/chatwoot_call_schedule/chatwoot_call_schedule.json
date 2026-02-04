@@ -1,0 +1,75 @@
+{
+  "doctype": "DocType",
+  "name": "Chatwoot Call Schedule",
+  "module": "OPS Integration",
+  "custom": 1,
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+  "field_order": [
+    "scheduled_datetime",
+    "call_type",
+    "status",
+    "duration_minutes",
+    "agent_name",
+    "notes",
+    "outcome",
+    "created_from_chat"
+  ],
+  "fields": [
+    {
+      "fieldname": "scheduled_datetime",
+      "fieldtype": "Datetime",
+      "label": "Scheduled Date/Time",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "call_type",
+      "fieldtype": "Select",
+      "label": "Call Type",
+      "options": "Phone Call\nVideo Call\nIn-Person Meeting",
+      "default": "Phone Call",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Scheduled\nCompleted\nNo Show\nRescheduled\nCancelled",
+      "default": "Scheduled",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "duration_minutes",
+      "fieldtype": "Int",
+      "label": "Duration (minutes)",
+      "description": "Actual call duration"
+    },
+    {
+      "fieldname": "agent_name",
+      "fieldtype": "Data",
+      "label": "Agent Name",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes"
+    },
+    {
+      "fieldname": "outcome",
+      "fieldtype": "Select",
+      "label": "Outcome",
+      "options": "\nInterested\nNeeds Follow-up\nNot Interested\nOrder Placed\nQuote Requested"
+    },
+    {
+      "fieldname": "created_from_chat",
+      "fieldtype": "Check",
+      "label": "Created from Chat",
+      "default": 1
+    }
+  ],
+  "permissions": []
+}

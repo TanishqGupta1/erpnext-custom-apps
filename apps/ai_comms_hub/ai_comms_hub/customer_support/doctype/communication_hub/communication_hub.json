@@ -1,0 +1,499 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:COMM-HUB-{#####}",
+ "creation": "2025-01-24 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_basic",
+  "customer",
+  "customer_name",
+  "customer_email",
+  "customer_phone",
+  "column_break_basic",
+  "channel",
+  "status",
+  "ai_mode",
+  "assigned_to",
+  "section_conversation",
+  "subject",
+  "context",
+  "column_break_conversation",
+  "sentiment",
+  "intent",
+  "priority",
+  "section_voice",
+  "vapi_call_id",
+  "vapi_phone_number",
+  "call_duration",
+  "call_status",
+  "column_break_voice",
+  "call_recording_url",
+  "call_transcript",
+  "call_summary",
+  "section_social",
+  "social_platform",
+  "social_sender_id",
+  "social_conversation_id",
+  "column_break_social",
+  "social_page_id",
+  "social_thread_id",
+  "within_24h_window",
+  "section_email",
+  "email_subject",
+  "email_from",
+  "email_to",
+  "column_break_email",
+  "email_thread_id",
+  "email_in_reply_to",
+  "email_message_id",
+  "section_chat",
+  "chatwoot_conversation_id",
+  "chatwoot_inbox_id",
+  "chatwoot_contact_id",
+  "column_break_chat",
+  "whatsapp_conversation_id",
+  "sms_phone_number",
+  "section_metadata",
+  "created_at",
+  "updated_at",
+  "closed_at",
+  "column_break_metadata",
+  "total_messages",
+  "ai_messages",
+  "agent_messages",
+  "section_rag",
+  "rag_documents",
+  "rag_confidence",
+  "column_break_rag",
+  "knowledge_base_used",
+  "function_calls_made"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_basic",
+   "fieldtype": "Section Break",
+   "label": "Basic Information"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.email_id",
+   "fieldname": "customer_email",
+   "fieldtype": "Data",
+   "label": "Customer Email",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.mobile_no",
+   "fieldname": "customer_phone",
+   "fieldtype": "Data",
+   "label": "Customer Phone",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_basic",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "channel",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Channel",
+   "options": "Voice\nChat\nWhatsApp\nSMS\nFacebook\nInstagram\nTwitter\nLinkedIn\nEmail",
+   "reqd": 1
+  },
+  {
+   "default": "Open",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Open\nIn Progress\nResolved\nClosed",
+   "reqd": 1
+  },
+  {
+   "default": "Autonomous",
+   "fieldname": "ai_mode",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "AI Mode",
+   "options": "Autonomous\nHITL\nTakeover\nManual",
+   "reqd": 1
+  },
+  {
+   "fieldname": "assigned_to",
+   "fieldtype": "Link",
+   "label": "Assigned To",
+   "options": "User"
+  },
+  {
+   "fieldname": "section_conversation",
+   "fieldtype": "Section Break",
+   "label": "Conversation Details"
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "label": "Subject",
+   "length": 200
+  },
+  {
+   "description": "AI-generated summary of the conversation context",
+   "fieldname": "context",
+   "fieldtype": "Long Text",
+   "label": "Context"
+  },
+  {
+   "fieldname": "column_break_conversation",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sentiment",
+   "fieldtype": "Select",
+   "label": "Sentiment",
+   "options": "\nPositive\nNeutral\nNegative"
+  },
+  {
+   "description": "Classified intent (Quote Request, Support, Order Status, etc.)",
+   "fieldname": "intent",
+   "fieldtype": "Data",
+   "label": "Intent",
+   "length": 100
+  },
+  {
+   "default": "Medium",
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "label": "Priority",
+   "options": "Low\nMedium\nHigh\nUrgent"
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:doc.channel=='Voice'",
+   "fieldname": "section_voice",
+   "fieldtype": "Section Break",
+   "label": "Voice Call Details"
+  },
+  {
+   "fieldname": "vapi_call_id",
+   "fieldtype": "Data",
+   "label": "VAPI Call ID",
+   "unique": 1
+  },
+  {
+   "fieldname": "vapi_phone_number",
+   "fieldtype": "Data",
+   "label": "Phone Number"
+  },
+  {
+   "description": "Call duration in seconds",
+   "fieldname": "call_duration",
+   "fieldtype": "Int",
+   "label": "Call Duration (sec)"
+  },
+  {
+   "fieldname": "call_status",
+   "fieldtype": "Select",
+   "label": "Call Status",
+   "options": "\nQueued\nRinging\nIn Progress\nCompleted\nFailed\nNo Answer\nBusy"
+  },
+  {
+   "fieldname": "column_break_voice",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "call_recording_url",
+   "fieldtype": "Data",
+   "label": "Call Recording URL",
+   "length": 500
+  },
+  {
+   "fieldname": "call_transcript",
+   "fieldtype": "Long Text",
+   "label": "Call Transcript"
+  },
+  {
+   "description": "AI-generated summary of the call",
+   "fieldname": "call_summary",
+   "fieldtype": "Text",
+   "label": "Call Summary"
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:['Facebook','Instagram','Twitter','LinkedIn'].includes(doc.channel)",
+   "fieldname": "section_social",
+   "fieldtype": "Section Break",
+   "label": "Social Media Details"
+  },
+  {
+   "fieldname": "social_platform",
+   "fieldtype": "Select",
+   "label": "Social Platform",
+   "options": "\nFacebook\nInstagram\nTwitter/X\nLinkedIn"
+  },
+  {
+   "description": "PSID for Facebook, username for Twitter, etc.",
+   "fieldname": "social_sender_id",
+   "fieldtype": "Data",
+   "label": "Sender Platform ID"
+  },
+  {
+   "fieldname": "social_conversation_id",
+   "fieldtype": "Data",
+   "label": "Platform Conversation ID"
+  },
+  {
+   "fieldname": "column_break_social",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "For Facebook/Instagram page identification",
+   "fieldname": "social_page_id",
+   "fieldtype": "Data",
+   "label": "Page ID"
+  },
+  {
+   "fieldname": "social_thread_id",
+   "fieldtype": "Data",
+   "label": "Thread ID"
+  },
+  {
+   "default": "1",
+   "description": "For Meta platforms (Facebook/Instagram) - must message within 24 hours",
+   "fieldname": "within_24h_window",
+   "fieldtype": "Check",
+   "label": "Within 24h Window"
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:doc.channel=='Email'",
+   "fieldname": "section_email",
+   "fieldtype": "Section Break",
+   "label": "Email Details"
+  },
+  {
+   "fieldname": "email_subject",
+   "fieldtype": "Data",
+   "label": "Email Subject",
+   "length": 200
+  },
+  {
+   "fieldname": "email_from",
+   "fieldtype": "Data",
+   "label": "From Email"
+  },
+  {
+   "fieldname": "email_to",
+   "fieldtype": "Data",
+   "label": "To Email"
+  },
+  {
+   "fieldname": "column_break_email",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "For email threading",
+   "fieldname": "email_thread_id",
+   "fieldtype": "Data",
+   "label": "Email Thread ID"
+  },
+  {
+   "description": "For In-Reply-To header",
+   "fieldname": "email_in_reply_to",
+   "fieldtype": "Data",
+   "label": "In-Reply-To"
+  },
+  {
+   "description": "Current email Message-ID",
+   "fieldname": "email_message_id",
+   "fieldtype": "Data",
+   "label": "Message-ID",
+   "unique": 1
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:['Chat','WhatsApp','SMS'].includes(doc.channel)",
+   "fieldname": "section_chat",
+   "fieldtype": "Section Break",
+   "label": "Chat/WhatsApp/SMS Details"
+  },
+  {
+   "fieldname": "chatwoot_conversation_id",
+   "fieldtype": "Data",
+   "label": "Chatwoot Conversation ID",
+   "unique": 1
+  },
+  {
+   "fieldname": "chatwoot_inbox_id",
+   "fieldtype": "Data",
+   "label": "Chatwoot Inbox ID"
+  },
+  {
+   "fieldname": "chatwoot_contact_id",
+   "fieldtype": "Data",
+   "label": "Chatwoot Contact ID"
+  },
+  {
+   "fieldname": "column_break_chat",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "whatsapp_conversation_id",
+   "fieldtype": "Data",
+   "label": "WhatsApp Conversation ID"
+  },
+  {
+   "fieldname": "sms_phone_number",
+   "fieldtype": "Data",
+   "label": "SMS Phone Number"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_metadata",
+   "fieldtype": "Section Break",
+   "label": "Metadata"
+  },
+  {
+   "fieldname": "created_at",
+   "fieldtype": "Datetime",
+   "label": "Created At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "updated_at",
+   "fieldtype": "Datetime",
+   "label": "Updated At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "closed_at",
+   "fieldtype": "Datetime",
+   "label": "Closed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_metadata",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_messages",
+   "fieldtype": "Int",
+   "label": "Total Messages",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "ai_messages",
+   "fieldtype": "Int",
+   "label": "AI Messages",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "agent_messages",
+   "fieldtype": "Int",
+   "label": "Agent Messages",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_rag",
+   "fieldtype": "Section Break",
+   "label": "Knowledge Base (RAG)"
+  },
+  {
+   "description": "Document IDs used from Qdrant",
+   "fieldname": "rag_documents",
+   "fieldtype": "Long Text",
+   "label": "RAG Documents Used"
+  },
+  {
+   "description": "Average confidence score from RAG queries",
+   "fieldname": "rag_confidence",
+   "fieldtype": "Percent",
+   "label": "RAG Confidence"
+  },
+  {
+   "fieldname": "column_break_rag",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Whether knowledge base was consulted",
+   "fieldname": "knowledge_base_used",
+   "fieldtype": "Check",
+   "label": "Knowledge Base Used"
+  },
+  {
+   "description": "List of function calls made by AI (order status, create quote, etc.)",
+   "fieldname": "function_calls_made",
+   "fieldtype": "Long Text",
+   "label": "Function Calls Made"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-01-24 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Customer Support",
+ "name": "Communication Hub",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Customer Support",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "subject",
+ "track_changes": 1
+}

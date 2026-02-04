@@ -1,0 +1,314 @@
+{
+  "doctype": "DocType",
+  "name": "OPS ZiFlow Proof",
+  "module": "OPS Integration",
+  "custom": 1,
+  "track_changes": 1,
+  "autoname": "field:ziflow_proof_id",
+  "title_field": "proof_name",
+  "show_title_field_in_link": 1,
+  "search_fields": "proof_name,ops_order,ops_line_id,proof_status",
+  "field_order": [
+    "basic_info_tab",
+    "basic_info_section",
+    "ziflow_proof_id",
+    "proof_name",
+    "proof_status",
+    "ziflow_url",
+    "file_url",
+    "preview_column",
+    "preview_url",
+    "proof_preview_html",
+    "links_tab",
+    "ops_order",
+    "ops_line_id",
+    "ops_order_product",
+    "ops_customer",
+    "org_tab",
+    "ziflow_folder_id",
+    "folder_name",
+    "template_id",
+    "template_name",
+    "timeline_tab",
+    "deadline",
+    "created_at",
+    "approved_at",
+    "last_synced",
+    "versions_tab",
+    "current_version",
+    "total_versions",
+    "versions_json",
+    "reviewers_tab",
+    "reviewers_json",
+    "comments_tab",
+    "total_comments",
+    "unresolved_comments",
+    "comments_json",
+    "sync_tab",
+    "sync_status",
+    "sync_error",
+    "sync_error_count",
+    "last_sync_error",
+    "raw_payload"
+  ],
+  "fields": [
+    {
+      "fieldname": "basic_info_tab",
+      "fieldtype": "Tab Break",
+      "label": "Basic Info"
+    },
+    {
+      "fieldname": "basic_info_section",
+      "fieldtype": "Section Break",
+      "label": ""
+    },
+    {
+      "fieldname": "ziflow_proof_id",
+      "fieldtype": "Data",
+      "label": "ZiFlow Proof ID",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "proof_name",
+      "fieldtype": "Data",
+      "label": "Proof Name",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "proof_status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Draft\nIn Review\nApproved\nRejected\nChanges Requested\nArchived",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "ziflow_url",
+      "fieldtype": "Data",
+      "label": "ZiFlow URL"
+    },
+    {
+      "fieldname": "file_url",
+      "fieldtype": "Data",
+      "label": "Source File URL"
+    },
+    {
+      "fieldname": "preview_column",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "preview_url",
+      "fieldtype": "Small Text",
+      "label": "Preview URL",
+      "read_only": 1,
+      "hidden": 1
+    },
+    {
+      "fieldname": "proof_preview_html",
+      "fieldtype": "HTML",
+      "label": "Proof Preview"
+    },
+    {
+      "fieldname": "links_tab",
+      "fieldtype": "Tab Break",
+      "label": "Links"
+    },
+    {
+      "fieldname": "ops_order",
+      "fieldtype": "Link",
+      "label": "OPS Order",
+      "options": "OPS Order",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "ops_line_id",
+      "fieldtype": "Data",
+      "label": "Line ID",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "ops_order_product",
+      "fieldtype": "Link",
+      "label": "OPS Order Product",
+      "options": "OPS Order Product",
+      "hidden": 1
+    },
+    {
+      "fieldname": "ops_customer",
+      "fieldtype": "Link",
+      "label": "OPS Customer",
+      "options": "OPS Customer"
+    },
+    {
+      "fieldname": "org_tab",
+      "fieldtype": "Tab Break",
+      "label": "Organization"
+    },
+    {
+      "fieldname": "ziflow_folder_id",
+      "fieldtype": "Data",
+      "label": "Folder ID"
+    },
+    {
+      "fieldname": "folder_name",
+      "fieldtype": "Data",
+      "label": "Folder Name",
+      "read_only": 1
+    },
+    {
+      "fieldname": "template_id",
+      "fieldtype": "Data",
+      "label": "Template ID"
+    },
+    {
+      "fieldname": "template_name",
+      "fieldtype": "Data",
+      "label": "Template Name",
+      "read_only": 1
+    },
+    {
+      "fieldname": "timeline_tab",
+      "fieldtype": "Tab Break",
+      "label": "Timeline"
+    },
+    {
+      "fieldname": "deadline",
+      "fieldtype": "Datetime",
+      "label": "Deadline",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "created_at",
+      "fieldtype": "Datetime",
+      "label": "Created At",
+      "read_only": 1
+    },
+    {
+      "fieldname": "approved_at",
+      "fieldtype": "Datetime",
+      "label": "Approved At"
+    },
+    {
+      "fieldname": "last_synced",
+      "fieldtype": "Datetime",
+      "label": "Last Synced",
+      "read_only": 1
+    },
+    {
+      "fieldname": "versions_tab",
+      "fieldtype": "Tab Break",
+      "label": "Versions"
+    },
+    {
+      "fieldname": "current_version",
+      "fieldtype": "Int",
+      "label": "Current Version",
+      "default": "1"
+    },
+    {
+      "fieldname": "total_versions",
+      "fieldtype": "Int",
+      "label": "Total Versions",
+      "default": "1"
+    },
+    {
+      "fieldname": "versions_json",
+      "fieldtype": "Code",
+      "label": "Versions Data",
+      "options": "JSON"
+    },
+    {
+      "fieldname": "reviewers_tab",
+      "fieldtype": "Tab Break",
+      "label": "Reviewers"
+    },
+    {
+      "fieldname": "reviewers_json",
+      "fieldtype": "Code",
+      "label": "Reviewers Data",
+      "options": "JSON"
+    },
+    {
+      "fieldname": "comments_tab",
+      "fieldtype": "Tab Break",
+      "label": "Comments"
+    },
+    {
+      "fieldname": "total_comments",
+      "fieldtype": "Int",
+      "label": "Total Comments",
+      "default": "0"
+    },
+    {
+      "fieldname": "unresolved_comments",
+      "fieldtype": "Int",
+      "label": "Unresolved Comments",
+      "default": "0"
+    },
+    {
+      "fieldname": "comments_json",
+      "fieldtype": "Code",
+      "label": "Comments Data",
+      "options": "JSON"
+    },
+    {
+      "fieldname": "sync_tab",
+      "fieldtype": "Tab Break",
+      "label": "Sync"
+    },
+    {
+      "fieldname": "sync_status",
+      "fieldtype": "Select",
+      "label": "Sync Status",
+      "options": "Synced\nPending\nError"
+    },
+    {
+      "fieldname": "sync_error",
+      "fieldtype": "Small Text",
+      "label": "Sync Error",
+      "read_only": 1
+    },
+    {
+      "fieldname": "sync_error_count",
+      "fieldtype": "Int",
+      "label": "Sync Error Count",
+      "default": "0",
+      "read_only": 1,
+      "description": "Number of consecutive sync failures. Reset on successful sync."
+    },
+    {
+      "fieldname": "last_sync_error",
+      "fieldtype": "Small Text",
+      "label": "Last Sync Error",
+      "read_only": 1
+    },
+    {
+      "fieldname": "raw_payload",
+      "fieldtype": "Code",
+      "label": "Raw ZiFlow Data",
+      "options": "JSON"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Sales User",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "sort_field": "ops_order",
+  "sort_order": "DESC"
+}

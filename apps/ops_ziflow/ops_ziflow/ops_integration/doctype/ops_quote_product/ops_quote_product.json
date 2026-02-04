@@ -1,0 +1,201 @@
+{
+  "doctype": "DocType",
+  "name": "OPS Quote Product",
+  "module": "OPS Integration",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 1,
+  "field_order": [
+    "quote_products_id",
+    "products_id",
+    "ops_product",
+    "column_break_product",
+    "products_title",
+    "products_name",
+    "quote_product_sku",
+    "section_break_qty",
+    "quote_products_quantity",
+    "quote_products_price",
+    "final_price",
+    "column_break_vendor",
+    "quote_products_vendor_price",
+    "vendor_total",
+    "section_break_details",
+    "is_custom_product",
+    "products_prd_day",
+    "products_weight",
+    "column_break_size",
+    "product_size_details",
+    "features_details",
+    "section_break_notes",
+    "quote_product_notes",
+    "quote_products_info"
+  ],
+  "fields": [
+    {
+      "fieldname": "quote_products_id",
+      "fieldtype": "Int",
+      "label": "Quote Product ID",
+      "in_list_view": 1,
+      "read_only": 1,
+      "bold": 1,
+      "description": "OnPrintShop quote_products_id"
+    },
+    {
+      "fieldname": "products_id",
+      "fieldtype": "Int",
+      "label": "Product ID",
+      "description": "OnPrintShop products_id"
+    },
+    {
+      "fieldname": "ops_product",
+      "fieldtype": "Link",
+      "label": "OPS Product",
+      "options": "OPS Product",
+      "description": "Link to OPS Product DocType"
+    },
+    {
+      "fieldname": "column_break_product",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "products_title",
+      "fieldtype": "Data",
+      "label": "Product Title",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "products_name",
+      "fieldtype": "Data",
+      "label": "Product Name"
+    },
+    {
+      "fieldname": "quote_product_sku",
+      "fieldtype": "Data",
+      "label": "SKU"
+    },
+    {
+      "fieldname": "section_break_qty",
+      "fieldtype": "Section Break",
+      "label": "Pricing"
+    },
+    {
+      "fieldname": "quote_products_quantity",
+      "fieldtype": "Int",
+      "label": "Quantity",
+      "in_list_view": 1,
+      "reqd": 1,
+      "default": "1",
+      "non_negative": 1
+    },
+    {
+      "fieldname": "quote_products_price",
+      "fieldtype": "Currency",
+      "label": "Unit Price",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "final_price",
+      "fieldtype": "Currency",
+      "label": "Total Price",
+      "in_list_view": 1,
+      "read_only": 1,
+      "description": "Quantity x Unit Price"
+    },
+    {
+      "fieldname": "column_break_vendor",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "quote_products_vendor_price",
+      "fieldtype": "Currency",
+      "label": "Vendor Unit Price"
+    },
+    {
+      "fieldname": "vendor_total",
+      "fieldtype": "Currency",
+      "label": "Vendor Total",
+      "read_only": 1,
+      "description": "Quantity x Vendor Unit Price"
+    },
+    {
+      "fieldname": "section_break_details",
+      "fieldtype": "Section Break",
+      "label": "Product Details"
+    },
+    {
+      "fieldname": "is_custom_product",
+      "fieldtype": "Check",
+      "label": "Is Custom Product",
+      "description": "Whether this is a custom product"
+    },
+    {
+      "fieldname": "products_prd_day",
+      "fieldtype": "Int",
+      "label": "Production Days",
+      "description": "Number of production days"
+    },
+    {
+      "fieldname": "products_weight",
+      "fieldtype": "Float",
+      "label": "Weight",
+      "precision": "3"
+    },
+    {
+      "fieldname": "column_break_size",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "product_size_details",
+      "fieldtype": "Small Text",
+      "label": "Size Details",
+      "description": "Product size information"
+    },
+    {
+      "fieldname": "features_details",
+      "fieldtype": "Small Text",
+      "label": "Features Details",
+      "description": "Product features/options"
+    },
+    {
+      "fieldname": "section_break_notes",
+      "fieldtype": "Section Break",
+      "label": "Notes & Info",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "quote_product_notes",
+      "fieldtype": "Small Text",
+      "label": "Notes"
+    },
+    {
+      "fieldname": "quote_products_info",
+      "fieldtype": "Code",
+      "label": "Product Info (JSON)",
+      "options": "JSON",
+      "description": "Additional product configuration details from OnPrintShop"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Sales User",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "Sales Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+[
+  {
+    "doctype": "Number Card",
+    "name": "Total ZiFlow Proofs",
+    "label": "Total Proofs",
+    "document_type": "OPS ZiFlow Proof",
+    "function": "Count",
+    "color": "#449CF0",
+    "is_public": 1,
+    "show_percentage_stats": 1,
+    "stats_time_interval": "Weekly"
+  },
+  {
+    "doctype": "Number Card",
+    "name": "Pending ZiFlow Proofs",
+    "label": "Pending Review",
+    "document_type": "OPS ZiFlow Proof",
+    "function": "Count",
+    "filters_json": "[[\"OPS ZiFlow Proof\",\"proof_status\",\"in\",[\"Draft\",\"In Review\",\"Changes Requested\"]]]",
+    "color": "#ECAD4B",
+    "is_public": 1,
+    "show_percentage_stats": 1,
+    "stats_time_interval": "Weekly"
+  },
+  {
+    "doctype": "Number Card",
+    "name": "Approved ZiFlow Proofs",
+    "label": "Approved",
+    "document_type": "OPS ZiFlow Proof",
+    "function": "Count",
+    "filters_json": "[[\"OPS ZiFlow Proof\",\"proof_status\",\"=\",\"Approved\"]]",
+    "color": "#48BB74",
+    "is_public": 1,
+    "show_percentage_stats": 1,
+    "stats_time_interval": "Weekly"
+  },
+  {
+    "doctype": "Number Card",
+    "name": "Overdue ZiFlow Proofs",
+    "label": "Overdue",
+    "document_type": "OPS ZiFlow Proof",
+    "function": "Count",
+    "filters_json": "[[\"OPS ZiFlow Proof\",\"proof_status\",\"in\",[\"Draft\",\"In Review\",\"Changes Requested\"]],[\"OPS ZiFlow Proof\",\"deadline\",\"<\",\"Today\"]]",
+    "color": "#E53E3E",
+    "is_public": 1,
+    "show_percentage_stats": 0
+  },
+  {
+    "doctype": "Number Card",
+    "name": "Orders with Pending Proofs",
+    "label": "Orders Pending",
+    "document_type": "OPS Order",
+    "function": "Count",
+    "filters_json": "[[\"OPS Order\",\"all_proofs_approved\",\"=\",0],[\"OPS Order\",\"pending_proof_count\",\">\",0]]",
+    "color": "#805AD5",
+    "is_public": 1,
+    "show_percentage_stats": 0
+  }
+]

@@ -1,0 +1,337 @@
+{
+  "name": "VAPI Voice Call Handler",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vapi-webhook",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-vapi",
+      "name": "Webhook - VAPI",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "vapi-voice-handler"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.message.type}}",
+              "operation": "equals",
+              "value2": "call.started"
+            }
+          ]
+        }
+      },
+      "id": "switch-event-type",
+      "name": "Switch - Event Type",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "event_type",
+              "value": "={{$json.message.type}}"
+            },
+            {
+              "name": "call_id",
+              "value": "={{$json.message.call.id}}"
+            },
+            {
+              "name": "customer_number",
+              "value": "={{$json.message.call.customer.number}}"
+            },
+            {
+              "name": "assistant_id",
+              "value": "={{$json.message.call.assistantId}}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{$json.message.timestamp}}"
+            }
+          ]
+        }
+      },
+      "id": "normalize-call-started",
+      "name": "Normalize - Call Started",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [650, 200]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "event_type",
+              "value": "={{$json.message.type}}"
+            },
+            {
+              "name": "call_id",
+              "value": "={{$json.message.call.id}}"
+            },
+            {
+              "name": "function_name",
+              "value": "={{$json.message.functionCall.name}}"
+            },
+            {
+              "name": "function_parameters",
+              "value": "={{JSON.stringify($json.message.functionCall.parameters)}}"
+            }
+          ]
+        }
+      },
+      "id": "normalize-function-call",
+      "name": "Normalize - Function Call",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [650, 400]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "event_type",
+              "value": "={{$json.message.type}}"
+            },
+            {
+              "name": "call_id",
+              "value": "={{$json.message.call.id}}"
+            },
+            {
+              "name": "transcript",
+              "value": "={{$json.message.transcript}}"
+            },
+            {
+              "name": "role",
+              "value": "={{$json.message.role}}"
+            }
+          ]
+        }
+      },
+      "id": "normalize-speech-update",
+      "name": "Normalize - Speech Update",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [650, 600]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "event_type",
+              "value": "={{$json.message.type}}"
+            },
+            {
+              "name": "call_id",
+              "value": "={{$json.message.call.id}}"
+            },
+            {
+              "name": "duration",
+              "value": "={{$json.message.endedReason}}"
+            },
+            {
+              "name": "transcript",
+              "value": "={{JSON.stringify($json.message.transcript)}}"
+            },
+            {
+              "name": "cost",
+              "value": "={{$json.message.cost}}"
+            }
+          ]
+        }
+      },
+      "id": "normalize-call-ended",
+      "name": "Normalize - Call Ended",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [650, 800]
+    },
+    {
+      "parameters": {
+        "url": "http://erpnext-backend:8000/api/method/ai_comms_hub.webhooks.voice.handle_vapi_webhook",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "event_type",
+              "value": "={{$json.event_type}}"
+            },
+            {
+              "name": "call_id",
+              "value": "={{$json.call_id}}"
+            },
+            {
+              "name": "data",
+              "value": "={{JSON.stringify($json)}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "http-frappe-api",
+      "name": "HTTP Request - Frappe API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [850, 400],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "frappe-api-key",
+          "name": "Frappe API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{JSON.stringify({\"success\": true, \"message\": \"Webhook received\"})}}"
+      },
+      "id": "respond-webhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1050, 400]
+    },
+    {
+      "parameters": {
+        "mode": "logToConsole",
+        "message": "={{\"Error processing VAPI webhook: \" + $json.error.message}}"
+      },
+      "id": "error-handler",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [850, 600]
+    }
+  ],
+  "connections": {
+    "Webhook - VAPI": {
+      "main": [
+        [
+          {
+            "node": "Switch - Event Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch - Event Type": {
+      "main": [
+        [
+          {
+            "node": "Normalize - Call Started",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Normalize - Function Call",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Normalize - Speech Update",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Normalize - Call Ended",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize - Call Started": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Frappe API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize - Function Call": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Frappe API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize - Speech Update": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Frappe API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize - Call Ended": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Frappe API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Frappe API": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "Voice",
+      "id": "voice-automation"
+    },
+    {
+      "name": "VAPI",
+      "id": "vapi-integration"
+    }
+  ],
+  "pinData": {},
+  "versionId": "1.0.0"
+}

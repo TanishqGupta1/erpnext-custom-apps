@@ -1,0 +1,68 @@
+{
+ "app": "ops_ziflow",
+ "charts": [],
+ "content": "[{\"id\":\"dashboard_header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>ZiFlow Dashboard</b></span>\",\"col\":12}},{\"id\":\"total_proofs_card\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total ZiFlow Proofs\",\"col\":3}},{\"id\":\"pending_proofs_card\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Pending ZiFlow Proofs\",\"col\":3}},{\"id\":\"approved_proofs_card\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Approved ZiFlow Proofs\",\"col\":3}},{\"id\":\"overdue_proofs_card\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Overdue ZiFlow Proofs\",\"col\":3}},{\"id\":\"spacer1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"shortcuts_header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\"><b>Quick Access</b></span>\",\"col\":12}},{\"id\":\"proofs_shortcut\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"ZiFlow Proofs\",\"col\":3}},{\"id\":\"orders_shortcut\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Orders with Pending Proofs\",\"col\":3}},{\"id\":\"portal_shortcut\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"ZiFlow Portal\",\"col\":3}},{\"id\":\"backfill_shortcut\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Backfill Proofs\",\"col\":3}}]",
+ "creation": "2025-12-26 13:49:18.423934",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "octicon octicon-checklist",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "ZiFlow Proofing",
+ "links": [],
+ "modified": "2026-01-07 07:03:45.471864",
+ "modified_by": "Administrator",
+ "module": "OPS Integration",
+ "name": "ZiFlow Proofing",
+ "number_cards": [
+  {
+   "number_card_name": "Total ZiFlow Proofs"
+  },
+  {
+   "number_card_name": "Pending ZiFlow Proofs"
+  },
+  {
+   "number_card_name": "Approved ZiFlow Proofs"
+  },
+  {
+   "number_card_name": "Overdue ZiFlow Proofs"
+  }
+ ],
+ "owner": "Administrator",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 0.0,
+ "shortcuts": [
+  {
+   "color": "blue",
+   "doc_view": "List",
+   "label": "ZiFlow Proofs",
+   "link_to": "OPS ZiFlow Proof",
+   "type": "DocType"
+  },
+  {
+   "color": "orange",
+   "label": "Orders with Pending Proofs",
+   "link_to": "Orders Pending Proofs",
+   "report_ref_doctype": "OPS Order",
+   "type": "Report"
+  },
+  {
+   "color": "green",
+   "label": "ZiFlow Portal",
+   "type": "URL",
+   "url": "https://app.ziflow.com/#/proofs/folders"
+  },
+  {
+   "color": "grey",
+   "label": "Backfill Proofs",
+   "link_to": "ziflow-backfill",
+   "type": "Page"
+  }
+ ],
+ "title": "ZiFlow Proofing",
+ "type": "Workspace"
+}

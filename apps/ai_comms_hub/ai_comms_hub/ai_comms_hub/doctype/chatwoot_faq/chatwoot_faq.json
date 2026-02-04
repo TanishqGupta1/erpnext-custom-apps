@@ -1,0 +1,166 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:FAQ-{#####}",
+ "creation": "2025-01-20 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_main",
+  "question",
+  "enabled",
+  "column_break_main",
+  "category",
+  "priority",
+  "section_answer",
+  "answer",
+  "section_metadata",
+  "tags",
+  "section_sync",
+  "sync_status",
+  "last_synced",
+  "column_break_sync",
+  "qdrant_point_id",
+  "sync_error"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_main",
+   "fieldtype": "Section Break",
+   "label": "FAQ Details"
+  },
+  {
+   "fieldname": "question",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Question",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "column_break_main",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Category",
+   "options": "Chatwoot FAQ Category"
+  },
+  {
+   "default": "3 - Normal",
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "label": "Priority",
+   "options": "1 - Highest\n2 - High\n3 - Normal\n4 - Low\n5 - Lowest"
+  },
+  {
+   "fieldname": "section_answer",
+   "fieldtype": "Section Break",
+   "label": "Answer"
+  },
+  {
+   "fieldname": "answer",
+   "fieldtype": "Text Editor",
+   "label": "Answer",
+   "reqd": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_metadata",
+   "fieldtype": "Section Break",
+   "label": "Additional Information"
+  },
+  {
+   "description": "Comma-separated keywords for better search matching",
+   "fieldname": "tags",
+   "fieldtype": "Small Text",
+   "label": "Tags"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_sync",
+   "fieldtype": "Section Break",
+   "label": "Qdrant Sync Status"
+  },
+  {
+   "default": "Not Synced",
+   "fieldname": "sync_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Sync Status",
+   "options": "Not Synced\nPending\nSynced\nFailed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_synced",
+   "fieldtype": "Datetime",
+   "label": "Last Synced",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_sync",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "qdrant_point_id",
+   "fieldtype": "Data",
+   "label": "Qdrant Point ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sync_error",
+   "fieldtype": "Small Text",
+   "label": "Sync Error",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-01-20 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "AI Comms Hub",
+ "name": "Chatwoot FAQ",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

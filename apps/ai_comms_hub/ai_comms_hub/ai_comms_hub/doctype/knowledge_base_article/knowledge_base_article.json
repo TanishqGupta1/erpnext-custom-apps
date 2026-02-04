@@ -1,0 +1,282 @@
+{
+	"actions": [],
+	"autoname": "format:KB-{#####}",
+	"creation": "2025-01-20 00:00:00.000000",
+	"doctype": "DocType",
+	"engine": "InnoDB",
+	"field_order": [
+		"title",
+		"category",
+		"status",
+		"column_break_1",
+		"author",
+		"published_date",
+		"last_reviewed",
+		"section_break_content",
+		"summary",
+		"content",
+		"section_break_keywords",
+		"keywords",
+		"related_topics",
+		"section_break_ai",
+		"is_ai_enabled",
+		"ai_summary",
+		"embedding_status",
+		"column_break_ai",
+		"ai_priority",
+		"max_tokens",
+		"section_break_attachments",
+		"attachments",
+		"section_break_usage",
+		"view_count",
+		"helpful_count",
+		"not_helpful_count",
+		"column_break_usage",
+		"ai_usage_count",
+		"last_used_in_ai",
+		"section_break_metadata",
+		"source_url",
+		"external_id"
+	],
+	"fields": [
+		{
+			"fieldname": "title",
+			"fieldtype": "Data",
+			"in_list_view": 1,
+			"in_standard_filter": 1,
+			"label": "Title",
+			"reqd": 1
+		},
+		{
+			"fieldname": "category",
+			"fieldtype": "Link",
+			"in_list_view": 1,
+			"in_standard_filter": 1,
+			"label": "Category",
+			"options": "Knowledge Base Category",
+			"reqd": 1
+		},
+		{
+			"default": "Draft",
+			"fieldname": "status",
+			"fieldtype": "Select",
+			"in_list_view": 1,
+			"in_standard_filter": 1,
+			"label": "Status",
+			"options": "Draft\nPublished\nArchived"
+		},
+		{
+			"fieldname": "column_break_1",
+			"fieldtype": "Column Break"
+		},
+		{
+			"fieldname": "author",
+			"fieldtype": "Link",
+			"label": "Author",
+			"options": "User"
+		},
+		{
+			"fieldname": "published_date",
+			"fieldtype": "Date",
+			"label": "Published Date"
+		},
+		{
+			"fieldname": "last_reviewed",
+			"fieldtype": "Date",
+			"label": "Last Reviewed"
+		},
+		{
+			"fieldname": "section_break_content",
+			"fieldtype": "Section Break",
+			"label": "Content"
+		},
+		{
+			"fieldname": "summary",
+			"fieldtype": "Small Text",
+			"label": "Summary",
+			"description": "Brief summary for search results and AI context"
+		},
+		{
+			"fieldname": "content",
+			"fieldtype": "Text Editor",
+			"label": "Content",
+			"reqd": 1
+		},
+		{
+			"fieldname": "section_break_keywords",
+			"fieldtype": "Section Break",
+			"label": "Keywords & Related"
+		},
+		{
+			"fieldname": "keywords",
+			"fieldtype": "Small Text",
+			"label": "Keywords",
+			"description": "Comma-separated keywords for search"
+		},
+		{
+			"fieldname": "related_topics",
+			"fieldtype": "Table MultiSelect",
+			"label": "Related Articles",
+			"options": "Knowledge Base Article Link"
+		},
+		{
+			"fieldname": "section_break_ai",
+			"fieldtype": "Section Break",
+			"label": "AI Configuration"
+		},
+		{
+			"default": "1",
+			"fieldname": "is_ai_enabled",
+			"fieldtype": "Check",
+			"label": "Enable for AI",
+			"description": "Include this article in AI knowledge base"
+		},
+		{
+			"fieldname": "ai_summary",
+			"fieldtype": "Small Text",
+			"label": "AI Summary",
+			"description": "Optimized summary for AI context (auto-generated if empty)",
+			"read_only": 0
+		},
+		{
+			"default": "Pending",
+			"fieldname": "embedding_status",
+			"fieldtype": "Select",
+			"label": "Embedding Status",
+			"options": "Pending\nProcessing\nCompleted\nFailed",
+			"read_only": 1
+		},
+		{
+			"fieldname": "column_break_ai",
+			"fieldtype": "Column Break"
+		},
+		{
+			"default": "5",
+			"fieldname": "ai_priority",
+			"fieldtype": "Int",
+			"label": "AI Priority",
+			"description": "Higher priority articles are preferred (1-10)"
+		},
+		{
+			"default": "500",
+			"fieldname": "max_tokens",
+			"fieldtype": "Int",
+			"label": "Max Tokens",
+			"description": "Maximum tokens to include in AI context"
+		},
+		{
+			"fieldname": "section_break_attachments",
+			"fieldtype": "Section Break",
+			"label": "Attachments",
+			"collapsible": 1
+		},
+		{
+			"fieldname": "attachments",
+			"fieldtype": "Table",
+			"label": "Attachments",
+			"options": "Knowledge Base Attachment"
+		},
+		{
+			"fieldname": "section_break_usage",
+			"fieldtype": "Section Break",
+			"label": "Usage Statistics",
+			"collapsible": 1
+		},
+		{
+			"default": "0",
+			"fieldname": "view_count",
+			"fieldtype": "Int",
+			"label": "View Count",
+			"read_only": 1
+		},
+		{
+			"default": "0",
+			"fieldname": "helpful_count",
+			"fieldtype": "Int",
+			"label": "Helpful Count",
+			"read_only": 1
+		},
+		{
+			"default": "0",
+			"fieldname": "not_helpful_count",
+			"fieldtype": "Int",
+			"label": "Not Helpful Count",
+			"read_only": 1
+		},
+		{
+			"fieldname": "column_break_usage",
+			"fieldtype": "Column Break"
+		},
+		{
+			"default": "0",
+			"fieldname": "ai_usage_count",
+			"fieldtype": "Int",
+			"label": "AI Usage Count",
+			"read_only": 1,
+			"description": "Times used in AI responses"
+		},
+		{
+			"fieldname": "last_used_in_ai",
+			"fieldtype": "Datetime",
+			"label": "Last Used in AI",
+			"read_only": 1
+		},
+		{
+			"fieldname": "section_break_metadata",
+			"fieldtype": "Section Break",
+			"label": "External Metadata",
+			"collapsible": 1
+		},
+		{
+			"fieldname": "source_url",
+			"fieldtype": "Data",
+			"label": "Source URL",
+			"options": "URL"
+		},
+		{
+			"fieldname": "external_id",
+			"fieldtype": "Data",
+			"label": "External ID",
+			"description": "ID from external system if imported"
+		}
+	],
+	"index_web_pages_for_search": 1,
+	"links": [],
+	"modified": "2025-01-20 00:00:00.000000",
+	"modified_by": "Administrator",
+	"module": "AI Comms Hub",
+	"name": "Knowledge Base Article",
+	"naming_rule": "Expression",
+	"owner": "Administrator",
+	"permissions": [
+		{
+			"create": 1,
+			"delete": 1,
+			"email": 1,
+			"export": 1,
+			"print": 1,
+			"read": 1,
+			"report": 1,
+			"role": "System Manager",
+			"share": 1,
+			"write": 1
+		},
+		{
+			"create": 1,
+			"email": 1,
+			"export": 1,
+			"print": 1,
+			"read": 1,
+			"report": 1,
+			"role": "Support Team",
+			"share": 1,
+			"write": 1
+		}
+	],
+	"search_fields": "title,summary,keywords",
+	"sort_field": "modified",
+	"sort_order": "DESC",
+	"states": [],
+	"title_field": "title",
+	"track_changes": 1
+}

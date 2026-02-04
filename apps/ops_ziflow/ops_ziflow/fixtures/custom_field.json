@@ -1,0 +1,224 @@
+[
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order Product-ziflow_section",
+    "dt": "OPS Order Product",
+    "fieldname": "ziflow_section",
+    "fieldtype": "Section Break",
+    "label": "ZiFlow Proofing",
+    "insert_after": "product_production_due_date"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order Product-ziflow_proof",
+    "dt": "OPS Order Product",
+    "fieldname": "ziflow_proof",
+    "fieldtype": "Link",
+    "label": "ZiFlow Proof",
+    "options": "OPS ZiFlow Proof",
+    "insert_after": "ziflow_section"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order Product-ziflow_proof_status",
+    "dt": "OPS Order Product",
+    "fieldname": "ziflow_proof_status",
+    "fieldtype": "Select",
+    "label": "Proof Status",
+    "options": "\nPending\nIn Review\nApproved\nRejected",
+    "insert_after": "ziflow_proof"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order Product-ziflow_proof_url",
+    "dt": "OPS Order Product",
+    "fieldname": "ziflow_proof_url",
+    "fieldtype": "Data",
+    "label": "Proof URL",
+    "insert_after": "ziflow_proof_status"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order Product-cb_ziflow",
+    "dt": "OPS Order Product",
+    "fieldname": "cb_ziflow",
+    "fieldtype": "Column Break",
+    "insert_after": "ziflow_proof_url"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order Product-ziflow_deadline",
+    "dt": "OPS Order Product",
+    "fieldname": "ziflow_deadline",
+    "fieldtype": "Date",
+    "label": "Proof Deadline",
+    "insert_after": "cb_ziflow"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order Product-ziflow_approved_at",
+    "dt": "OPS Order Product",
+    "fieldname": "ziflow_approved_at",
+    "fieldtype": "Datetime",
+    "label": "Approved At",
+    "insert_after": "ziflow_deadline"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order Product-ziflow_version",
+    "dt": "OPS Order Product",
+    "fieldname": "ziflow_version",
+    "fieldtype": "Int",
+    "label": "Version",
+    "default": "1",
+    "insert_after": "ziflow_approved_at"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order-customer_panel_section",
+    "dt": "OPS Order",
+    "fieldname": "customer_panel_section",
+    "fieldtype": "Section Break",
+    "label": "Customer Overview",
+    "insert_after": "orders_info_tab",
+    "collapsible": 0
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order-customer_panel_html",
+    "dt": "OPS Order",
+    "fieldname": "customer_panel_html",
+    "fieldtype": "HTML",
+    "label": "Customer Panel",
+    "insert_after": "customer_panel_section"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order-order_actions_html",
+    "dt": "OPS Order",
+    "fieldname": "order_actions_html",
+    "fieldtype": "HTML",
+    "label": "Quick Actions",
+    "insert_after": "customer_panel_html"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order-order_summary_html",
+    "dt": "OPS Order",
+    "fieldname": "order_summary_html",
+    "fieldtype": "HTML",
+    "label": "Order Summary",
+    "insert_after": "order_actions_html"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order-ziflow_tab",
+    "dt": "OPS Order",
+    "fieldname": "ziflow_tab",
+    "fieldtype": "Tab Break",
+    "label": "Proofing",
+    "insert_after": "ops_order_products"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order-all_proofs_approved",
+    "dt": "OPS Order",
+    "fieldname": "all_proofs_approved",
+    "fieldtype": "Check",
+    "label": "All Proofs Approved",
+    "read_only": 1,
+    "insert_after": "ziflow_tab"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order-pending_proof_count",
+    "dt": "OPS Order",
+    "fieldname": "pending_proof_count",
+    "fieldtype": "Int",
+    "label": "Pending Proofs",
+    "read_only": 1,
+    "insert_after": "all_proofs_approved"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Order-ziflow_proofs_html",
+    "dt": "OPS Order",
+    "fieldname": "ziflow_proofs_html",
+    "fieldtype": "HTML",
+    "label": "Proof Status Summary",
+    "insert_after": "pending_proof_count"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Product-ziflow_section",
+    "dt": "OPS Product",
+    "fieldname": "ziflow_section",
+    "fieldtype": "Section Break",
+    "label": "ZiFlow Settings",
+    "insert_after": "sync_tab"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Product-requires_proof_approval",
+    "dt": "OPS Product",
+    "fieldname": "requires_proof_approval",
+    "fieldtype": "Check",
+    "label": "Requires Proof Approval",
+    "insert_after": "ziflow_section"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Product-default_ziflow_template",
+    "dt": "OPS Product",
+    "fieldname": "default_ziflow_template",
+    "fieldtype": "Data",
+    "label": "Default Template ID",
+    "insert_after": "requires_proof_approval"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Product-ziflow_folder_id",
+    "dt": "OPS Product",
+    "fieldname": "ziflow_folder_id",
+    "fieldtype": "Data",
+    "label": "ZiFlow Folder ID",
+    "insert_after": "default_ziflow_template"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Customer-ziflow_section",
+    "dt": "OPS Customer",
+    "fieldname": "ziflow_section",
+    "fieldtype": "Section Break",
+    "label": "ZiFlow Settings",
+    "insert_after": "add_address_button"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Customer-ziflow_folder_id",
+    "dt": "OPS Customer",
+    "fieldname": "ziflow_folder_id",
+    "fieldtype": "Data",
+    "label": "ZiFlow Folder ID",
+    "insert_after": "ziflow_section"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Customer-default_proof_reviewers",
+    "dt": "OPS Customer",
+    "fieldname": "default_proof_reviewers",
+    "fieldtype": "Small Text",
+    "label": "Default Reviewers (emails)",
+    "insert_after": "ziflow_folder_id"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "OPS Customer-proof_notifications_enabled",
+    "dt": "OPS Customer",
+    "fieldname": "proof_notifications_enabled",
+    "fieldtype": "Check",
+    "label": "Proof Notifications",
+    "default": "1",
+    "insert_after": "default_proof_reviewers"
+  }
+]

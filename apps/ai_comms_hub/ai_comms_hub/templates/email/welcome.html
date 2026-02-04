@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Welcome to AI Communications Hub</title>
+	<style>
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+			line-height: 1.6;
+			color: #333;
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+		.header {
+			background-color: #2196f3;
+			color: white;
+			padding: 30px;
+			text-align: center;
+			border-radius: 8px 8px 0 0;
+		}
+		.content {
+			background-color: #f9f9f9;
+			padding: 30px;
+			border-radius: 0 0 8px 8px;
+		}
+		.button {
+			display: inline-block;
+			padding: 12px 24px;
+			background-color: #2196f3;
+			color: white;
+			text-decoration: none;
+			border-radius: 4px;
+			margin: 20px 0;
+		}
+		.footer {
+			text-align: center;
+			padding: 20px;
+			color: #666;
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+	<div class="header">
+		<h1>Welcome to AI Communications Hub!</h1>
+	</div>
+
+	<div class="content">
+		<p>Hello {{ customer_name }},</p>
+
+		<p>Thank you for connecting with us via {{ channel }}! Our AI-powered assistant is here to help you 24/7.</p>
+
+		<h3>What We Can Help You With:</h3>
+		<ul>
+			<li>Check order status</li>
+			<li>Product information and availability</li>
+			<li>Get instant quotes</li>
+			<li>General support and questions</li>
+			<li>Connect you with a human agent when needed</li>
+		</ul>
+
+		<p>Your conversation is important to us. If our AI assistant can't help, we'll automatically connect you with a human agent.</p>
+
+		<a href="{{ conversation_link }}" class="button">View Your Conversation</a>
+
+		<p>If you have any questions or concerns, simply reply to this email or send us a message on any of our channels.</p>
+
+		<p>Best regards,<br>
+		{{ company_name }} Support Team</p>
+	</div>
+
+	<div class="footer">
+		<p>This is an automated message from AI Communications Hub.</p>
+		<p>{{ company_name }} | {{ company_address }}</p>
+	</div>
+</body>
+</html>

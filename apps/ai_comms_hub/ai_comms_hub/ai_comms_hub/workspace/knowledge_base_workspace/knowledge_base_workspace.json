@@ -1,0 +1,101 @@
+{
+	"charts": [],
+	"content": "[{\"id\":\"header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Knowledge Base Management</b></span>\",\"col\":12}},{\"id\":\"intro\",\"type\":\"paragraph\",\"data\":{\"text\":\"Manage your AI knowledge base articles, categories, and content for intelligent customer responses.\",\"col\":12}}]",
+	"creation": "2025-01-20 00:00:00.000000",
+	"developer_mode_only": 0,
+	"disable_user_customization": 0,
+	"docstatus": 0,
+	"doctype": "Workspace",
+	"for_user": "",
+	"hide_custom": 0,
+	"icon": "book",
+	"idx": 0,
+	"is_hidden": 0,
+	"label": "Knowledge Base",
+	"links": [
+		{
+			"hidden": 0,
+			"is_query_report": 0,
+			"label": "Knowledge Base Article",
+			"link_count": 0,
+			"link_to": "Knowledge Base Article",
+			"link_type": "DocType",
+			"onboard": 1,
+			"type": "Link"
+		},
+		{
+			"hidden": 0,
+			"is_query_report": 0,
+			"label": "Knowledge Base Category",
+			"link_count": 0,
+			"link_to": "Knowledge Base Category",
+			"link_type": "DocType",
+			"onboard": 1,
+			"type": "Link"
+		},
+		{
+			"hidden": 0,
+			"is_query_report": 0,
+			"label": "Chatwoot FAQ",
+			"link_count": 0,
+			"link_to": "Chatwoot FAQ",
+			"link_type": "DocType",
+			"onboard": 0,
+			"type": "Link"
+		},
+		{
+			"hidden": 0,
+			"is_query_report": 0,
+			"label": "Chatwoot FAQ Category",
+			"link_count": 0,
+			"link_to": "Chatwoot FAQ Category",
+			"link_type": "DocType",
+			"onboard": 0,
+			"type": "Link"
+		}
+	],
+	"modified": "2025-01-20 00:00:00.000000",
+	"modified_by": "Administrator",
+	"module": "AI Comms Hub",
+	"name": "Knowledge Base",
+	"number_cards": [],
+	"owner": "Administrator",
+	"parent_page": "",
+	"public": 1,
+	"restrict_to_domain": "",
+	"roles": [],
+	"sequence_id": 15,
+	"shortcuts": [
+		{
+			"color": "Blue",
+			"doc_view": "List",
+			"label": "All Articles",
+			"link_to": "Knowledge Base Article",
+			"type": "DocType"
+		},
+		{
+			"color": "Green",
+			"doc_view": "List",
+			"label": "Published Articles",
+			"link_to": "Knowledge Base Article",
+			"stats_filter": "[['Knowledge Base Article', 'status', '=', 'Published']]",
+			"type": "DocType"
+		},
+		{
+			"color": "Orange",
+			"doc_view": "List",
+			"label": "Draft Articles",
+			"link_to": "Knowledge Base Article",
+			"stats_filter": "[['Knowledge Base Article', 'status', '=', 'Draft']]",
+			"type": "DocType"
+		},
+		{
+			"color": "Purple",
+			"doc_view": "List",
+			"label": "Categories",
+			"link_to": "Knowledge Base Category",
+			"type": "DocType"
+		}
+	],
+	"title": "Knowledge Base"
+}

@@ -1,0 +1,190 @@
+services:
+  mariadb:
+    image: mariadb:10.6
+    container_name: erpnext-mariadb
+    restart: unless-stopped
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --skip-innodb-read-only-compressed
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword123
+      MYSQL_DATABASE: erpnext
+      MYSQL_USER: erpnext
+      MYSQL_PASSWORD: ErpNextSecure2024!
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      - erpnext-network
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis-cache:
+    image: redis:alpine
+    container_name: erpnext-redis-cache
+    restart: unless-stopped
+    networks:
+      - erpnext-network
+
+  redis-queue:
+    image: redis:alpine
+    container_name: erpnext-redis-queue
+    restart: unless-stopped
+    networks:
+      - erpnext-network
+
+  redis-socketio:
+    image: redis:alpine
+    container_name: erpnext-redis-socketio
+    restart: unless-stopped
+    networks:
+      - erpnext-network
+
+  backend:
+    image: frappe/erpnext:develop
+    container_name: erpnext-backend
+    restart: unless-stopped
+    volumes:
+      - sites-data:/home/frappe/frappe-bench/sites
+      - logs-data:/home/frappe/frappe-bench/logs
+      - ./apps/ops_ziflow:/home/frappe/frappe-bench/apps/ops_ziflow
+      - ./apps/frappe_search:/home/frappe/frappe-bench/apps/frappe_search
+      - ./apps/chat_bridge:/home/frappe/frappe-bench/apps/chat_bridge
+      - ./apps/ai_comms_hub:/home/frappe/frappe-bench/apps/ai_comms_hub
+      - ./apps/next_crm:/home/frappe/frappe-bench/apps/next_crm
+    networks:
+      - erpnext-network
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis-cache:
+        condition: service_started
+      redis-queue:
+        condition: service_started
+      redis-socketio:
+        condition: service_started
+
+  frontend:
+    image: frappe/erpnext:develop
+    container_name: erpnext-frontend
+    restart: unless-stopped
+    command: nginx-entrypoint.sh
+    environment:
+      BACKEND: backend:8000
+      SOCKETIO: websocket:9000
+      FRAPPE_SITE_NAME_HEADER: localhost
+      UPSTREAM_REAL_IP_ADDRESS: 127.0.0.1
+      UPSTREAM_REAL_IP_HEADER: X-Forwarded-For
+      UPSTREAM_REAL_IP_RECURSIVE: "off"
+    volumes:
+      - sites-data:/home/frappe/frappe-bench/sites
+    ports:
+      - "8080:8080"
+    networks:
+      - erpnext-network
+    depends_on:
+      - backend
+      - websocket
+
+  websocket:
+    image: frappe/erpnext:develop
+    container_name: erpnext-websocket
+    restart: unless-stopped
+    command: node /home/frappe/frappe-bench/apps/frappe/socketio.js
+    volumes:
+      - sites-data:/home/frappe/frappe-bench/sites
+      - logs-data:/home/frappe/frappe-bench/logs
+      - ./apps/ops_ziflow:/home/frappe/frappe-bench/apps/ops_ziflow
+      - ./apps/frappe_search:/home/frappe/frappe-bench/apps/frappe_search
+      - ./apps/chat_bridge:/home/frappe/frappe-bench/apps/chat_bridge
+      - ./apps/ai_comms_hub:/home/frappe/frappe-bench/apps/ai_comms_hub
+      - ./apps/next_crm:/home/frappe/frappe-bench/apps/next_crm
+    networks:
+      - erpnext-network
+    depends_on:
+      - backend
+
+  queue-short:
+    image: frappe/erpnext:develop
+    container_name: erpnext-queue-short
+    restart: unless-stopped
+    command: bench worker --queue short
+    volumes:
+      - sites-data:/home/frappe/frappe-bench/sites
+      - logs-data:/home/frappe/frappe-bench/logs
+      - ./apps/ops_ziflow:/home/frappe/frappe-bench/apps/ops_ziflow
+      - ./apps/frappe_search:/home/frappe/frappe-bench/apps/frappe_search
+      - ./apps/chat_bridge:/home/frappe/frappe-bench/apps/chat_bridge
+      - ./apps/ai_comms_hub:/home/frappe/frappe-bench/apps/ai_comms_hub
+      - ./apps/next_crm:/home/frappe/frappe-bench/apps/next_crm
+    networks:
+      - erpnext-network
+    depends_on:
+      - backend
+
+  queue-default:
+    image: frappe/erpnext:develop
+    container_name: erpnext-queue-default
+    restart: unless-stopped
+    command: bench worker --queue default
+    volumes:
+      - sites-data:/home/frappe/frappe-bench/sites
+      - logs-data:/home/frappe/frappe-bench/logs
+      - ./apps/ops_ziflow:/home/frappe/frappe-bench/apps/ops_ziflow
+      - ./apps/frappe_search:/home/frappe/frappe-bench/apps/frappe_search
+      - ./apps/chat_bridge:/home/frappe/frappe-bench/apps/chat_bridge
+      - ./apps/ai_comms_hub:/home/frappe/frappe-bench/apps/ai_comms_hub
+      - ./apps/next_crm:/home/frappe/frappe-bench/apps/next_crm
+    networks:
+      - erpnext-network
+    depends_on:
+      - backend
+
+  queue-long:
+    image: frappe/erpnext:develop
+    container_name: erpnext-queue-long
+    restart: unless-stopped
+    command: bench worker --queue long
+    volumes:
+      - sites-data:/home/frappe/frappe-bench/sites
+      - logs-data:/home/frappe/frappe-bench/logs
+      - ./apps/ops_ziflow:/home/frappe/frappe-bench/apps/ops_ziflow
+      - ./apps/frappe_search:/home/frappe/frappe-bench/apps/frappe_search
+      - ./apps/chat_bridge:/home/frappe/frappe-bench/apps/chat_bridge
+      - ./apps/ai_comms_hub:/home/frappe/frappe-bench/apps/ai_comms_hub
+      - ./apps/next_crm:/home/frappe/frappe-bench/apps/next_crm
+    networks:
+      - erpnext-network
+    depends_on:
+      - backend
+
+  scheduler:
+    image: frappe/erpnext:develop
+    container_name: erpnext-scheduler
+    restart: unless-stopped
+    command: bench schedule
+    volumes:
+      - sites-data:/home/frappe/frappe-bench/sites
+      - logs-data:/home/frappe/frappe-bench/logs
+      - ./apps/ops_ziflow:/home/frappe/frappe-bench/apps/ops_ziflow
+      - ./apps/frappe_search:/home/frappe/frappe-bench/apps/frappe_search
+      - ./apps/chat_bridge:/home/frappe/frappe-bench/apps/chat_bridge
+      - ./apps/ai_comms_hub:/home/frappe/frappe-bench/apps/ai_comms_hub
+      - ./apps/next_crm:/home/frappe/frappe-bench/apps/next_crm
+    networks:
+      - erpnext-network
+    depends_on:
+      - backend
+
+volumes:
+  mariadb-data:
+  sites-data:
+  logs-data:
+
+networks:
+  erpnext-network:
+    driver: bridge

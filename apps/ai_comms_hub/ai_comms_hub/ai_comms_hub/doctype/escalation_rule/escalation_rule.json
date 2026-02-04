@@ -1,0 +1,358 @@
+{
+	"actions": [],
+	"autoname": "field:rule_name",
+	"creation": "2025-01-20 00:00:00.000000",
+	"doctype": "DocType",
+	"engine": "InnoDB",
+	"field_order": [
+		"rule_name",
+		"is_enabled",
+		"priority",
+		"column_break_1",
+		"description",
+		"section_break_conditions",
+		"condition_type",
+		"column_break_cond",
+		"match_all_conditions",
+		"section_break_keywords",
+		"trigger_keywords",
+		"exclude_keywords",
+		"section_break_sentiment",
+		"sentiment_trigger",
+		"sentiment_threshold",
+		"section_break_intent",
+		"intent_trigger",
+		"section_break_metrics",
+		"message_count_trigger",
+		"message_count_threshold",
+		"column_break_metrics",
+		"response_time_trigger",
+		"response_time_threshold",
+		"section_break_channel",
+		"channel_filter",
+		"specific_channels",
+		"section_break_customer",
+		"customer_type_filter",
+		"vip_customers_only",
+		"section_break_action",
+		"escalation_action",
+		"assign_to_user",
+		"assign_to_role",
+		"column_break_action",
+		"notification_template",
+		"auto_respond",
+		"auto_response_message",
+		"section_break_schedule",
+		"schedule_enabled",
+		"active_days",
+		"active_hours_start",
+		"active_hours_end",
+		"section_break_stats",
+		"times_triggered",
+		"last_triggered"
+	],
+	"fields": [
+		{
+			"fieldname": "rule_name",
+			"fieldtype": "Data",
+			"in_list_view": 1,
+			"label": "Rule Name",
+			"reqd": 1,
+			"unique": 1
+		},
+		{
+			"default": "1",
+			"fieldname": "is_enabled",
+			"fieldtype": "Check",
+			"in_list_view": 1,
+			"label": "Is Enabled"
+		},
+		{
+			"default": "5",
+			"fieldname": "priority",
+			"fieldtype": "Int",
+			"in_list_view": 1,
+			"label": "Priority",
+			"description": "Higher priority rules are evaluated first (1-10)"
+		},
+		{
+			"fieldname": "column_break_1",
+			"fieldtype": "Column Break"
+		},
+		{
+			"fieldname": "description",
+			"fieldtype": "Small Text",
+			"label": "Description"
+		},
+		{
+			"fieldname": "section_break_conditions",
+			"fieldtype": "Section Break",
+			"label": "Condition Settings"
+		},
+		{
+			"default": "Keyword",
+			"fieldname": "condition_type",
+			"fieldtype": "Select",
+			"in_list_view": 1,
+			"label": "Primary Condition Type",
+			"options": "Keyword\nSentiment\nIntent\nMessage Count\nResponse Time\nCombined"
+		},
+		{
+			"fieldname": "column_break_cond",
+			"fieldtype": "Column Break"
+		},
+		{
+			"default": "0",
+			"fieldname": "match_all_conditions",
+			"fieldtype": "Check",
+			"label": "Match All Conditions",
+			"description": "If enabled, all specified conditions must match. Otherwise, any condition triggers escalation."
+		},
+		{
+			"fieldname": "section_break_keywords",
+			"fieldtype": "Section Break",
+			"label": "Keyword Conditions",
+			"depends_on": "eval:doc.condition_type=='Keyword' || doc.condition_type=='Combined'"
+		},
+		{
+			"fieldname": "trigger_keywords",
+			"fieldtype": "Small Text",
+			"label": "Trigger Keywords",
+			"description": "Comma-separated keywords that trigger escalation (e.g., 'urgent, emergency, lawsuit, cancel subscription')"
+		},
+		{
+			"fieldname": "exclude_keywords",
+			"fieldtype": "Small Text",
+			"label": "Exclude Keywords",
+			"description": "Keywords that prevent escalation even if trigger keywords match"
+		},
+		{
+			"fieldname": "section_break_sentiment",
+			"fieldtype": "Section Break",
+			"label": "Sentiment Conditions",
+			"depends_on": "eval:doc.condition_type=='Sentiment' || doc.condition_type=='Combined'"
+		},
+		{
+			"fieldname": "sentiment_trigger",
+			"fieldtype": "Select",
+			"label": "Trigger on Sentiment",
+			"options": "\nNegative\nVery Negative\nAny Negative"
+		},
+		{
+			"default": "0.7",
+			"fieldname": "sentiment_threshold",
+			"fieldtype": "Float",
+			"label": "Sentiment Threshold",
+			"description": "Sentiment score threshold (0-1) for triggering"
+		},
+		{
+			"fieldname": "section_break_intent",
+			"fieldtype": "Section Break",
+			"label": "Intent Conditions",
+			"depends_on": "eval:doc.condition_type=='Intent' || doc.condition_type=='Combined'"
+		},
+		{
+			"fieldname": "intent_trigger",
+			"fieldtype": "Small Text",
+			"label": "Trigger on Intents",
+			"description": "Comma-separated intents that trigger escalation (e.g., 'complaint, refund_request, legal_threat')"
+		},
+		{
+			"fieldname": "section_break_metrics",
+			"fieldtype": "Section Break",
+			"label": "Metric Conditions",
+			"depends_on": "eval:doc.condition_type=='Message Count' || doc.condition_type=='Response Time' || doc.condition_type=='Combined'"
+		},
+		{
+			"default": "0",
+			"fieldname": "message_count_trigger",
+			"fieldtype": "Check",
+			"label": "Trigger on Message Count"
+		},
+		{
+			"default": "10",
+			"fieldname": "message_count_threshold",
+			"fieldtype": "Int",
+			"label": "Message Count Threshold",
+			"description": "Escalate if conversation exceeds this many messages"
+		},
+		{
+			"fieldname": "column_break_metrics",
+			"fieldtype": "Column Break"
+		},
+		{
+			"default": "0",
+			"fieldname": "response_time_trigger",
+			"fieldtype": "Check",
+			"label": "Trigger on Response Time"
+		},
+		{
+			"default": "300",
+			"fieldname": "response_time_threshold",
+			"fieldtype": "Int",
+			"label": "Response Time Threshold (sec)",
+			"description": "Escalate if AI response takes longer than this"
+		},
+		{
+			"fieldname": "section_break_channel",
+			"fieldtype": "Section Break",
+			"label": "Channel Filter"
+		},
+		{
+			"default": "All",
+			"fieldname": "channel_filter",
+			"fieldtype": "Select",
+			"label": "Apply to Channels",
+			"options": "All\nSpecific Channels"
+		},
+		{
+			"fieldname": "specific_channels",
+			"fieldtype": "Small Text",
+			"label": "Specific Channels",
+			"depends_on": "eval:doc.channel_filter=='Specific Channels'",
+			"description": "Comma-separated channel names (e.g., 'Email, Voice, Chat')"
+		},
+		{
+			"fieldname": "section_break_customer",
+			"fieldtype": "Section Break",
+			"label": "Customer Filter"
+		},
+		{
+			"default": "All",
+			"fieldname": "customer_type_filter",
+			"fieldtype": "Select",
+			"label": "Apply to Customer Type",
+			"options": "All\nNew Customers\nExisting Customers"
+		},
+		{
+			"default": "0",
+			"fieldname": "vip_customers_only",
+			"fieldtype": "Check",
+			"label": "VIP Customers Only"
+		},
+		{
+			"fieldname": "section_break_action",
+			"fieldtype": "Section Break",
+			"label": "Escalation Action"
+		},
+		{
+			"default": "Escalate",
+			"fieldname": "escalation_action",
+			"fieldtype": "Select",
+			"label": "Action",
+			"options": "Escalate\nEscalate and Assign\nNotify Only\nSwitch to HITL"
+		},
+		{
+			"fieldname": "assign_to_user",
+			"fieldtype": "Link",
+			"label": "Assign to User",
+			"options": "User",
+			"depends_on": "eval:doc.escalation_action=='Escalate and Assign'"
+		},
+		{
+			"fieldname": "assign_to_role",
+			"fieldtype": "Link",
+			"label": "Assign to Role",
+			"options": "Role",
+			"depends_on": "eval:doc.escalation_action=='Escalate and Assign'"
+		},
+		{
+			"fieldname": "column_break_action",
+			"fieldtype": "Column Break"
+		},
+		{
+			"fieldname": "notification_template",
+			"fieldtype": "Link",
+			"label": "Notification Template",
+			"options": "Notification"
+		},
+		{
+			"default": "0",
+			"fieldname": "auto_respond",
+			"fieldtype": "Check",
+			"label": "Send Auto Response"
+		},
+		{
+			"fieldname": "auto_response_message",
+			"fieldtype": "Small Text",
+			"label": "Auto Response Message",
+			"depends_on": "eval:doc.auto_respond"
+		},
+		{
+			"fieldname": "section_break_schedule",
+			"fieldtype": "Section Break",
+			"label": "Schedule",
+			"collapsible": 1
+		},
+		{
+			"default": "0",
+			"fieldname": "schedule_enabled",
+			"fieldtype": "Check",
+			"label": "Enable Schedule"
+		},
+		{
+			"fieldname": "active_days",
+			"fieldtype": "Small Text",
+			"label": "Active Days",
+			"depends_on": "eval:doc.schedule_enabled",
+			"description": "Comma-separated days (e.g., 'Monday, Tuesday, Wednesday')"
+		},
+		{
+			"fieldname": "active_hours_start",
+			"fieldtype": "Time",
+			"label": "Active Hours Start",
+			"depends_on": "eval:doc.schedule_enabled"
+		},
+		{
+			"fieldname": "active_hours_end",
+			"fieldtype": "Time",
+			"label": "Active Hours End",
+			"depends_on": "eval:doc.schedule_enabled"
+		},
+		{
+			"fieldname": "section_break_stats",
+			"fieldtype": "Section Break",
+			"label": "Statistics",
+			"collapsible": 1
+		},
+		{
+			"default": "0",
+			"fieldname": "times_triggered",
+			"fieldtype": "Int",
+			"label": "Times Triggered",
+			"read_only": 1
+		},
+		{
+			"fieldname": "last_triggered",
+			"fieldtype": "Datetime",
+			"label": "Last Triggered",
+			"read_only": 1
+		}
+	],
+	"index_web_pages_for_search": 1,
+	"links": [],
+	"modified": "2025-01-20 00:00:00.000000",
+	"modified_by": "Administrator",
+	"module": "AI Comms Hub",
+	"name": "Escalation Rule",
+	"naming_rule": "By fieldname",
+	"owner": "Administrator",
+	"permissions": [
+		{
+			"create": 1,
+			"delete": 1,
+			"email": 1,
+			"export": 1,
+			"print": 1,
+			"read": 1,
+			"report": 1,
+			"role": "System Manager",
+			"share": 1,
+			"write": 1
+		}
+	],
+	"sort_field": "priority",
+	"sort_order": "DESC",
+	"states": [],
+	"track_changes": 1
+}

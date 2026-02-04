@@ -1,0 +1,499 @@
+{
+  "doctype": "DocType",
+  "name": "OPS Quote",
+  "module": "OPS Integration",
+  "custom": 0,
+  "track_changes": 1,
+  "autoname": "field:quote_id",
+  "title_field": "quote_title",
+  "search_fields": "quote_title,quote_id,customer_name,customer_email",
+  "field_order": [
+    "basic_info_tab",
+    "quote_id",
+    "quote_title",
+    "quote_status",
+    "quote_date",
+    "column_break_basic",
+    "user_id",
+    "ops_customer",
+    "ops_store",
+    "sort_order",
+    "customer_info_section",
+    "customer_name",
+    "customer_email",
+    "customer_telephone",
+    "column_break_customer",
+    "customer_company",
+    "selected_shipping_type",
+    "pricing_tab",
+    "quote_price",
+    "quote_vendor_price",
+    "column_break_pricing",
+    "ship_amt",
+    "tax_amt",
+    "quote_tax_exempt",
+    "totals_section",
+    "subtotal",
+    "total_amount",
+    "column_break_totals",
+    "profit_margin",
+    "profit_percentage",
+    "address_tab",
+    "shipping_address_section",
+    "shipping_name",
+    "shipping_company",
+    "shipping_street_address",
+    "column_break_ship_addr",
+    "shipping_city",
+    "shipping_state",
+    "shipping_postcode",
+    "shipping_country",
+    "shipping_telephone",
+    "billing_address_section",
+    "billing_name",
+    "billing_company",
+    "billing_street_address",
+    "column_break_bill_addr",
+    "billing_city",
+    "billing_state",
+    "billing_postcode",
+    "billing_country",
+    "billing_telephone",
+    "products_tab",
+    "quote_products",
+    "product_options_section",
+    "quote_product_options",
+    "notes_tab",
+    "admin_notes",
+    "customer_notes",
+    "sync_tab",
+    "sync_status",
+    "last_synced",
+    "sync_in_progress",
+    "sync_error",
+    "raw_shipping_addr",
+    "raw_billing_addr",
+    "raw_payload"
+  ],
+  "fields": [
+    {
+      "fieldname": "basic_info_tab",
+      "fieldtype": "Tab Break",
+      "label": "Basic Info"
+    },
+    {
+      "fieldname": "quote_id",
+      "fieldtype": "Int",
+      "label": "Quote ID",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "bold": 1,
+      "description": "OnPrintShop quote_id"
+    },
+    {
+      "fieldname": "quote_title",
+      "fieldtype": "Data",
+      "label": "Quote Title",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "quote_status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "\nDraft\nPending\nSent\nAccepted\nRejected\nExpired\nConverted\nCancelled",
+      "default": "Draft",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "quote_date",
+      "fieldtype": "Date",
+      "label": "Quote Date",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "user_id",
+      "fieldtype": "Int",
+      "label": "User ID",
+      "description": "OnPrintShop user_id"
+    },
+    {
+      "fieldname": "ops_customer",
+      "fieldtype": "Link",
+      "label": "OPS Customer",
+      "options": "OPS Customer",
+      "in_standard_filter": 1,
+      "description": "Link to OPS Customer DocType"
+    },
+    {
+      "fieldname": "ops_store",
+      "fieldtype": "Link",
+      "label": "OPS Store",
+      "options": "OPS Store",
+      "in_standard_filter": 1,
+      "description": "Link to OPS Store DocType"
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "Sort Order",
+      "default": "0"
+    },
+    {
+      "fieldname": "customer_info_section",
+      "fieldtype": "Section Break",
+      "label": "Customer Information"
+    },
+    {
+      "fieldname": "customer_name",
+      "fieldtype": "Data",
+      "label": "Customer Name",
+      "fetch_from": "ops_customer.customer_name",
+      "read_only": 1
+    },
+    {
+      "fieldname": "customer_email",
+      "fieldtype": "Data",
+      "label": "Customer Email",
+      "options": "Email",
+      "fetch_from": "ops_customer.customer_email",
+      "read_only": 1
+    },
+    {
+      "fieldname": "customer_telephone",
+      "fieldtype": "Data",
+      "label": "Customer Telephone",
+      "options": "Phone"
+    },
+    {
+      "fieldname": "column_break_customer",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "customer_company",
+      "fieldtype": "Data",
+      "label": "Customer Company",
+      "fetch_from": "ops_customer.customer_company",
+      "read_only": 1
+    },
+    {
+      "fieldname": "selected_shipping_type",
+      "fieldtype": "Data",
+      "label": "Shipping Type",
+      "description": "Selected shipping method"
+    },
+    {
+      "fieldname": "pricing_tab",
+      "fieldtype": "Tab Break",
+      "label": "Pricing"
+    },
+    {
+      "fieldname": "quote_price",
+      "fieldtype": "Currency",
+      "label": "Quote Price",
+      "in_list_view": 1,
+      "bold": 1
+    },
+    {
+      "fieldname": "quote_vendor_price",
+      "fieldtype": "Currency",
+      "label": "Vendor Price"
+    },
+    {
+      "fieldname": "column_break_pricing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "ship_amt",
+      "fieldtype": "Currency",
+      "label": "Shipping Amount"
+    },
+    {
+      "fieldname": "tax_amt",
+      "fieldtype": "Currency",
+      "label": "Tax Amount"
+    },
+    {
+      "fieldname": "quote_tax_exempt",
+      "fieldtype": "Check",
+      "label": "Tax Exempt",
+      "description": "Whether this quote is tax exempt"
+    },
+    {
+      "fieldname": "totals_section",
+      "fieldtype": "Section Break",
+      "label": "Totals"
+    },
+    {
+      "fieldname": "subtotal",
+      "fieldtype": "Currency",
+      "label": "Subtotal",
+      "read_only": 1,
+      "description": "Sum of all product prices"
+    },
+    {
+      "fieldname": "total_amount",
+      "fieldtype": "Currency",
+      "label": "Total Amount",
+      "read_only": 1,
+      "bold": 1,
+      "description": "Quote Price + Shipping + Tax"
+    },
+    {
+      "fieldname": "column_break_totals",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "profit_margin",
+      "fieldtype": "Currency",
+      "label": "Profit Margin",
+      "read_only": 1,
+      "description": "Quote Price - Vendor Price"
+    },
+    {
+      "fieldname": "profit_percentage",
+      "fieldtype": "Percent",
+      "label": "Profit %",
+      "read_only": 1
+    },
+    {
+      "fieldname": "address_tab",
+      "fieldtype": "Tab Break",
+      "label": "Addresses"
+    },
+    {
+      "fieldname": "shipping_address_section",
+      "fieldtype": "Section Break",
+      "label": "Shipping Address"
+    },
+    {
+      "fieldname": "shipping_name",
+      "fieldtype": "Data",
+      "label": "Name"
+    },
+    {
+      "fieldname": "shipping_company",
+      "fieldtype": "Data",
+      "label": "Company"
+    },
+    {
+      "fieldname": "shipping_street_address",
+      "fieldtype": "Data",
+      "label": "Street Address"
+    },
+    {
+      "fieldname": "column_break_ship_addr",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "shipping_city",
+      "fieldtype": "Data",
+      "label": "City"
+    },
+    {
+      "fieldname": "shipping_state",
+      "fieldtype": "Data",
+      "label": "State"
+    },
+    {
+      "fieldname": "shipping_postcode",
+      "fieldtype": "Data",
+      "label": "Postcode"
+    },
+    {
+      "fieldname": "shipping_country",
+      "fieldtype": "Data",
+      "label": "Country"
+    },
+    {
+      "fieldname": "shipping_telephone",
+      "fieldtype": "Data",
+      "label": "Telephone",
+      "options": "Phone"
+    },
+    {
+      "fieldname": "billing_address_section",
+      "fieldtype": "Section Break",
+      "label": "Billing Address"
+    },
+    {
+      "fieldname": "billing_name",
+      "fieldtype": "Data",
+      "label": "Name"
+    },
+    {
+      "fieldname": "billing_company",
+      "fieldtype": "Data",
+      "label": "Company"
+    },
+    {
+      "fieldname": "billing_street_address",
+      "fieldtype": "Data",
+      "label": "Street Address"
+    },
+    {
+      "fieldname": "column_break_bill_addr",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "billing_city",
+      "fieldtype": "Data",
+      "label": "City"
+    },
+    {
+      "fieldname": "billing_state",
+      "fieldtype": "Data",
+      "label": "State"
+    },
+    {
+      "fieldname": "billing_postcode",
+      "fieldtype": "Data",
+      "label": "Postcode"
+    },
+    {
+      "fieldname": "billing_country",
+      "fieldtype": "Data",
+      "label": "Country"
+    },
+    {
+      "fieldname": "billing_telephone",
+      "fieldtype": "Data",
+      "label": "Telephone",
+      "options": "Phone"
+    },
+    {
+      "fieldname": "products_tab",
+      "fieldtype": "Tab Break",
+      "label": "Products"
+    },
+    {
+      "fieldname": "quote_products",
+      "fieldtype": "Table",
+      "label": "Quote Products",
+      "options": "OPS Quote Product",
+      "reqd": 0
+    },
+    {
+      "fieldname": "product_options_section",
+      "fieldtype": "Section Break",
+      "label": "Product Options/Attributes",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "quote_product_options",
+      "fieldtype": "Table",
+      "label": "Product Options",
+      "options": "OPS Quote Product Option",
+      "description": "Selected options/attributes for each product"
+    },
+    {
+      "fieldname": "notes_tab",
+      "fieldtype": "Tab Break",
+      "label": "Notes"
+    },
+    {
+      "fieldname": "admin_notes",
+      "fieldtype": "Text Editor",
+      "label": "Admin Notes"
+    },
+    {
+      "fieldname": "customer_notes",
+      "fieldtype": "Text Editor",
+      "label": "Customer Notes"
+    },
+    {
+      "fieldname": "sync_tab",
+      "fieldtype": "Tab Break",
+      "label": "Sync"
+    },
+    {
+      "fieldname": "sync_status",
+      "fieldtype": "Select",
+      "label": "Sync Status",
+      "options": "Synced\nPending\nError",
+      "default": "Pending"
+    },
+    {
+      "fieldname": "last_synced",
+      "fieldtype": "Datetime",
+      "label": "Last Synced",
+      "read_only": 1
+    },
+    {
+      "fieldname": "sync_in_progress",
+      "fieldtype": "Check",
+      "label": "Sync In Progress",
+      "default": "0",
+      "hidden": 1,
+      "description": "Flag to prevent sync loops during bidirectional sync"
+    },
+    {
+      "fieldname": "sync_error",
+      "fieldtype": "Small Text",
+      "label": "Sync Error",
+      "read_only": 1
+    },
+    {
+      "fieldname": "raw_shipping_addr",
+      "fieldtype": "Code",
+      "label": "Raw Shipping Address (JSON)",
+      "options": "JSON",
+      "hidden": 1
+    },
+    {
+      "fieldname": "raw_billing_addr",
+      "fieldtype": "Code",
+      "label": "Raw Billing Address (JSON)",
+      "options": "JSON",
+      "hidden": 1
+    },
+    {
+      "fieldname": "raw_payload",
+      "fieldtype": "Code",
+      "label": "Raw OnPrintShop Data",
+      "options": "JSON",
+      "hidden": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1,
+      "report": 1
+    },
+    {
+      "role": "Sales User",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "report": 1
+    },
+    {
+      "role": "Sales Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "report": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "default_print_format": "",
+  "show_title_field_in_link": 1
+}

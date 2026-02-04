@@ -1,0 +1,2 @@
+# DocType: Chat Integration Settings
+

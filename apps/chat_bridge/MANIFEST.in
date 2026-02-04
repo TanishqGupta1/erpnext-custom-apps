@@ -1,0 +1,10 @@
+include README.md
+include LICENSE
+include INSTALLATION.md
+recursive-include chatwoot_bridge *.json
+recursive-include chatwoot_bridge *.html
+recursive-include chatwoot_bridge *.js
+recursive-include chatwoot_bridge *.py
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+

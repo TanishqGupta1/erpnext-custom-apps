@@ -1,0 +1,537 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:ops_order_id",
+ "creation": "2025-12-04 09:28:28.127991",
+ "custom": 1,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "orders_info_tab",
+  "order_details_section",
+  "ops_order_id",
+  "customer_name",
+  "customer_company",
+  "customer_email",
+  "customer_telephone",
+  "date_purchased",
+  "delivery_date",
+  "orders_due_date",
+  "production_due_date",
+  "orders_date_finished",
+  "local_orders_date_finished",
+  "order_last_modified_date",
+  "erp_customer",
+  "column_break_sclt",
+  "orders_status_id",
+  "order_status",
+  "user_id",
+  "ops_customer_id",
+  "order_name",
+  "corporate_id",
+  "transactionid",
+  "coupon_code",
+  "coupon_type",
+  "po_number",
+  "sales_invoice",
+  "sales_order",
+  "payment_tab",
+  "total_amount",
+  "order_amount",
+  "shipping_amount",
+  "coupon_amount",
+  "tax_amount",
+  "order_vendor_amount",
+  "payment_date",
+  "payment_processing_fees",
+  "column_break_dpor",
+  "payment_status_title",
+  "payment_due_date",
+  "invoice_date",
+  "payment_method_name",
+  "invoice_number",
+  "refund_amount",
+  "order_tax",
+  "billing_tab",
+  "delivery_name",
+  "delivery_company",
+  "delivery_telephone",
+  "delivery_city",
+  "delivery_suburb",
+  "delivery_state",
+  "delivery_country",
+  "delivery_postcode",
+  "delivery_state_code",
+  "delivery_street_address",
+  "column_break_qchz",
+  "total_weight",
+  "billing_name",
+  "billing_company",
+  "billing_city",
+  "billing_suburb",
+  "billing_postcode",
+  "billing_state",
+  "billing_state_code",
+  "billing_country",
+  "billing_phone",
+  "billing_street_address",
+  "order_items_tab",
+  "ops_order_products",
+  "order_product_options",
+  "shipping_carrier",
+  "tracking_number",
+  "tracking_url",
+  "shipping_status",
+  "carrier_raw_response",
+  "last_tracking_update"
+ ],
+ "fields": [
+  {
+   "fieldname": "orders_info_tab",
+   "fieldtype": "Tab Break",
+   "label": "CustomerDetails"
+  },
+  {
+   "fieldname": "order_details_section",
+   "fieldtype": "Section Break",
+   "label": "Order Details"
+  },
+  {
+   "fieldname": "ops_order_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "OPS Order ID",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Customer Name"
+  },
+  {
+   "fieldname": "customer_company",
+   "fieldtype": "Link",
+   "label": "Customer Company",
+   "options": "OPS Customer"
+  },
+  {
+   "fieldname": "customer_email",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Customer Email"
+  },
+  {
+   "fieldname": "customer_telephone",
+   "fieldtype": "Data",
+   "label": "Customer Telephone"
+  },
+  {
+   "fieldname": "date_purchased",
+   "fieldtype": "Datetime",
+   "label": "Date Purchased"
+  },
+  {
+   "fieldname": "delivery_date",
+   "fieldtype": "Date",
+   "label": "Expected Delivery Date"
+  },
+  {
+   "fieldname": "orders_due_date",
+   "fieldtype": "Date",
+   "label": "Orders Due Date"
+  },
+  {
+   "fieldname": "production_due_date",
+   "fieldtype": "Date",
+   "label": "Production Due Date"
+  },
+  {
+   "fieldname": "orders_date_finished",
+   "fieldtype": "Datetime",
+   "label": "OPS Finished At"
+  },
+  {
+   "fieldname": "local_orders_date_finished",
+   "fieldtype": "Datetime",
+   "label": "Local Finished At"
+  },
+  {
+   "fieldname": "order_last_modified_date",
+   "fieldtype": "Datetime",
+   "label": "Last Modified"
+  },
+  {
+   "fetch_from": "user_id.userid",
+   "fieldname": "erp_customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "ERP Customer",
+   "options": "OPS Customer"
+  },
+  {
+   "fieldname": "column_break_sclt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "orders_status_id",
+   "fieldtype": "Int",
+   "label": "Order Status ID",
+   "reqd": 1
+  },
+  {
+   "default": "New Order",
+   "fieldname": "order_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Order Status",
+   "options": "Pending\nNew Order\nIn Design\nOrder Processing\nOrder Review\nERROR\nIn Production\nReady for Fulfillment\nFulfilled\nOrder Completed\nCancelled\nRefunded\nMaterials on Order\nQuote (Default)\nReprint Order\nCancellation Request",
+   "reqd": 1
+  },
+  {
+   "fieldname": "user_id",
+   "fieldtype": "Link",
+   "label": "OPS User ID",
+   "options": "OPS Customer"
+  },
+  {
+   "fieldname": "ops_customer_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "OPS Customer ID"
+  },
+  {
+   "fieldname": "order_name",
+   "fieldtype": "Data",
+   "label": "Order Name"
+  },
+  {
+   "fieldname": "corporate_id",
+   "fieldtype": "Int",
+   "label": "Corporate ID"
+  },
+  {
+   "fieldname": "transactionid",
+   "fieldtype": "Data",
+   "label": "Transaction ID"
+  },
+  {
+   "fieldname": "coupon_code",
+   "fieldtype": "Data",
+   "label": "Coupon Code"
+  },
+  {
+   "fieldname": "coupon_type",
+   "fieldtype": "Data",
+   "label": "Coupon Type"
+  },
+  {
+   "fieldname": "po_number",
+   "fieldtype": "Data",
+   "label": "PO Number"
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "ERP Sales Invoice",
+   "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Link",
+   "label": "ERP Sales Order",
+   "options": "Sales Order"
+  },
+  {
+   "fieldname": "payment_tab",
+   "fieldtype": "Tab Break",
+   "label": "Payment"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total Amount",
+   "precision": "2"
+  },
+  {
+   "fieldname": "order_amount",
+   "fieldtype": "Currency",
+   "label": "Order Amount",
+   "reqd": 1
+  },
+  {
+   "fieldname": "shipping_amount",
+   "fieldtype": "Currency",
+   "label": "Shipping Amount"
+  },
+  {
+   "fieldname": "coupon_amount",
+   "fieldtype": "Currency",
+   "label": "Coupon Amount"
+  },
+  {
+   "fieldname": "tax_amount",
+   "fieldtype": "Currency",
+   "label": "Tax Amount"
+  },
+  {
+   "fieldname": "order_vendor_amount",
+   "fieldtype": "Currency",
+   "label": "Vendor Amount"
+  },
+  {
+   "fieldname": "payment_date",
+   "fieldtype": "Datetime",
+   "label": "Payment Date"
+  },
+  {
+   "fieldname": "payment_processing_fees",
+   "fieldtype": "Currency",
+   "label": "Payment Processing Fees"
+  },
+  {
+   "fieldname": "column_break_dpor",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payment_status_title",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Payment Status",
+   "options": "Paid\nUnpaid"
+  },
+  {
+   "fieldname": "payment_due_date",
+   "fieldtype": "Date",
+   "label": "Payment Due Date"
+  },
+  {
+   "fieldname": "invoice_date",
+   "fieldtype": "Data",
+   "label": "Invoice Date"
+  },
+  {
+   "fieldname": "payment_method_name",
+   "fieldtype": "Data",
+   "label": "Payment Method"
+  },
+  {
+   "fieldname": "invoice_number",
+   "fieldtype": "Data",
+   "label": "Invoice Number"
+  },
+  {
+   "fieldname": "refund_amount",
+   "fieldtype": "Currency",
+   "label": "Refund Amount"
+  },
+  {
+   "fieldname": "order_tax",
+   "fieldtype": "Currency",
+   "label": "Order Tax",
+   "precision": "2"
+  },
+  {
+   "fieldname": "billing_tab",
+   "fieldtype": "Tab Break",
+   "label": "Billing"
+  },
+  {
+   "fieldname": "delivery_name",
+   "fieldtype": "Data",
+   "label": "Delivery Name"
+  },
+  {
+   "fieldname": "delivery_company",
+   "fieldtype": "Data",
+   "label": "Delivery Company"
+  },
+  {
+   "fieldname": "delivery_telephone",
+   "fieldtype": "Data",
+   "label": "Delivery Telephone"
+  },
+  {
+   "fieldname": "delivery_city",
+   "fieldtype": "Data",
+   "label": "Delivery City"
+  },
+  {
+   "fieldname": "delivery_suburb",
+   "fieldtype": "Data",
+   "label": "Delivery Suburb"
+  },
+  {
+   "fieldname": "delivery_state",
+   "fieldtype": "Data",
+   "label": "Delivery State"
+  },
+  {
+   "fieldname": "delivery_country",
+   "fieldtype": "Data",
+   "label": "Delivery Country"
+  },
+  {
+   "fieldname": "delivery_postcode",
+   "fieldtype": "Data",
+   "label": "Delivery Postcode"
+  },
+  {
+   "fieldname": "delivery_state_code",
+   "fieldtype": "Data",
+   "label": "Delivery State Code"
+  },
+  {
+   "fieldname": "delivery_street_address",
+   "fieldtype": "Small Text",
+   "label": "Delivery Street Address"
+  },
+  {
+   "fieldname": "column_break_qchz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_weight",
+   "fieldtype": "Float",
+   "label": "Total Weight"
+  },
+  {
+   "fieldname": "billing_name",
+   "fieldtype": "Data",
+   "label": "Billing Name"
+  },
+  {
+   "fieldname": "billing_company",
+   "fieldtype": "Data",
+   "label": "Billing Company"
+  },
+  {
+   "fieldname": "billing_city",
+   "fieldtype": "Data",
+   "label": "Billing City"
+  },
+  {
+   "fieldname": "billing_suburb",
+   "fieldtype": "Data",
+   "label": "Billing Suburb"
+  },
+  {
+   "fieldname": "billing_postcode",
+   "fieldtype": "Data",
+   "label": "Billing Postcode"
+  },
+  {
+   "fieldname": "billing_state",
+   "fieldtype": "Data",
+   "label": "Billing State"
+  },
+  {
+   "fieldname": "billing_state_code",
+   "fieldtype": "Data",
+   "label": "Billing State Code"
+  },
+  {
+   "fieldname": "billing_country",
+   "fieldtype": "Data",
+   "label": "Billing Country"
+  },
+  {
+   "fieldname": "billing_phone",
+   "fieldtype": "Data",
+   "label": "Billing Phone"
+  },
+  {
+   "fieldname": "billing_street_address",
+   "fieldtype": "Small Text",
+   "label": "Billing Street Address"
+  },
+  {
+   "fieldname": "order_items_tab",
+   "fieldtype": "Tab Break",
+   "label": "Order Items"
+  },
+  {
+   "fieldname": "ops_order_products",
+   "fieldtype": "Table",
+   "label": "Order Products",
+   "options": "OPS Order Product"
+  },
+  {
+   "description": "Product options extracted from features_details",
+   "fieldname": "order_product_options",
+   "fieldtype": "Table",
+   "label": "Product Options",
+   "options": "OPS Order Product Option"
+  },
+  {
+   "fieldname": "shipping_carrier",
+   "fieldtype": "Link",
+   "label": "Shipping Carrier",
+   "options": "Shipping Carrier"
+  },
+  {
+   "fieldname": "tracking_number",
+   "fieldtype": "Data",
+   "label": "Tracking Number"
+  },
+  {
+   "fieldname": "tracking_url",
+   "fieldtype": "Small Text",
+   "label": "Tracking URL",
+   "reqd": 1
+  },
+  {
+   "fieldname": "shipping_status",
+   "fieldtype": "Select",
+   "label": "Shipping Status",
+   "options": "Pending\nLabel Created\nPicked Up\nIn Transit\nOut for Delivery\nDelivered\nException"
+  },
+  {
+   "fieldname": "carrier_raw_response",
+   "fieldtype": "Long Text",
+   "label": "Carrier Raw Response",
+   "reqd": 1
+  },
+  {
+   "fieldname": "last_tracking_update",
+   "fieldtype": "Datetime",
+   "label": "Last Tracking Update"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-12-23 04:10:12.848268",
+ "modified_by": "reena@printdeed.com",
+ "module": "OPS Integration",
+ "name": "OPS Order",
+ "naming_rule": "By fieldname",
+ "owner": "christian@visualgraphx.com",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

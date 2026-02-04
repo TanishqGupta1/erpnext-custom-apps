@@ -1,0 +1,16 @@
+{
+    "js/ops_ziflow.min.js": [
+        "public/js/ops_order.js",
+        "public/js/ops_order_part1.js",
+        "public/js/ops_order_product.js",
+        "public/js/ops_quick_nav.js",
+        "public/js/ops_home_redirect.js",
+        "public/js/customer_360.js",
+        "public/js/margin_visualizer.js",
+        "public/js/ops_product_form.js"
+    ],
+    "css/ops_ziflow.min.css": [
+        "public/css/ops_order.css",
+        "public/css/ops_sidebar.css"
+    ]
+}

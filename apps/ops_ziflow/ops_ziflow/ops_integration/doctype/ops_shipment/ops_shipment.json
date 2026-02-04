@@ -1,0 +1,209 @@
+{
+  "actions": [],
+  "creation": "2024-12-26 10:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": [
+    "shipment_details_section",
+    "ops_shipment_id",
+    "carrier",
+    "tracking_number",
+    "column_break_1",
+    "shipment_status",
+    "shipped_date",
+    "delivered_date",
+    "tracking_section",
+    "tracking_url",
+    "last_tracking_update",
+    "column_break_2",
+    "estimated_delivery",
+    "actual_weight",
+    "package_info_section",
+    "package_count",
+    "total_weight",
+    "column_break_3",
+    "dimensions",
+    "shipping_cost",
+    "carrier_response_section",
+    "carrier_raw_response",
+    "sync_section",
+    "last_synced",
+    "sync_error"
+  ],
+  "fields": [
+    {
+      "fieldname": "shipment_details_section",
+      "fieldtype": "Section Break",
+      "label": "Shipment Details"
+    },
+    {
+      "fieldname": "ops_shipment_id",
+      "fieldtype": "Int",
+      "in_list_view": 1,
+      "label": "OPS Shipment ID",
+      "read_only": 1
+    },
+    {
+      "fieldname": "carrier",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Carrier",
+      "reqd": 1
+    },
+    {
+      "fieldname": "tracking_number",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Tracking Number"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "default": "Pending",
+      "fieldname": "shipment_status",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "label": "Status",
+      "options": "Pending\nLabel Created\nPicked Up\nIn Transit\nOut for Delivery\nDelivered\nException\nReturned\nCancelled"
+    },
+    {
+      "fieldname": "shipped_date",
+      "fieldtype": "Datetime",
+      "label": "Shipped Date"
+    },
+    {
+      "fieldname": "delivered_date",
+      "fieldtype": "Datetime",
+      "label": "Delivered Date"
+    },
+    {
+      "fieldname": "tracking_section",
+      "fieldtype": "Section Break",
+      "label": "Tracking"
+    },
+    {
+      "fieldname": "tracking_url",
+      "fieldtype": "Small Text",
+      "label": "Tracking URL"
+    },
+    {
+      "fieldname": "last_tracking_update",
+      "fieldtype": "Datetime",
+      "label": "Last Tracking Update"
+    },
+    {
+      "fieldname": "column_break_2",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "estimated_delivery",
+      "fieldtype": "Date",
+      "label": "Estimated Delivery"
+    },
+    {
+      "fieldname": "actual_weight",
+      "fieldtype": "Float",
+      "label": "Actual Weight (lbs)"
+    },
+    {
+      "fieldname": "package_info_section",
+      "fieldtype": "Section Break",
+      "label": "Package Info"
+    },
+    {
+      "default": "1",
+      "fieldname": "package_count",
+      "fieldtype": "Int",
+      "label": "Package Count"
+    },
+    {
+      "fieldname": "total_weight",
+      "fieldtype": "Float",
+      "label": "Total Weight (lbs)"
+    },
+    {
+      "fieldname": "column_break_3",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "dimensions",
+      "fieldtype": "Data",
+      "label": "Dimensions (L x W x H)"
+    },
+    {
+      "fieldname": "shipping_cost",
+      "fieldtype": "Currency",
+      "label": "Shipping Cost"
+    },
+    {
+      "collapsible": 1,
+      "fieldname": "carrier_response_section",
+      "fieldtype": "Section Break",
+      "label": "Carrier Response"
+    },
+    {
+      "fieldname": "carrier_raw_response",
+      "fieldtype": "Code",
+      "label": "Carrier Raw Response",
+      "options": "JSON"
+    },
+    {
+      "collapsible": 1,
+      "fieldname": "sync_section",
+      "fieldtype": "Section Break",
+      "label": "Sync Info"
+    },
+    {
+      "fieldname": "last_synced",
+      "fieldtype": "Datetime",
+      "label": "Last Synced"
+    },
+    {
+      "fieldname": "sync_error",
+      "fieldtype": "Small Text",
+      "label": "Sync Error"
+    }
+  ],
+  "index_web_pages_for_search": 0,
+  "istable": 0,
+  "links": [],
+  "autoname": "format:SHIP-{ops_shipment_id}",
+  "title_field": "tracking_number",
+  "search_fields": "carrier, tracking_number, shipment_status",
+  "modified": "2024-12-26 10:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "OPS Integration",
+  "name": "OPS Shipment",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+    },
+    {
+      "create": 1,
+      "delete": 0,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "Sales User",
+      "share": 1,
+      "write": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "states": []
+}

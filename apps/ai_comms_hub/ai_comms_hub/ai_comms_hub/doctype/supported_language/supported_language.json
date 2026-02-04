@@ -1,0 +1,75 @@
+{
+	"actions": [],
+	"creation": "2025-01-20 00:00:00.000000",
+	"doctype": "DocType",
+	"engine": "InnoDB",
+	"field_order": [
+		"language_code",
+		"language_name",
+		"native_name",
+		"column_break_1",
+		"is_enabled",
+		"is_default",
+		"priority"
+	],
+	"fields": [
+		{
+			"fieldname": "language_code",
+			"fieldtype": "Data",
+			"in_list_view": 1,
+			"label": "Language Code",
+			"reqd": 1,
+			"description": "ISO 639-1 code (e.g., 'en', 'es', 'fr', 'de', 'zh')"
+		},
+		{
+			"fieldname": "language_name",
+			"fieldtype": "Data",
+			"in_list_view": 1,
+			"label": "Language Name",
+			"reqd": 1
+		},
+		{
+			"fieldname": "native_name",
+			"fieldtype": "Data",
+			"label": "Native Name",
+			"description": "Language name in its native script"
+		},
+		{
+			"fieldname": "column_break_1",
+			"fieldtype": "Column Break"
+		},
+		{
+			"default": "1",
+			"fieldname": "is_enabled",
+			"fieldtype": "Check",
+			"in_list_view": 1,
+			"label": "Is Enabled"
+		},
+		{
+			"default": "0",
+			"fieldname": "is_default",
+			"fieldtype": "Check",
+			"label": "Is Default",
+			"description": "Default language for responses when detection fails"
+		},
+		{
+			"default": "1",
+			"fieldname": "priority",
+			"fieldtype": "Int",
+			"label": "Priority",
+			"description": "Higher priority languages are preferred when ambiguous"
+		}
+	],
+	"index_web_pages_for_search": 0,
+	"istable": 1,
+	"links": [],
+	"modified": "2025-01-20 00:00:00.000000",
+	"modified_by": "Administrator",
+	"module": "AI Comms Hub",
+	"name": "Supported Language",
+	"owner": "Administrator",
+	"permissions": [],
+	"sort_field": "priority",
+	"sort_order": "DESC",
+	"states": []
+}

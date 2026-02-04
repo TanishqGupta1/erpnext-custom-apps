@@ -1,0 +1,507 @@
+{
+  "doctype": "DocType",
+  "name": "Chatwoot Lead",
+  "module": "OPS Integration",
+  "custom": 1,
+  "track_changes": 1,
+  "autoname": "format:CW-LEAD-{#####}",
+  "naming_rule": "Expression",
+  "title_field": "lead_name",
+  "show_title_field_in_link": 1,
+  "search_fields": "lead_name,email,phone,company,chatwoot_conversation_id",
+  "field_order": [
+    "section_source",
+    "chatwoot_conversation_id",
+    "chatwoot_contact_id",
+    "chatwoot_account_id",
+    "inbox_name",
+    "lead_source",
+    "column_break_source",
+    "lead_type",
+    "status",
+    "priority",
+    "assigned_to",
+    "section_contact",
+    "lead_name",
+    "email",
+    "phone",
+    "column_break_contact",
+    "company",
+    "website",
+    "section_inquiry",
+    "inquiry_type",
+    "inquiry_summary",
+    "products_interested",
+    "column_break_inquiry",
+    "estimated_value",
+    "quantity_needed",
+    "timeline",
+    "section_schedule",
+    "preferred_contact_method",
+    "preferred_call_time",
+    "timezone",
+    "column_break_schedule",
+    "callback_scheduled",
+    "callback_datetime",
+    "callback_notes",
+    "section_quote",
+    "quote_requested",
+    "quote_sent",
+    "quote_sent_date",
+    "column_break_quote",
+    "quote_reference",
+    "quote_amount",
+    "section_conversation",
+    "conversation_summary",
+    "ai_notes",
+    "section_followup",
+    "follow_up_date",
+    "follow_up_notes",
+    "column_break_followup",
+    "last_contacted",
+    "contact_count",
+    "section_info_collection",
+    "info_collection_status",
+    "missing_fields",
+    "collection_attempts",
+    "last_prompt_sent",
+    "section_conversion",
+    "converted",
+    "converted_date",
+    "column_break_conversion",
+    "erp_lead",
+    "erp_customer",
+    "erp_quotation",
+    "section_history",
+    "call_schedules",
+    "quote_requests"
+  ],
+  "fields": [
+    {
+      "fieldname": "section_source",
+      "fieldtype": "Section Break",
+      "label": "Lead Source & Status"
+    },
+    {
+      "fieldname": "chatwoot_conversation_id",
+      "fieldtype": "Data",
+      "label": "Chatwoot Conversation ID",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "search_index": 1,
+      "bold": 1,
+      "description": "Original Chatwoot conversation ID"
+    },
+    {
+      "fieldname": "chatwoot_contact_id",
+      "fieldtype": "Data",
+      "label": "Chatwoot Contact ID",
+      "search_index": 1
+    },
+    {
+      "fieldname": "chatwoot_account_id",
+      "fieldtype": "Data",
+      "label": "Chatwoot Account ID"
+    },
+    {
+      "fieldname": "inbox_name",
+      "fieldtype": "Data",
+      "label": "Inbox Name",
+      "description": "Which Chatwoot inbox the lead came from"
+    },
+    {
+      "fieldname": "lead_source",
+      "fieldtype": "Select",
+      "label": "Lead Source",
+      "options": "Website Chat\nFacebook\nWhatsApp\nInstagram\nEmail\nPhone\nReferral\nOther",
+      "default": "Website Chat",
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "column_break_source",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "lead_type",
+      "fieldtype": "Select",
+      "label": "Lead Type",
+      "options": "General Inquiry\nSchedule Call\nQuote Request\nOrder Status\nComplaint\nSupport",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "bold": 1
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "New\nContacted\nQualified\nProposal Sent\nNegotiation\nWon\nLost\nUnqualified",
+      "default": "New",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Select",
+      "label": "Priority",
+      "options": "Low\nMedium\nHigh\nUrgent",
+      "default": "Medium",
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "assigned_to",
+      "fieldtype": "Link",
+      "label": "Assigned To",
+      "options": "User",
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "section_contact",
+      "fieldtype": "Section Break",
+      "label": "Contact Information"
+    },
+    {
+      "fieldname": "lead_name",
+      "fieldtype": "Data",
+      "label": "Lead Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "bold": 1
+    },
+    {
+      "fieldname": "email",
+      "fieldtype": "Data",
+      "label": "Email",
+      "options": "Email",
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "phone",
+      "fieldtype": "Data",
+      "label": "Phone",
+      "options": "Phone"
+    },
+    {
+      "fieldname": "column_break_contact",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "company",
+      "fieldtype": "Data",
+      "label": "Company"
+    },
+    {
+      "fieldname": "website",
+      "fieldtype": "Data",
+      "label": "Website"
+    },
+    {
+      "fieldname": "section_inquiry",
+      "fieldtype": "Section Break",
+      "label": "Inquiry Details"
+    },
+    {
+      "fieldname": "inquiry_type",
+      "fieldtype": "Select",
+      "label": "Inquiry Type",
+      "options": "Business Cards\nFlyers\nBanners\nSigns\nBrochures\nPosters\nLabels\nStickers\nDecals\nPromotional Items\nOther",
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "inquiry_summary",
+      "fieldtype": "Small Text",
+      "label": "Inquiry Summary",
+      "description": "AI-generated summary of what the customer needs"
+    },
+    {
+      "fieldname": "products_interested",
+      "fieldtype": "Table",
+      "label": "Products Interested",
+      "options": "Chatwoot Lead Product",
+      "description": "List of products the lead is interested in"
+    },
+    {
+      "fieldname": "column_break_inquiry",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "estimated_value",
+      "fieldtype": "Currency",
+      "label": "Estimated Value",
+      "description": "Estimated order value based on inquiry"
+    },
+    {
+      "fieldname": "quantity_needed",
+      "fieldtype": "Data",
+      "label": "Quantity Needed"
+    },
+    {
+      "fieldname": "timeline",
+      "fieldtype": "Select",
+      "label": "Timeline",
+      "options": "Urgent (< 1 week)\n1-2 Weeks\n2-4 Weeks\n1-3 Months\nNo Rush"
+    },
+    {
+      "fieldname": "section_schedule",
+      "fieldtype": "Section Break",
+      "label": "Call Schedule",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "preferred_contact_method",
+      "fieldtype": "Select",
+      "label": "Preferred Contact Method",
+      "options": "Phone\nEmail\nVideo Call\nChat"
+    },
+    {
+      "fieldname": "preferred_call_time",
+      "fieldtype": "Select",
+      "label": "Preferred Call Time",
+      "options": "Morning (8am-12pm)\nAfternoon (12pm-4pm)\nEvening (4pm-6pm)\nAnytime"
+    },
+    {
+      "fieldname": "timezone",
+      "fieldtype": "Data",
+      "label": "Timezone",
+      "default": "America/Phoenix"
+    },
+    {
+      "fieldname": "column_break_schedule",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "callback_scheduled",
+      "fieldtype": "Check",
+      "label": "Callback Scheduled"
+    },
+    {
+      "fieldname": "callback_datetime",
+      "fieldtype": "Datetime",
+      "label": "Callback Date/Time",
+      "depends_on": "callback_scheduled"
+    },
+    {
+      "fieldname": "callback_notes",
+      "fieldtype": "Small Text",
+      "label": "Callback Notes"
+    },
+    {
+      "fieldname": "section_quote",
+      "fieldtype": "Section Break",
+      "label": "Quote Details",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "quote_requested",
+      "fieldtype": "Check",
+      "label": "Quote Requested"
+    },
+    {
+      "fieldname": "quote_sent",
+      "fieldtype": "Check",
+      "label": "Quote Sent"
+    },
+    {
+      "fieldname": "quote_sent_date",
+      "fieldtype": "Date",
+      "label": "Quote Sent Date",
+      "depends_on": "quote_sent"
+    },
+    {
+      "fieldname": "column_break_quote",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "quote_reference",
+      "fieldtype": "Data",
+      "label": "Quote Reference"
+    },
+    {
+      "fieldname": "quote_amount",
+      "fieldtype": "Currency",
+      "label": "Quote Amount"
+    },
+    {
+      "fieldname": "section_conversation",
+      "fieldtype": "Section Break",
+      "label": "Conversation & AI Analysis",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "conversation_summary",
+      "fieldtype": "Text",
+      "label": "Conversation Summary",
+      "description": "Full summary of the chat conversation"
+    },
+    {
+      "fieldname": "ai_notes",
+      "fieldtype": "Text",
+      "label": "AI Notes",
+      "description": "Additional insights from AI analysis"
+    },
+    {
+      "fieldname": "section_followup",
+      "fieldtype": "Section Break",
+      "label": "Follow-up"
+    },
+    {
+      "fieldname": "follow_up_date",
+      "fieldtype": "Date",
+      "label": "Follow-up Date"
+    },
+    {
+      "fieldname": "follow_up_notes",
+      "fieldtype": "Small Text",
+      "label": "Follow-up Notes"
+    },
+    {
+      "fieldname": "column_break_followup",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "last_contacted",
+      "fieldtype": "Datetime",
+      "label": "Last Contacted"
+    },
+    {
+      "fieldname": "contact_count",
+      "fieldtype": "Int",
+      "label": "Contact Count",
+      "default": 0
+    },
+    {
+      "fieldname": "section_info_collection",
+      "fieldtype": "Section Break",
+      "label": "Info Collection Status",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "info_collection_status",
+      "fieldtype": "Select",
+      "label": "Collection Status",
+      "options": "Pending\nIn Progress\nComplete\nIncomplete - Saved",
+      "default": "Pending",
+      "in_standard_filter": 1,
+      "description": "Status of multi-turn info collection"
+    },
+    {
+      "fieldname": "missing_fields",
+      "fieldtype": "Small Text",
+      "label": "Missing Fields",
+      "read_only": 1,
+      "description": "JSON list of fields still needed"
+    },
+    {
+      "fieldname": "collection_attempts",
+      "fieldtype": "Int",
+      "label": "Collection Attempts",
+      "default": 0,
+      "description": "Number of times AI asked for info"
+    },
+    {
+      "fieldname": "last_prompt_sent",
+      "fieldtype": "Small Text",
+      "label": "Last Prompt Sent",
+      "read_only": 1,
+      "description": "Last question AI asked the customer"
+    },
+    {
+      "fieldname": "section_conversion",
+      "fieldtype": "Section Break",
+      "label": "Conversion & ERP Links"
+    },
+    {
+      "fieldname": "converted",
+      "fieldtype": "Check",
+      "label": "Converted to Customer"
+    },
+    {
+      "fieldname": "converted_date",
+      "fieldtype": "Date",
+      "label": "Converted Date",
+      "depends_on": "converted"
+    },
+    {
+      "fieldname": "column_break_conversion",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "erp_lead",
+      "fieldtype": "Link",
+      "label": "ERP Lead",
+      "options": "Lead",
+      "description": "Linked ERPNext CRM Lead"
+    },
+    {
+      "fieldname": "erp_customer",
+      "fieldtype": "Link",
+      "label": "ERP Customer",
+      "options": "Customer",
+      "description": "Linked ERPNext Customer"
+    },
+    {
+      "fieldname": "erp_quotation",
+      "fieldtype": "Link",
+      "label": "ERP Quotation",
+      "options": "Quotation",
+      "description": "Linked ERPNext Quotation"
+    },
+    {
+      "fieldname": "section_history",
+      "fieldtype": "Section Break",
+      "label": "Request History",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "call_schedules",
+      "fieldtype": "Table",
+      "label": "Call Schedule History",
+      "options": "Chatwoot Call Schedule",
+      "read_only": 1
+    },
+    {
+      "fieldname": "quote_requests",
+      "fieldtype": "Table",
+      "label": "Quote Request History",
+      "options": "Chatwoot Quote Request",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "print": 1,
+      "read": 1,
+      "share": 1,
+      "write": 1
+    },
+    {
+      "role": "Sales User",
+      "create": 1,
+      "email": 1,
+      "print": 1,
+      "read": 1,
+      "share": 1,
+      "write": 1
+    },
+    {
+      "role": "Sales Manager",
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "print": 1,
+      "read": 1,
+      "share": 1,
+      "write": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "title_field": "lead_name",
+  "show_title_field_in_link": 1,
+  "search_fields": "lead_name,email,phone,company,chatwoot_conversation_id"
+}

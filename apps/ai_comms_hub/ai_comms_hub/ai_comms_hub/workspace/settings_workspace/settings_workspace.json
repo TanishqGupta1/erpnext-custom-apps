@@ -1,0 +1,109 @@
+{
+	"charts": [],
+	"content": "[{\"id\":\"header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>AI Comms Hub Settings</b></span>\",\"col\":12}},{\"id\":\"intro\",\"type\":\"paragraph\",\"data\":{\"text\":\"Configure your AI Communications Hub settings including language preferences, response templates, and escalation rules.\",\"col\":12}}]",
+	"creation": "2025-01-20 00:00:00.000000",
+	"developer_mode_only": 0,
+	"disable_user_customization": 0,
+	"docstatus": 0,
+	"doctype": "Workspace",
+	"for_user": "",
+	"hide_custom": 0,
+	"icon": "setting",
+	"idx": 0,
+	"is_hidden": 0,
+	"label": "AI Comms Settings",
+	"links": [
+		{
+			"hidden": 0,
+			"is_query_report": 0,
+			"label": "AI Comms Hub Settings",
+			"link_count": 0,
+			"link_to": "AI Comms Hub Settings",
+			"link_type": "DocType",
+			"onboard": 1,
+			"type": "Link"
+		},
+		{
+			"hidden": 0,
+			"is_query_report": 0,
+			"label": "Language Settings",
+			"link_count": 0,
+			"link_to": "Language Settings",
+			"link_type": "DocType",
+			"onboard": 1,
+			"type": "Link"
+		},
+		{
+			"hidden": 0,
+			"is_query_report": 0,
+			"label": "Escalation Rules",
+			"link_count": 0,
+			"link_to": "Escalation Rule",
+			"link_type": "DocType",
+			"onboard": 0,
+			"type": "Link"
+		},
+		{
+			"hidden": 0,
+			"is_query_report": 0,
+			"label": "Response Templates",
+			"link_count": 0,
+			"link_to": "Response Template",
+			"link_type": "DocType",
+			"onboard": 0,
+			"type": "Link"
+		},
+		{
+			"hidden": 0,
+			"is_query_report": 0,
+			"label": "Template Categories",
+			"link_count": 0,
+			"link_to": "Response Template Category",
+			"link_type": "DocType",
+			"onboard": 0,
+			"type": "Link"
+		}
+	],
+	"modified": "2025-01-20 00:00:00.000000",
+	"modified_by": "Administrator",
+	"module": "AI Comms Hub",
+	"name": "AI Comms Settings",
+	"number_cards": [],
+	"owner": "Administrator",
+	"parent_page": "",
+	"public": 1,
+	"restrict_to_domain": "",
+	"roles": [],
+	"sequence_id": 20,
+	"shortcuts": [
+		{
+			"color": "Blue",
+			"doc_view": "",
+			"label": "AI Settings",
+			"link_to": "AI Comms Hub Settings",
+			"type": "DocType"
+		},
+		{
+			"color": "Green",
+			"doc_view": "",
+			"label": "Language Settings",
+			"link_to": "Language Settings",
+			"type": "DocType"
+		},
+		{
+			"color": "Orange",
+			"doc_view": "List",
+			"label": "Escalation Rules",
+			"link_to": "Escalation Rule",
+			"type": "DocType"
+		},
+		{
+			"color": "Purple",
+			"doc_view": "List",
+			"label": "Response Templates",
+			"link_to": "Response Template",
+			"type": "DocType"
+		}
+	],
+	"title": "AI Comms Settings"
+}

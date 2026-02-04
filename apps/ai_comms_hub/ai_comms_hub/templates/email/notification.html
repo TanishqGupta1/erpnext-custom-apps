@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{ subject }}</title>
+	<style>
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+			line-height: 1.6;
+			color: #333;
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+		.header {
+			background-color: {{ header_color or "#2196f3" }};
+			color: white;
+			padding: 20px;
+			text-align: center;
+			border-radius: 8px 8px 0 0;
+		}
+		.content {
+			background-color: #ffffff;
+			padding: 30px;
+			border: 1px solid #e0e0e0;
+			border-top: none;
+		}
+		.alert {
+			padding: 12px;
+			border-radius: 4px;
+			margin: 20px 0;
+		}
+		.alert-info {
+			background-color: #e3f2fd;
+			border-left: 4px solid #2196f3;
+		}
+		.alert-success {
+			background-color: #e8f5e9;
+			border-left: 4px solid #4caf50;
+		}
+		.alert-warning {
+			background-color: #fff3e0;
+			border-left: 4px solid #ff9800;
+		}
+		.alert-danger {
+			background-color: #ffebee;
+			border-left: 4px solid #f44336;
+		}
+		.button {
+			display: inline-block;
+			padding: 12px 24px;
+			background-color: #2196f3;
+			color: white !important;
+			text-decoration: none;
+			border-radius: 4px;
+			margin: 20px 0;
+		}
+		.conversation-preview {
+			background-color: #f5f5f5;
+			padding: 15px;
+			border-radius: 4px;
+			border-left: 3px solid #2196f3;
+			margin: 20px 0;
+		}
+		.footer {
+			text-align: center;
+			padding: 20px;
+			color: #666;
+			font-size: 12px;
+			border: 1px solid #e0e0e0;
+			border-top: none;
+			border-radius: 0 0 8px 8px;
+		}
+	</style>
+</head>
+<body>
+	<div class="header">
+		<h2>{{ subject }}</h2>
+	</div>
+
+	<div class="content">
+		{% if alert_type %}
+		<div class="alert alert-{{ alert_type }}">
+			<strong>{{ alert_title }}</strong><br>
+			{{ alert_message }}
+		</div>
+		{% endif %}
+
+		{{ content }}
+
+		{% if conversation_preview %}
+		<div class="conversation-preview">
+			<strong>Latest Message:</strong><br>
+			<p style="margin: 10px 0 0 0;">{{ conversation_preview }}</p>
+		</div>
+		{% endif %}
+
+		{% if action_url %}
+		<a href="{{ action_url }}" class="button">{{ action_text or "View Details" }}</a>
+		{% endif %}
+
+		{% if additional_info %}
+		<hr style="border: none; border-top: 1px solid #e0e0e0; margin: 20px 0;">
+		<p style="color: #666; font-size: 14px;">{{ additional_info }}</p>
+		{% endif %}
+	</div>
+
+	<div class="footer">
+		<p>{{ company_name }}</p>
+		<p>You received this email because you are part of our communication system.</p>
+		<p style="margin-top: 10px;">
+			<a href="{{ settings_url }}" style="color: #666;">Notification Settings</a> |
+			<a href="{{ support_url }}" style="color: #666;">Contact Support</a>
+		</p>
+	</div>
+</body>
+</html>

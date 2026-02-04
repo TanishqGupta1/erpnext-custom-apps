@@ -1,0 +1,16 @@
+{
+	"doctype": "Dashboard Chart",
+	"name": "Conversations by Sentiment",
+	"chart_name": "Conversations by Sentiment",
+	"chart_type": "Group By",
+	"document_type": "Communication Hub",
+	"group_by_type": "Count",
+	"group_by_based_on": "sentiment",
+	"type": "Pie",
+	"is_public": 1,
+	"module": "AI Comms Hub",
+	"color": "#ed8936",
+	"filters_json": "[]",
+	"timeseries": 0,
+	"timespan": "Last Month"
+}

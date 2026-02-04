@@ -1,0 +1,274 @@
+{
+  "name": "Twitter DM Handler (Polling)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 2
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Schedule Trigger - Every 2 Minutes",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.twitter.com/2/dm_events",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "dm_event.fields",
+              "value": "id,text,created_at,sender_id,dm_conversation_id,attachments"
+            },
+            {
+              "name": "expansions",
+              "value": "sender_id,participant_ids"
+            },
+            {
+              "name": "max_results",
+              "value": "100"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "get-twitter-dms",
+      "name": "HTTP Request - Get Twitter DMs",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [450, 300],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "twitter-oauth",
+          "name": "Twitter OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process Twitter DMs and filter new ones\nconst items = [];\nconst lastProcessedId = $node[\"Schedule Trigger - Every 2 Minutes\"].getContext(\"lastProcessedDmId\") || \"0\";\nlet newLastProcessedId = lastProcessedId;\n\nconst dmEvents = $input.item.json.data || [];\nconst users = {};\n\n// Build user lookup\nfor (const user of $input.item.json.includes?.users || []) {\n  users[user.id] = user;\n}\n\nfor (const dm of dmEvents) {\n  // Skip if already processed\n  if (dm.id <= lastProcessedId) continue;\n  \n  // Update the latest ID\n  if (dm.id > newLastProcessedId) {\n    newLastProcessedId = dm.id;\n  }\n  \n  const sender = users[dm.sender_id] || {};\n  \n  items.push({\n    json: {\n      platform: \"Twitter\",\n      dm_id: dm.id,\n      conversation_id: dm.dm_conversation_id,\n      sender_id: dm.sender_id,\n      sender_username: sender.username || \"\",\n      sender_name: sender.name || \"\",\n      message_text: dm.text || \"\",\n      created_at: dm.created_at,\n      attachments: dm.attachments || [],\n      event_type: dm.event_type || \"message_create\"\n    }\n  });\n}\n\n// Save the last processed ID for next run\n$node[\"Schedule Trigger - Every 2 Minutes\"].setContext(\"lastProcessedDmId\", newLastProcessedId);\n\nreturn items;"
+      },
+      "id": "process-dms",
+      "name": "Process DMs - Filter New",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$json.length}}",
+              "operation": "larger",
+              "value2": 0
+            }
+          ]
+        }
+      },
+      "id": "check-has-messages",
+      "name": "Check - Has New Messages",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://erpnext-backend:8000/api/method/ai_comms_hub.webhooks.social.handle_twitter_webhook",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "platform",
+              "value": "Twitter"
+            },
+            {
+              "name": "dm_id",
+              "value": "={{$json.dm_id}}"
+            },
+            {
+              "name": "conversation_id",
+              "value": "={{$json.conversation_id}}"
+            },
+            {
+              "name": "sender_id",
+              "value": "={{$json.sender_id}}"
+            },
+            {
+              "name": "sender_username",
+              "value": "={{$json.sender_username}}"
+            },
+            {
+              "name": "message_text",
+              "value": "={{$json.message_text}}"
+            },
+            {
+              "name": "created_at",
+              "value": "={{$json.created_at}}"
+            },
+            {
+              "name": "attachments",
+              "value": "={{JSON.stringify($json.attachments)}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 30000,
+          "batching": {
+            "batch": {
+              "batchSize": 10,
+              "batchInterval": 1000
+            }
+          }
+        }
+      },
+      "id": "http-frappe-api",
+      "name": "HTTP Request - Frappe API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1050, 200],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "frappe-api-key",
+          "name": "Frappe API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "logToConsole",
+        "message": "={{\"Processed \" + $json.length + \" new Twitter DMs\"}}"
+      },
+      "id": "log-success",
+      "name": "Log - Success",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [1250, 200]
+    },
+    {
+      "parameters": {
+        "mode": "logToConsole",
+        "message": "No new Twitter DMs to process"
+      },
+      "id": "log-no-messages",
+      "name": "Log - No New Messages",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [1050, 400]
+    },
+    {
+      "parameters": {
+        "mode": "logToConsole",
+        "message": "={{\"Error processing Twitter DMs: \" + JSON.stringify($json)}}"
+      },
+      "id": "error-handler",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [850, 500]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger - Every 2 Minutes": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Get Twitter DMs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Get Twitter DMs": {
+      "main": [
+        [
+          {
+            "node": "Process DMs - Filter New",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process DMs - Filter New": {
+      "main": [
+        [
+          {
+            "node": "Check - Has New Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check - Has New Messages": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Frappe API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log - No New Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Frappe API": {
+      "main": [
+        [
+          {
+            "node": "Log - Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true
+  },
+  "staticData": {
+    "node:Schedule Trigger - Every 2 Minutes": {
+      "lastProcessedDmId": "0"
+    }
+  },
+  "tags": [
+    {
+      "name": "Social Media",
+      "id": "social-automation"
+    },
+    {
+      "name": "Twitter",
+      "id": "twitter-integration"
+    },
+    {
+      "name": "Polling",
+      "id": "polling-mode"
+    }
+  ],
+  "pinData": {},
+  "versionId": "1.0.0"
+}

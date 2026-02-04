@@ -1,0 +1,265 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:chat_conversation_id",
+ "creation": "2025-11-13 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "field_order": [
+  "overview_section",
+  "chat_conversation_id",
+  "account_id",
+  "inbox_id",
+  "status",
+  "priority",
+  "assigned_to",
+  "last_message_preview",
+  "contact",
+  "contact_display",
+  "customer",
+  "lead",
+  "issue",
+  "channel",
+  "last_message_at",
+  "timeline_links",
+  "overview_column_break",
+  "transcript_heading",
+  "messages",
+  "transcript_html",
+  "composer_html",
+  "details_html",
+  "labels",
+  "tags_json",
+  "external_url",
+  "last_synced",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "chat_conversation_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Chat Conversation ID",
+   "read_only": 1,
+   "reqd": 1,
+   "unique": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "account_id",
+   "fieldtype": "Int",
+   "label": "Account ID",
+   "read_only": 1,
+   "reqd": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "inbox_id",
+   "fieldtype": "Int",
+   "label": "Inbox ID",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "status",
+   "default": "Open",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Open\nPending\nSnoozed\nResolved\nClosed",
+   "reqd": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "priority",
+   "default": "None",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Priority",
+   "options": "None\nLow\nMedium\nHigh\nUrgent",
+   "hidden": 1
+  },
+  {
+   "fieldname": "assigned_to",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Assigned To",
+   "options": "User",
+   "hidden": 1
+  },
+  {
+   "fieldname": "contact",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "ERPNext Contact",
+   "options": "Contact",
+   "hidden": 1
+  },
+  {
+   "fieldname": "contact_display",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Contact Name",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 0,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "description": "Link to Customer for order and billing history",
+   "hidden": 1
+  },
+  {
+   "fieldname": "lead",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Lead",
+   "options": "Lead",
+   "description": "Link to Lead for sales pipeline",
+   "hidden": 1
+  },
+  {
+   "fieldname": "issue",
+   "fieldtype": "Link",
+   "in_list_view": 0,
+   "in_standard_filter": 1,
+   "label": "Support Issue",
+   "options": "Issue",
+   "description": "Create or link to Support Issue for tracking",
+   "hidden": 1
+  },
+  {
+   "fieldname": "channel",
+   "fieldtype": "Data",
+   "label": "Channel",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "conversation_section",
+   "fieldtype": "Section Break",
+   "label": ""
+  },
+  {
+   "fieldname": "custom_sidebar_html",
+   "fieldtype": "HTML",
+   "label": "Contact & Details",
+   "options": "<div id=\"chatwoot-sidebar\"></div>"
+  },
+  {
+   "fieldname": "last_message_preview",
+   "fieldtype": "Small Text",
+   "label": "Last Message Preview",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "last_message_at",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Last Message At",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "labels",
+   "fieldtype": "Table",
+   "label": "Labels",
+   "options": "Chat Conversation Label",
+   "hidden": 1
+  },
+  {
+   "fieldname": "external_url",
+   "fieldtype": "Data",
+   "label": "Open in Chatwoot",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "last_synced",
+   "fieldtype": "Datetime",
+   "label": "Last Synced",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Agent Notes",
+   "hidden": 1
+  },
+  {
+   "fieldname": "transcript_heading",
+   "fieldtype": "HTML",
+   "label": "Conversation Transcript"
+  },
+  {
+   "fieldname": "messages",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Messages",
+   "options": "Chat Message",
+   "read_only": 1
+  },
+  {
+   "fieldname": "transcript_html",
+   "fieldtype": "HTML",
+   "label": "Transcript Preview",
+   "read_only": 1
+  },
+  {
+   "fieldname": "composer_html",
+   "fieldtype": "HTML",
+   "label": "Reply Box",
+   "read_only": 1
+  },
+  {
+   "fieldname": "details_html",
+   "fieldtype": "HTML",
+   "label": "Details Panel",
+   "read_only": 1,
+   "hidden": 1
+  }
+ ],
+ "has_web_view": 0,
+ "index_web_pages_for_search": 0,
+ "links": [
+  {
+   "link_doctype": "Communication",
+   "link_fieldname": "reference_name"
+  }
+ ],
+ "modified": "2025-11-13 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Customer Support",
+ "title_field": "contact_display",
+ "name": "Chat Conversation",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1
+}

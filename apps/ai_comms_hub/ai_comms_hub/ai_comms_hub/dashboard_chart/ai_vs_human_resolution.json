@@ -1,0 +1,14 @@
+{
+	"doctype": "Dashboard Chart",
+	"name": "AI vs Human Resolution",
+	"chart_name": "AI vs Human Resolution",
+	"chart_type": "Custom",
+	"custom_options": "{\"type\": \"bar\", \"colors\": [\"#667eea\", \"#9f7aea\", \"#ed8936\", \"#e53e3e\"]}",
+	"source": "AI Comms Hub Resolution Stats",
+	"type": "Bar",
+	"is_public": 1,
+	"module": "AI Comms Hub",
+	"color": "#667eea",
+	"timeseries": 0,
+	"timespan": "Last Month"
+}

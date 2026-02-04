@@ -1,0 +1,12 @@
+{
+	"doctype": "Number Card",
+	"name": "Total Conversations",
+	"label": "Total Conversations",
+	"document_type": "Communication Hub",
+	"function": "Count",
+	"is_public": 1,
+	"module": "AI Comms Hub",
+	"show_percentage_stats": 1,
+	"stats_time_interval": "Daily",
+	"color": "#4299e1"
+}

@@ -1,0 +1,16 @@
+{
+	"doctype": "Dashboard Chart",
+	"name": "Conversations by Status",
+	"chart_name": "Conversations by Status",
+	"chart_type": "Group By",
+	"document_type": "Communication Hub",
+	"group_by_type": "Count",
+	"group_by_based_on": "status",
+	"type": "Donut",
+	"is_public": 1,
+	"module": "AI Comms Hub",
+	"color": "#48bb78",
+	"filters_json": "[]",
+	"timeseries": 0,
+	"timespan": "Last Month"
+}

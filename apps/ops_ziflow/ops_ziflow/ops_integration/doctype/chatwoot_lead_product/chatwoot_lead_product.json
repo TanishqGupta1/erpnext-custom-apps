@@ -1,0 +1,65 @@
+{
+  "doctype": "DocType",
+  "name": "Chatwoot Lead Product",
+  "module": "OPS Integration",
+  "custom": 1,
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+  "field_order": [
+    "product_category",
+    "product_name",
+    "quantity",
+    "specifications",
+    "estimated_price",
+    "priority",
+    "notes"
+  ],
+  "fields": [
+    {
+      "fieldname": "product_category",
+      "fieldtype": "Select",
+      "label": "Product Category",
+      "options": "Business Cards\nFlyers\nBanners\nSigns\nBrochures\nPosters\nLabels\nStickers\nDecals\nPromotional Items\nOther",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "product_name",
+      "fieldtype": "Data",
+      "label": "Product Name",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "quantity",
+      "fieldtype": "Data",
+      "label": "Quantity",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "specifications",
+      "fieldtype": "Small Text",
+      "label": "Specifications",
+      "description": "Size, material, finish, colors, etc."
+    },
+    {
+      "fieldname": "estimated_price",
+      "fieldtype": "Currency",
+      "label": "Estimated Price",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Select",
+      "label": "Priority",
+      "options": "High\nMedium\nLow",
+      "default": "Medium"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes"
+    }
+  ],
+  "permissions": []
+}

@@ -1,0 +1,230 @@
+{
+  "doctype": "DocType",
+  "name": "OPS Error Log",
+  "module": "OPS Integration",
+  "custom": 0,
+  "track_changes": 0,
+  "autoname": "format:OPS-ERR-{####}",
+  "title_field": "error_title",
+  "field_order": [
+    "error_info_section",
+    "error_title",
+    "error_type",
+    "severity",
+    "status",
+    "cb_error1",
+    "occurred_at",
+    "resolved_at",
+    "resolved_by",
+    "source_section",
+    "source_doctype",
+    "source_document",
+    "source_field",
+    "cb_source1",
+    "service_name",
+    "function_name",
+    "details_section",
+    "error_message",
+    "traceback",
+    "request_data",
+    "response_data",
+    "resolution_section",
+    "resolution_notes",
+    "resolution_action",
+    "auto_retry",
+    "retry_count",
+    "max_retries",
+    "next_retry_at"
+  ],
+  "fields": [
+    {
+      "fieldname": "error_info_section",
+      "fieldtype": "Section Break",
+      "label": "Error Information"
+    },
+    {
+      "fieldname": "error_title",
+      "fieldtype": "Data",
+      "label": "Error Title",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "error_type",
+      "fieldtype": "Select",
+      "label": "Error Type",
+      "options": "Sync Error\nAPI Error\nValidation Error\nData Integrity\nConfiguration Error\nWebhook Error\nUnknown",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "severity",
+      "fieldtype": "Select",
+      "label": "Severity",
+      "options": "Critical\nHigh\nMedium\nLow\nInfo",
+      "default": "Medium",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Open\nIn Progress\nResolved\nIgnored\nAuto-Resolved",
+      "default": "Open",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "cb_error1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "occurred_at",
+      "fieldtype": "Datetime",
+      "label": "Occurred At",
+      "default": "Now",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "resolved_at",
+      "fieldtype": "Datetime",
+      "label": "Resolved At",
+      "read_only": 1
+    },
+    {
+      "fieldname": "resolved_by",
+      "fieldtype": "Link",
+      "label": "Resolved By",
+      "options": "User",
+      "read_only": 1
+    },
+    {
+      "fieldname": "source_section",
+      "fieldtype": "Section Break",
+      "label": "Source"
+    },
+    {
+      "fieldname": "source_doctype",
+      "fieldtype": "Link",
+      "label": "Related DocType",
+      "options": "DocType",
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "source_document",
+      "fieldtype": "Dynamic Link",
+      "label": "Related Document",
+      "options": "source_doctype"
+    },
+    {
+      "fieldname": "source_field",
+      "fieldtype": "Data",
+      "label": "Related Field"
+    },
+    {
+      "fieldname": "cb_source1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "service_name",
+      "fieldtype": "Data",
+      "label": "Service/Module",
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "function_name",
+      "fieldtype": "Data",
+      "label": "Function Name"
+    },
+    {
+      "fieldname": "details_section",
+      "fieldtype": "Section Break",
+      "label": "Error Details"
+    },
+    {
+      "fieldname": "error_message",
+      "fieldtype": "Small Text",
+      "label": "Error Message",
+      "reqd": 1
+    },
+    {
+      "fieldname": "traceback",
+      "fieldtype": "Code",
+      "label": "Traceback",
+      "options": "text"
+    },
+    {
+      "fieldname": "request_data",
+      "fieldtype": "Code",
+      "label": "Request Data",
+      "options": "JSON"
+    },
+    {
+      "fieldname": "response_data",
+      "fieldtype": "Code",
+      "label": "Response Data",
+      "options": "JSON"
+    },
+    {
+      "fieldname": "resolution_section",
+      "fieldtype": "Section Break",
+      "label": "Resolution"
+    },
+    {
+      "fieldname": "resolution_notes",
+      "fieldtype": "Small Text",
+      "label": "Resolution Notes"
+    },
+    {
+      "fieldname": "resolution_action",
+      "fieldtype": "Select",
+      "label": "Resolution Action",
+      "options": "\nManual Fix\nAuto Retry Success\nData Corrected\nConfiguration Fixed\nIgnored - Not Applicable\nIgnored - Duplicate"
+    },
+    {
+      "fieldname": "auto_retry",
+      "fieldtype": "Check",
+      "label": "Auto Retry Enabled",
+      "default": 0
+    },
+    {
+      "fieldname": "retry_count",
+      "fieldtype": "Int",
+      "label": "Retry Count",
+      "default": 0,
+      "read_only": 1
+    },
+    {
+      "fieldname": "max_retries",
+      "fieldtype": "Int",
+      "label": "Max Retries",
+      "default": 3
+    },
+    {
+      "fieldname": "next_retry_at",
+      "fieldtype": "Datetime",
+      "label": "Next Retry At"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Sales User",
+      "read": 1
+    }
+  ],
+  "sort_field": "occurred_at",
+  "sort_order": "DESC"
+}

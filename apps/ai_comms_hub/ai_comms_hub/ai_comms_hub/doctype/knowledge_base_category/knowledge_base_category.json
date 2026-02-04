@@ -1,0 +1,111 @@
+{
+	"actions": [],
+	"autoname": "field:category_name",
+	"creation": "2025-01-20 00:00:00.000000",
+	"doctype": "DocType",
+	"engine": "InnoDB",
+	"field_order": [
+		"category_name",
+		"description",
+		"column_break_1",
+		"is_active",
+		"parent_category",
+		"icon",
+		"section_break_settings",
+		"include_in_ai_context",
+		"priority"
+	],
+	"fields": [
+		{
+			"fieldname": "category_name",
+			"fieldtype": "Data",
+			"in_list_view": 1,
+			"label": "Category Name",
+			"reqd": 1,
+			"unique": 1
+		},
+		{
+			"fieldname": "description",
+			"fieldtype": "Small Text",
+			"label": "Description"
+		},
+		{
+			"fieldname": "column_break_1",
+			"fieldtype": "Column Break"
+		},
+		{
+			"default": "1",
+			"fieldname": "is_active",
+			"fieldtype": "Check",
+			"in_list_view": 1,
+			"label": "Is Active"
+		},
+		{
+			"fieldname": "parent_category",
+			"fieldtype": "Link",
+			"label": "Parent Category",
+			"options": "Knowledge Base Category"
+		},
+		{
+			"fieldname": "icon",
+			"fieldtype": "Data",
+			"label": "Icon"
+		},
+		{
+			"fieldname": "section_break_settings",
+			"fieldtype": "Section Break",
+			"label": "AI Settings"
+		},
+		{
+			"default": "1",
+			"fieldname": "include_in_ai_context",
+			"fieldtype": "Check",
+			"label": "Include in AI Context",
+			"description": "If enabled, articles in this category will be used by AI for responses"
+		},
+		{
+			"default": "5",
+			"fieldname": "priority",
+			"fieldtype": "Int",
+			"label": "Priority",
+			"description": "Higher priority categories are searched first (1-10)"
+		}
+	],
+	"index_web_pages_for_search": 1,
+	"links": [],
+	"modified": "2025-01-20 00:00:00.000000",
+	"modified_by": "Administrator",
+	"module": "AI Comms Hub",
+	"name": "Knowledge Base Category",
+	"naming_rule": "By fieldname",
+	"owner": "Administrator",
+	"permissions": [
+		{
+			"create": 1,
+			"delete": 1,
+			"email": 1,
+			"export": 1,
+			"print": 1,
+			"read": 1,
+			"report": 1,
+			"role": "System Manager",
+			"share": 1,
+			"write": 1
+		},
+		{
+			"create": 1,
+			"email": 1,
+			"export": 1,
+			"print": 1,
+			"read": 1,
+			"report": 1,
+			"role": "Support Team",
+			"share": 1,
+			"write": 1
+		}
+	],
+	"sort_field": "category_name",
+	"sort_order": "ASC",
+	"states": [],
+	"track_changes": 1
+}

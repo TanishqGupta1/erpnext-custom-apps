@@ -1,0 +1,66 @@
+# Docker volumes (created at runtime)
+db-data/
+redis-cache/
+redis-queue/
+redis-socketio/
+
+# Large backup files
+*.sql.gz
+*.tar
+*.tar.gz
+sites/*/private/backups/
+
+# Node modules (too large, installed at runtime)
+node_modules/
+*/node_modules/
+
+# Python cache
+*.pyc
+__pycache__/
+*.pyo
+*.egg-info/
+.eggs/
+
+# Build artifacts
+*/dist/
+*/.cache/
+*.map
+*.js.map
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment files
+.env.local
+.env.*.local
+
+# Frappe/ERPNext apps that come with the image (not custom)
+apps/frappe/
+apps/erpnext/
+apps/crm/
+apps/hrms/
+apps/payments/
+apps/webshop/
+apps/wiki/
+apps/builder/
+apps/drive/
+apps/gameplan/
+apps/helpdesk/
+apps/insights/
+apps/lending/
+apps/lms/
+apps/print_designer/
+apps/raven/
+
+# Site files that are restored from backup
+sites/erp.visualgraphx.com/
+sites/assets/
+sites/apps.txt
+sites/.DS_Store
+
+# Temp files
+/tmp/

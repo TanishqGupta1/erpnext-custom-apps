@@ -1,0 +1,284 @@
+{
+	"actions": [],
+	"creation": "2025-01-20 00:00:00.000000",
+	"doctype": "DocType",
+	"engine": "InnoDB",
+	"field_order": [
+		"section_general",
+		"enable_auto_detection",
+		"enable_auto_translation",
+		"default_language",
+		"column_break_general",
+		"fallback_language",
+		"detect_from_message_count",
+		"confidence_threshold",
+		"section_translation_service",
+		"translation_provider",
+		"openai_model",
+		"column_break_translation",
+		"anthropic_model",
+		"custom_translation_endpoint",
+		"section_api_keys",
+		"openai_api_key",
+		"anthropic_api_key",
+		"column_break_api",
+		"google_translate_api_key",
+		"deepl_api_key",
+		"section_supported_languages",
+		"supported_languages",
+		"section_response_settings",
+		"respond_in_detected_language",
+		"include_translation_note",
+		"translation_note_template",
+		"column_break_response",
+		"preserve_formatting",
+		"max_translation_length",
+		"section_detection_settings",
+		"use_ai_detection",
+		"detection_model",
+		"column_break_detection",
+		"cache_detections",
+		"detection_cache_ttl"
+	],
+	"fields": [
+		{
+			"fieldname": "section_general",
+			"fieldtype": "Section Break",
+			"label": "General Settings"
+		},
+		{
+			"default": "1",
+			"fieldname": "enable_auto_detection",
+			"fieldtype": "Check",
+			"label": "Enable Auto Language Detection",
+			"description": "Automatically detect language of incoming messages"
+		},
+		{
+			"default": "1",
+			"fieldname": "enable_auto_translation",
+			"fieldtype": "Check",
+			"label": "Enable Auto Translation",
+			"description": "Automatically translate responses to customer's language"
+		},
+		{
+			"default": "en",
+			"fieldname": "default_language",
+			"fieldtype": "Data",
+			"label": "Default Language",
+			"description": "Default language code (ISO 639-1)"
+		},
+		{
+			"fieldname": "column_break_general",
+			"fieldtype": "Column Break"
+		},
+		{
+			"default": "en",
+			"fieldname": "fallback_language",
+			"fieldtype": "Data",
+			"label": "Fallback Language",
+			"description": "Use this language when detection fails"
+		},
+		{
+			"default": "1",
+			"fieldname": "detect_from_message_count",
+			"fieldtype": "Int",
+			"label": "Detect from Message Count",
+			"description": "Number of messages to analyze for language detection"
+		},
+		{
+			"default": "0.8",
+			"fieldname": "confidence_threshold",
+			"fieldtype": "Float",
+			"label": "Detection Confidence Threshold",
+			"description": "Minimum confidence (0-1) to accept detected language"
+		},
+		{
+			"fieldname": "section_translation_service",
+			"fieldtype": "Section Break",
+			"label": "Translation Service"
+		},
+		{
+			"default": "OpenAI",
+			"fieldname": "translation_provider",
+			"fieldtype": "Select",
+			"label": "Translation Provider",
+			"options": "OpenAI\nAnthropic\nGoogle Translate\nDeepL\nCustom"
+		},
+		{
+			"default": "gpt-4o-mini",
+			"fieldname": "openai_model",
+			"fieldtype": "Data",
+			"label": "OpenAI Model",
+			"depends_on": "eval:doc.translation_provider=='OpenAI'"
+		},
+		{
+			"fieldname": "column_break_translation",
+			"fieldtype": "Column Break"
+		},
+		{
+			"default": "claude-3-haiku-20240307",
+			"fieldname": "anthropic_model",
+			"fieldtype": "Data",
+			"label": "Anthropic Model",
+			"depends_on": "eval:doc.translation_provider=='Anthropic'"
+		},
+		{
+			"fieldname": "custom_translation_endpoint",
+			"fieldtype": "Data",
+			"label": "Custom Translation Endpoint",
+			"depends_on": "eval:doc.translation_provider=='Custom'",
+			"description": "URL of custom translation API"
+		},
+		{
+			"fieldname": "section_api_keys",
+			"fieldtype": "Section Break",
+			"label": "API Keys",
+			"collapsible": 1
+		},
+		{
+			"fieldname": "openai_api_key",
+			"fieldtype": "Password",
+			"label": "OpenAI API Key",
+			"depends_on": "eval:doc.translation_provider=='OpenAI'"
+		},
+		{
+			"fieldname": "anthropic_api_key",
+			"fieldtype": "Password",
+			"label": "Anthropic API Key",
+			"depends_on": "eval:doc.translation_provider=='Anthropic'"
+		},
+		{
+			"fieldname": "column_break_api",
+			"fieldtype": "Column Break"
+		},
+		{
+			"fieldname": "google_translate_api_key",
+			"fieldtype": "Password",
+			"label": "Google Translate API Key",
+			"depends_on": "eval:doc.translation_provider=='Google Translate'"
+		},
+		{
+			"fieldname": "deepl_api_key",
+			"fieldtype": "Password",
+			"label": "DeepL API Key",
+			"depends_on": "eval:doc.translation_provider=='DeepL'"
+		},
+		{
+			"fieldname": "section_supported_languages",
+			"fieldtype": "Section Break",
+			"label": "Supported Languages"
+		},
+		{
+			"fieldname": "supported_languages",
+			"fieldtype": "Table",
+			"label": "Supported Languages",
+			"options": "Supported Language"
+		},
+		{
+			"fieldname": "section_response_settings",
+			"fieldtype": "Section Break",
+			"label": "Response Settings"
+		},
+		{
+			"default": "1",
+			"fieldname": "respond_in_detected_language",
+			"fieldtype": "Check",
+			"label": "Respond in Detected Language",
+			"description": "AI responses will be in the customer's detected language"
+		},
+		{
+			"default": "0",
+			"fieldname": "include_translation_note",
+			"fieldtype": "Check",
+			"label": "Include Translation Note",
+			"description": "Add a note when response is translated"
+		},
+		{
+			"fieldname": "translation_note_template",
+			"fieldtype": "Small Text",
+			"label": "Translation Note Template",
+			"depends_on": "eval:doc.include_translation_note",
+			"description": "Use {source_lang} and {target_lang} placeholders"
+		},
+		{
+			"fieldname": "column_break_response",
+			"fieldtype": "Column Break"
+		},
+		{
+			"default": "1",
+			"fieldname": "preserve_formatting",
+			"fieldtype": "Check",
+			"label": "Preserve Formatting",
+			"description": "Maintain original text formatting during translation"
+		},
+		{
+			"default": "5000",
+			"fieldname": "max_translation_length",
+			"fieldtype": "Int",
+			"label": "Max Translation Length",
+			"description": "Maximum characters to translate in single request"
+		},
+		{
+			"fieldname": "section_detection_settings",
+			"fieldtype": "Section Break",
+			"label": "Detection Settings",
+			"collapsible": 1
+		},
+		{
+			"default": "1",
+			"fieldname": "use_ai_detection",
+			"fieldtype": "Check",
+			"label": "Use AI for Detection",
+			"description": "Use AI model for more accurate language detection"
+		},
+		{
+			"default": "gpt-4o-mini",
+			"fieldname": "detection_model",
+			"fieldtype": "Data",
+			"label": "Detection Model",
+			"depends_on": "eval:doc.use_ai_detection"
+		},
+		{
+			"fieldname": "column_break_detection",
+			"fieldtype": "Column Break"
+		},
+		{
+			"default": "1",
+			"fieldname": "cache_detections",
+			"fieldtype": "Check",
+			"label": "Cache Detections",
+			"description": "Cache language detection results for performance"
+		},
+		{
+			"default": "3600",
+			"fieldname": "detection_cache_ttl",
+			"fieldtype": "Int",
+			"label": "Detection Cache TTL (sec)",
+			"depends_on": "eval:doc.cache_detections"
+		}
+	],
+	"index_web_pages_for_search": 1,
+	"issingle": 1,
+	"links": [],
+	"modified": "2025-01-20 00:00:00.000000",
+	"modified_by": "Administrator",
+	"module": "AI Comms Hub",
+	"name": "Language Settings",
+	"owner": "Administrator",
+	"permissions": [
+		{
+			"create": 1,
+			"delete": 1,
+			"email": 1,
+			"print": 1,
+			"read": 1,
+			"role": "System Manager",
+			"share": 1,
+			"write": 1
+		}
+	],
+	"sort_field": "modified",
+	"sort_order": "DESC",
+	"states": [],
+	"track_changes": 1
+}

@@ -1,0 +1,13 @@
+{
+	"doctype": "Number Card",
+	"name": "Resolved Conversations",
+	"label": "Resolved",
+	"document_type": "Communication Hub",
+	"function": "Count",
+	"filters_json": "[['Communication Hub', 'status', 'in', ['Resolved', 'Closed']]]",
+	"is_public": 1,
+	"module": "AI Comms Hub",
+	"show_percentage_stats": 1,
+	"stats_time_interval": "Daily",
+	"color": "#38a169"
+}

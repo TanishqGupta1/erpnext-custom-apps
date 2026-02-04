@@ -1,0 +1,83 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-01-15 10:00:00.000000",
+ "custom": 1,
+ "doctype": "DocType",
+ "module": "Customer Support",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "user",
+  "chat_user_id",
+  "api_access_token",
+  "account_id",
+  "last_sync"
+ ],
+ "fields": [
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "ERPNext User",
+   "options": "User",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "chat_user_id",
+   "fieldtype": "Int",
+   "label": "Chat User ID",
+   "reqd": 1
+  },
+  {
+   "fieldname": "api_access_token",
+   "fieldtype": "Password",
+   "label": "API Access Token",
+   "reqd": 1,
+   "description": "Chat API access token for this user"
+  },
+  {
+   "fieldname": "account_id",
+   "fieldtype": "Int",
+   "label": "Chat Account ID",
+   "reqd": 1,
+   "default": 1
+  },
+  {
+   "fieldname": "last_sync",
+   "fieldtype": "Datetime",
+   "label": "Last Token Validation",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2025-01-15 10:00:00.000000",
+ "modified_by": "Administrator",
+ "name": "Chat User Token",
+ "owner": "Administrator",
+  "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "if_owner": 1,
+   "read": 1,
+   "role": "System User",
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
+

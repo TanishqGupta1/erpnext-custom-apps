@@ -1,0 +1,214 @@
+{
+  "name": "WhatsApp Handler (Twilio)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "twilio-whatsapp-webhook",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-twilio-whatsapp",
+      "name": "Webhook - Twilio WhatsApp",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "twilio-whatsapp-handler"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse Twilio WhatsApp webhook data\nconst data = $input.item.json.body;\n\n// Extract message data from form-encoded body\nconst messageSid = data.MessageSid || data.SmsSid || \"\";\nconst from = data.From || \"\";\nconst to = data.To || \"\";\nconst body = data.Body || \"\";\nconst accountSid = data.AccountSid || \"\";\nconst messagingServiceSid = data.MessagingServiceSid || \"\";\nconst numMedia = parseInt(data.NumMedia || \"0\");\n\n// Parse media attachments\nconst media = [];\nfor (let i = 0; i < numMedia; i++) {\n  media.push({\n    url: data[`MediaUrl${i}`],\n    contentType: data[`MediaContentType${i}`]\n  });\n}\n\n// Extract phone numbers (remove whatsapp: prefix)\nconst fromNumber = from.replace(\"whatsapp:\", \"\");\nconst toNumber = to.replace(\"whatsapp:\", \"\");\n\nreturn [{\n  json: {\n    platform: \"WhatsApp\",\n    message_sid: messageSid,\n    from_number: fromNumber,\n    to_number: toNumber,\n    message_body: body,\n    account_sid: accountSid,\n    messaging_service_sid: messagingServiceSid,\n    num_media: numMedia,\n    media: media,\n    timestamp: new Date().toISOString(),\n    // Additional Twilio fields\n    profile_name: data.ProfileName || \"\",\n    wa_id: data.WaId || \"\"\n  }\n}];"
+      },
+      "id": "parse-whatsapp-data",
+      "name": "Parse WhatsApp Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.message_body}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "check-has-message",
+      "name": "Check - Has Message",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://erpnext-backend:8000/api/method/ai_comms_hub.webhooks.messaging.handle_whatsapp_webhook",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "platform",
+              "value": "WhatsApp"
+            },
+            {
+              "name": "message_sid",
+              "value": "={{$json.message_sid}}"
+            },
+            {
+              "name": "from_number",
+              "value": "={{$json.from_number}}"
+            },
+            {
+              "name": "to_number",
+              "value": "={{$json.to_number}}"
+            },
+            {
+              "name": "message_body",
+              "value": "={{$json.message_body}}"
+            },
+            {
+              "name": "profile_name",
+              "value": "={{$json.profile_name}}"
+            },
+            {
+              "name": "wa_id",
+              "value": "={{$json.wa_id}}"
+            },
+            {
+              "name": "media",
+              "value": "={{JSON.stringify($json.media)}}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{$json.timestamp}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "http-frappe-api",
+      "name": "HTTP Request - Frappe API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [850, 200],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "frappe-api-key",
+          "name": "Frappe API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "xml",
+        "responseBody": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response></Response>"
+      },
+      "id": "respond-twiml",
+      "name": "Respond - TwiML",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1050, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "xml",
+        "responseBody": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response></Response>"
+      },
+      "id": "respond-twiml-skip",
+      "name": "Respond - TwiML (Skip)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [850, 400]
+    },
+    {
+      "parameters": {
+        "mode": "logToConsole",
+        "message": "={{\"Error processing WhatsApp message: \" + JSON.stringify($json)}}"
+      },
+      "id": "error-handler",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [850, 600]
+    }
+  ],
+  "connections": {
+    "Webhook - Twilio WhatsApp": {
+      "main": [
+        [
+          {
+            "node": "Parse WhatsApp Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse WhatsApp Data": {
+      "main": [
+        [
+          {
+            "node": "Check - Has Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check - Has Message": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Frappe API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond - TwiML (Skip)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Frappe API": {
+      "main": [
+        [
+          {
+            "node": "Respond - TwiML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "Messaging",
+      "id": "messaging-automation"
+    },
+    {
+      "name": "WhatsApp",
+      "id": "whatsapp-integration"
+    },
+    {
+      "name": "Twilio",
+      "id": "twilio-integration"
+    }
+  ],
+  "pinData": {},
+  "versionId": "1.0.0"
+}

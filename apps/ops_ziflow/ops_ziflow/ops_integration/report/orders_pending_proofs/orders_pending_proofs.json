@@ -1,0 +1,11 @@
+{
+  "name": "Orders Pending Proofs",
+  "doctype": "Report",
+  "add_total_row": 0,
+  "disabled": 0,
+  "is_standard": "Yes",
+  "module": "OPS Integration",
+  "ref_doctype": "OPS Order",
+  "report_name": "Orders Pending Proofs",
+  "report_type": "Script Report"
+}

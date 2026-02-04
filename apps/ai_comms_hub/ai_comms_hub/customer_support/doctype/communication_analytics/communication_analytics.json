@@ -1,0 +1,168 @@
+{
+	"actions": [],
+	"autoname": "COMM-ANALYTICS-.YYYY.-.MM.-.DD.",
+	"creation": "2025-01-01 00:00:00.000000",
+	"doctype": "DocType",
+	"engine": "InnoDB",
+	"field_order": [
+		"date",
+		"column_break_1",
+		"total_conversations",
+		"section_break_metrics",
+		"ai_resolved",
+		"escalated",
+		"column_break_2",
+		"ai_resolution_rate",
+		"escalation_rate",
+		"section_break_timing",
+		"avg_response_time",
+		"avg_resolution_time",
+		"column_break_3",
+		"first_response_time",
+		"section_break_channels",
+		"by_channel",
+		"column_break_4",
+		"by_sentiment",
+		"section_break_data",
+		"metrics_json"
+	],
+	"fields": [
+		{
+			"fieldname": "date",
+			"fieldtype": "Date",
+			"in_list_view": 1,
+			"in_standard_filter": 1,
+			"label": "Date",
+			"reqd": 1
+		},
+		{
+			"fieldname": "column_break_1",
+			"fieldtype": "Column Break"
+		},
+		{
+			"fieldname": "total_conversations",
+			"fieldtype": "Int",
+			"in_list_view": 1,
+			"label": "Total Conversations"
+		},
+		{
+			"fieldname": "section_break_metrics",
+			"fieldtype": "Section Break",
+			"label": "Resolution Metrics"
+		},
+		{
+			"fieldname": "ai_resolved",
+			"fieldtype": "Int",
+			"label": "AI Resolved"
+		},
+		{
+			"fieldname": "escalated",
+			"fieldtype": "Int",
+			"label": "Escalated"
+		},
+		{
+			"fieldname": "column_break_2",
+			"fieldtype": "Column Break"
+		},
+		{
+			"fieldname": "ai_resolution_rate",
+			"fieldtype": "Percent",
+			"in_list_view": 1,
+			"label": "AI Resolution Rate"
+		},
+		{
+			"fieldname": "escalation_rate",
+			"fieldtype": "Percent",
+			"label": "Escalation Rate"
+		},
+		{
+			"fieldname": "section_break_timing",
+			"fieldtype": "Section Break",
+			"label": "Response Timing"
+		},
+		{
+			"fieldname": "avg_response_time",
+			"fieldtype": "Float",
+			"label": "Avg Response Time (sec)"
+		},
+		{
+			"fieldname": "avg_resolution_time",
+			"fieldtype": "Float",
+			"label": "Avg Resolution Time (min)"
+		},
+		{
+			"fieldname": "column_break_3",
+			"fieldtype": "Column Break"
+		},
+		{
+			"fieldname": "first_response_time",
+			"fieldtype": "Float",
+			"label": "Avg First Response (sec)"
+		},
+		{
+			"fieldname": "section_break_channels",
+			"fieldtype": "Section Break",
+			"label": "Distribution"
+		},
+		{
+			"fieldname": "by_channel",
+			"fieldtype": "Small Text",
+			"label": "By Channel (JSON)"
+		},
+		{
+			"fieldname": "column_break_4",
+			"fieldtype": "Column Break"
+		},
+		{
+			"fieldname": "by_sentiment",
+			"fieldtype": "Small Text",
+			"label": "By Sentiment (JSON)"
+		},
+		{
+			"fieldname": "section_break_data",
+			"fieldtype": "Section Break",
+			"label": "Raw Data",
+			"collapsible": 1
+		},
+		{
+			"fieldname": "metrics_json",
+			"fieldtype": "Long Text",
+			"label": "Full Metrics JSON"
+		}
+	],
+	"index_web_pages_for_search": 1,
+	"links": [],
+	"modified": "2025-01-01 00:00:00.000000",
+	"modified_by": "Administrator",
+	"module": "Customer Support",
+	"name": "Communication Analytics",
+	"naming_rule": "Expression",
+	"owner": "Administrator",
+	"permissions": [
+		{
+			"create": 1,
+			"delete": 1,
+			"email": 1,
+			"export": 1,
+			"print": 1,
+			"read": 1,
+			"report": 1,
+			"role": "System Manager",
+			"share": 1,
+			"write": 1
+		},
+		{
+			"email": 1,
+			"export": 1,
+			"print": 1,
+			"read": 1,
+			"report": 1,
+			"role": "Customer Support",
+			"share": 1
+		}
+	],
+	"sort_field": "date",
+	"sort_order": "DESC",
+	"states": [],
+	"track_changes": 1
+}

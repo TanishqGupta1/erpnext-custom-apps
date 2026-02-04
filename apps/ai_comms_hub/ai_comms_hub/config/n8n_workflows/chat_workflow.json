@@ -1,0 +1,248 @@
+{
+  "name": "Chatwoot Live Chat Handler",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "chatwoot-webhook",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-chatwoot",
+      "name": "Webhook - Chatwoot",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "chatwoot-handler"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse Chatwoot webhook data\nconst data = $input.item.json.body;\nconst event = data.event || \"\";\n\n// Extract conversation and message data\nconst conversation = data.conversation || {};\nconst sender = data.sender || {};\nconst message = data.content || \"\";\nconst messageType = data.message_type || \"incoming\";\n\nreturn [{\n  json: {\n    platform: \"Chat\",\n    event: event,\n    conversation_id: conversation.id,\n    account_id: data.account?.id,\n    inbox_id: data.inbox?.id,\n    message_id: data.id,\n    message_content: message,\n    message_type: messageType,\n    sender_id: sender.id,\n    sender_name: sender.name || \"Guest\",\n    sender_email: sender.email || \"\",\n    sender_phone: sender.phone_number || \"\",\n    conversation_status: conversation.status,\n    assignee_id: conversation.assignee_id,\n    timestamp: data.created_at,\n    // Additional Chatwoot-specific fields\n    contact_id: data.contact?.id,\n    custom_attributes: data.custom_attributes || {},\n    attachments: data.attachments || []\n  }\n}];"
+      },
+      "id": "parse-chatwoot-data",
+      "name": "Parse Chatwoot Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.event}}",
+              "operation": "equals",
+              "value2": "message_created"
+            }
+          ]
+        }
+      },
+      "id": "filter-message-created",
+      "name": "Filter - Message Created",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.message_type}}",
+              "operation": "equals",
+              "value2": "incoming"
+            }
+          ]
+        }
+      },
+      "id": "filter-incoming-only",
+      "name": "Filter - Incoming Only",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://erpnext-backend:8000/api/method/ai_comms_hub.webhooks.chat.handle_chatwoot_webhook",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "platform",
+              "value": "Chat"
+            },
+            {
+              "name": "event",
+              "value": "={{$json.event}}"
+            },
+            {
+              "name": "conversation_id",
+              "value": "={{$json.conversation_id}}"
+            },
+            {
+              "name": "message_id",
+              "value": "={{$json.message_id}}"
+            },
+            {
+              "name": "message_content",
+              "value": "={{$json.message_content}}"
+            },
+            {
+              "name": "sender_id",
+              "value": "={{$json.sender_id}}"
+            },
+            {
+              "name": "sender_name",
+              "value": "={{$json.sender_name}}"
+            },
+            {
+              "name": "sender_email",
+              "value": "={{$json.sender_email}}"
+            },
+            {
+              "name": "contact_id",
+              "value": "={{$json.contact_id}}"
+            },
+            {
+              "name": "account_id",
+              "value": "={{$json.account_id}}"
+            },
+            {
+              "name": "inbox_id",
+              "value": "={{$json.inbox_id}}"
+            },
+            {
+              "name": "attachments",
+              "value": "={{JSON.stringify($json.attachments)}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "http-frappe-api",
+      "name": "HTTP Request - Frappe API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1050, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "frappe-api-key",
+          "name": "Frappe API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{JSON.stringify({\"success\": true})}}"
+      },
+      "id": "respond-success",
+      "name": "Respond - Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{JSON.stringify({\"success\": true, \"skipped\": true})}}"
+      },
+      "id": "respond-skipped",
+      "name": "Respond - Skipped",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1050, 500]
+    }
+  ],
+  "connections": {
+    "Webhook - Chatwoot": {
+      "main": [
+        [
+          {
+            "node": "Parse Chatwoot Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Chatwoot Data": {
+      "main": [
+        [
+          {
+            "node": "Filter - Message Created",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter - Message Created": {
+      "main": [
+        [
+          {
+            "node": "Filter - Incoming Only",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond - Skipped",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter - Incoming Only": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Frappe API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond - Skipped",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Frappe API": {
+      "main": [
+        [
+          {
+            "node": "Respond - Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "Chat",
+      "id": "chat-automation"
+    },
+    {
+      "name": "Chatwoot",
+      "id": "chatwoot-integration"
+    }
+  ],
+  "pinData": {},
+  "versionId": "1.0.0"
+}

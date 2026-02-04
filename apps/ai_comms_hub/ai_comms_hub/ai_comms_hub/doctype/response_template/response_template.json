@@ -1,0 +1,249 @@
+{
+	"actions": [],
+	"autoname": "format:TPL-{#####}",
+	"creation": "2025-01-20 00:00:00.000000",
+	"doctype": "DocType",
+	"engine": "InnoDB",
+	"field_order": [
+		"template_name",
+		"category",
+		"shortcut_key",
+		"column_break_1",
+		"is_active",
+		"is_public",
+		"owner_user",
+		"section_break_content",
+		"subject",
+		"content",
+		"section_break_variables",
+		"available_variables",
+		"section_break_channels",
+		"applicable_channels",
+		"section_break_ai",
+		"use_for_ai_suggestions",
+		"ai_trigger_keywords",
+		"column_break_ai",
+		"ai_priority",
+		"section_break_language",
+		"language",
+		"translations",
+		"section_break_usage",
+		"usage_count",
+		"last_used",
+		"column_break_usage",
+		"created_by",
+		"created_on"
+	],
+	"fields": [
+		{
+			"fieldname": "template_name",
+			"fieldtype": "Data",
+			"in_list_view": 1,
+			"in_standard_filter": 1,
+			"label": "Template Name",
+			"reqd": 1
+		},
+		{
+			"fieldname": "category",
+			"fieldtype": "Link",
+			"in_list_view": 1,
+			"in_standard_filter": 1,
+			"label": "Category",
+			"options": "Response Template Category"
+		},
+		{
+			"fieldname": "shortcut_key",
+			"fieldtype": "Data",
+			"label": "Shortcut Key",
+			"description": "Quick access shortcut (e.g., /greeting, /thanks)"
+		},
+		{
+			"fieldname": "column_break_1",
+			"fieldtype": "Column Break"
+		},
+		{
+			"default": "1",
+			"fieldname": "is_active",
+			"fieldtype": "Check",
+			"in_list_view": 1,
+			"label": "Is Active"
+		},
+		{
+			"default": "1",
+			"fieldname": "is_public",
+			"fieldtype": "Check",
+			"label": "Is Public",
+			"description": "Available to all agents"
+		},
+		{
+			"fieldname": "owner_user",
+			"fieldtype": "Link",
+			"label": "Owner",
+			"options": "User",
+			"depends_on": "eval:!doc.is_public"
+		},
+		{
+			"fieldname": "section_break_content",
+			"fieldtype": "Section Break",
+			"label": "Template Content"
+		},
+		{
+			"fieldname": "subject",
+			"fieldtype": "Data",
+			"label": "Subject",
+			"description": "For email templates"
+		},
+		{
+			"fieldname": "content",
+			"fieldtype": "Text Editor",
+			"label": "Content",
+			"reqd": 1,
+			"description": "Use {{variable_name}} for dynamic content"
+		},
+		{
+			"fieldname": "section_break_variables",
+			"fieldtype": "Section Break",
+			"label": "Variables",
+			"collapsible": 1
+		},
+		{
+			"fieldname": "available_variables",
+			"fieldtype": "Small Text",
+			"label": "Available Variables",
+			"read_only": 1,
+			"default": "{{customer_name}}, {{agent_name}}, {{company_name}}, {{ticket_id}}, {{order_id}}, {{date}}, {{time}}"
+		},
+		{
+			"fieldname": "section_break_channels",
+			"fieldtype": "Section Break",
+			"label": "Channel Settings"
+		},
+		{
+			"default": "All",
+			"fieldname": "applicable_channels",
+			"fieldtype": "Select",
+			"label": "Applicable Channels",
+			"options": "All\nEmail\nChat\nVoice\nSocial\nSMS"
+		},
+		{
+			"fieldname": "section_break_ai",
+			"fieldtype": "Section Break",
+			"label": "AI Settings"
+		},
+		{
+			"default": "0",
+			"fieldname": "use_for_ai_suggestions",
+			"fieldtype": "Check",
+			"label": "Use for AI Suggestions",
+			"description": "AI can suggest this template based on context"
+		},
+		{
+			"fieldname": "ai_trigger_keywords",
+			"fieldtype": "Small Text",
+			"label": "AI Trigger Keywords",
+			"depends_on": "eval:doc.use_for_ai_suggestions",
+			"description": "Keywords that trigger AI to suggest this template"
+		},
+		{
+			"fieldname": "column_break_ai",
+			"fieldtype": "Column Break"
+		},
+		{
+			"default": "5",
+			"fieldname": "ai_priority",
+			"fieldtype": "Int",
+			"label": "AI Priority",
+			"depends_on": "eval:doc.use_for_ai_suggestions",
+			"description": "Higher priority templates are suggested first"
+		},
+		{
+			"fieldname": "section_break_language",
+			"fieldtype": "Section Break",
+			"label": "Language & Translations",
+			"collapsible": 1
+		},
+		{
+			"default": "en",
+			"fieldname": "language",
+			"fieldtype": "Link",
+			"label": "Primary Language",
+			"options": "Language"
+		},
+		{
+			"fieldname": "translations",
+			"fieldtype": "Table",
+			"label": "Translations",
+			"options": "Response Template Translation"
+		},
+		{
+			"fieldname": "section_break_usage",
+			"fieldtype": "Section Break",
+			"label": "Usage Statistics",
+			"collapsible": 1
+		},
+		{
+			"default": "0",
+			"fieldname": "usage_count",
+			"fieldtype": "Int",
+			"label": "Usage Count",
+			"read_only": 1
+		},
+		{
+			"fieldname": "last_used",
+			"fieldtype": "Datetime",
+			"label": "Last Used",
+			"read_only": 1
+		},
+		{
+			"fieldname": "column_break_usage",
+			"fieldtype": "Column Break"
+		},
+		{
+			"fieldname": "created_by",
+			"fieldtype": "Link",
+			"label": "Created By",
+			"options": "User",
+			"read_only": 1
+		},
+		{
+			"fieldname": "created_on",
+			"fieldtype": "Date",
+			"label": "Created On",
+			"read_only": 1
+		}
+	],
+	"index_web_pages_for_search": 1,
+	"links": [],
+	"modified": "2025-01-20 00:00:00.000000",
+	"modified_by": "Administrator",
+	"module": "AI Comms Hub",
+	"name": "Response Template",
+	"naming_rule": "Expression",
+	"owner": "Administrator",
+	"permissions": [
+		{
+			"create": 1,
+			"delete": 1,
+			"email": 1,
+			"export": 1,
+			"print": 1,
+			"read": 1,
+			"report": 1,
+			"role": "System Manager",
+			"share": 1,
+			"write": 1
+		},
+		{
+			"create": 1,
+			"read": 1,
+			"role": "Support Team",
+			"write": 1
+		}
+	],
+	"search_fields": "template_name,category,shortcut_key",
+	"sort_field": "template_name",
+	"sort_order": "ASC",
+	"states": [],
+	"title_field": "template_name",
+	"track_changes": 1
+}

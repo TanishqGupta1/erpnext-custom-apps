@@ -1,0 +1,246 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "format:MSG-{communication_hub}-{#####}",
+ "creation": "2025-01-24 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "communication_hub",
+  "sender_type",
+  "sender_name",
+  "sender_identifier",
+  "section_content",
+  "content",
+  "content_type",
+  "column_break_content",
+  "timestamp",
+  "read_by_customer",
+  "read_at",
+  "section_function",
+  "is_function_call",
+  "function_name",
+  "function_args",
+  "column_break_function",
+  "function_result",
+  "function_success",
+  "function_error",
+  "section_metadata",
+  "platform_message_id",
+  "in_reply_to",
+  "column_break_metadata",
+  "delivery_status",
+  "delivery_error",
+  "retry_count"
+ ],
+ "fields": [
+  {
+   "fieldname": "communication_hub",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Communication Hub",
+   "options": "Communication Hub",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sender_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Sender Type",
+   "options": "Customer\nAI\nAgent\nSystem",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sender_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Sender Name",
+   "reqd": 1
+  },
+  {
+   "description": "Platform-specific identifier (PSID, email, phone, etc.)",
+   "fieldname": "sender_identifier",
+   "fieldtype": "Data",
+   "label": "Sender Identifier"
+  },
+  {
+   "fieldname": "section_content",
+   "fieldtype": "Section Break",
+   "label": "Message Content"
+  },
+  {
+   "fieldname": "content",
+   "fieldtype": "Long Text",
+   "in_list_view": 1,
+   "label": "Content",
+   "reqd": 1
+  },
+  {
+   "default": "text",
+   "fieldname": "content_type",
+   "fieldtype": "Select",
+   "label": "Content Type",
+   "options": "text\nhtml\nmarkdown\nimage\nvideo\naudio\nfile"
+  },
+  {
+   "fieldname": "column_break_content",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "timestamp",
+   "fieldtype": "Datetime",
+   "label": "Timestamp",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "read_by_customer",
+   "fieldtype": "Check",
+   "label": "Read by Customer"
+  },
+  {
+   "fieldname": "read_at",
+   "fieldtype": "Datetime",
+   "label": "Read At"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_function",
+   "fieldtype": "Section Break",
+   "label": "Function Call"
+  },
+  {
+   "default": "0",
+   "description": "Whether this message triggered a function call",
+   "fieldname": "is_function_call",
+   "fieldtype": "Check",
+   "label": "Is Function Call"
+  },
+  {
+   "depends_on": "eval:doc.is_function_call==1",
+   "fieldname": "function_name",
+   "fieldtype": "Data",
+   "label": "Function Name"
+  },
+  {
+   "depends_on": "eval:doc.is_function_call==1",
+   "description": "JSON arguments passed to function",
+   "fieldname": "function_args",
+   "fieldtype": "Long Text",
+   "label": "Function Arguments"
+  },
+  {
+   "fieldname": "column_break_function",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.is_function_call==1",
+   "description": "JSON result from function execution",
+   "fieldname": "function_result",
+   "fieldtype": "Long Text",
+   "label": "Function Result"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.is_function_call==1",
+   "fieldname": "function_success",
+   "fieldtype": "Check",
+   "label": "Function Success"
+  },
+  {
+   "depends_on": "eval:doc.is_function_call==1",
+   "fieldname": "function_error",
+   "fieldtype": "Text",
+   "label": "Function Error"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_metadata",
+   "fieldtype": "Section Break",
+   "label": "Delivery Metadata"
+  },
+  {
+   "description": "Platform-specific message ID (for tracking delivery)",
+   "fieldname": "platform_message_id",
+   "fieldtype": "Data",
+   "label": "Platform Message ID"
+  },
+  {
+   "description": "Reference to previous message (for threading)",
+   "fieldname": "in_reply_to",
+   "fieldtype": "Data",
+   "label": "In Reply To"
+  },
+  {
+   "fieldname": "column_break_metadata",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Pending",
+   "fieldname": "delivery_status",
+   "fieldtype": "Select",
+   "label": "Delivery Status",
+   "options": "Pending\nSent\nDelivered\nRead\nFailed"
+  },
+  {
+   "fieldname": "delivery_error",
+   "fieldtype": "Text",
+   "label": "Delivery Error"
+  },
+  {
+   "default": "0",
+   "description": "Number of times delivery was retried",
+   "fieldname": "retry_count",
+   "fieldtype": "Int",
+   "label": "Retry Count"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-01-24 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "AI Comms Hub",
+ "name": "Communication Message",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Customer Support",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

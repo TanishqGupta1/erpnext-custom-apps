@@ -1,0 +1,130 @@
+{
+	"charts": [
+		{
+			"chart_name": "Conversations Trend",
+			"label": "Conversations Trend"
+		},
+		{
+			"chart_name": "Conversations by Channel",
+			"label": "By Channel"
+		},
+		{
+			"chart_name": "Conversations by Status",
+			"label": "By Status"
+		},
+		{
+			"chart_name": "Conversations by AI Mode",
+			"label": "By AI Mode"
+		},
+		{
+			"chart_name": "Conversations by Sentiment",
+			"label": "By Sentiment"
+		}
+	],
+	"content": "[{\"id\":\"WnVTx5iy6l\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>AI Comms Hub Analytics</b></span>\",\"col\":12}},{\"id\":\"ncard_row\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Conversations\",\"col\":2}},{\"id\":\"ncard_open\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Open Conversations\",\"col\":2}},{\"id\":\"ncard_pending\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Pending HITL Review\",\"col\":2}},{\"id\":\"ncard_escalated\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Escalated Conversations\",\"col\":2}},{\"id\":\"ncard_resolved\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Resolved Conversations\",\"col\":2}},{\"id\":\"ncard_ai\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"AI Autonomous Conversations\",\"col\":2}},{\"id\":\"chart_trend\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Conversations Trend\",\"col\":12}},{\"id\":\"chart_channel\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Conversations by Channel\",\"col\":4}},{\"id\":\"chart_status\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Conversations by Status\",\"col\":4}},{\"id\":\"chart_aimode\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Conversations by AI Mode\",\"col\":4}},{\"id\":\"shortcuts_header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\"><b>Quick Access</b></span>\",\"col\":12}},{\"id\":\"shortcut_comms\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Communication Hub\",\"col\":3}},{\"id\":\"shortcut_analytics\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Communication Analytics\",\"col\":3}},{\"id\":\"shortcut_hitl\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"HITL Console\",\"col\":3}},{\"id\":\"shortcut_takeover\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Takeover Console\",\"col\":3}}]",
+	"creation": "2025-01-20 00:00:00.000000",
+	"developer_mode_only": 0,
+	"disable_user_customization": 0,
+	"docstatus": 0,
+	"doctype": "Workspace",
+	"for_user": "",
+	"hide_custom": 0,
+	"icon": "chart-line",
+	"idx": 0,
+	"is_hidden": 0,
+	"label": "AI Analytics",
+	"links": [
+		{
+			"hidden": 0,
+			"is_query_report": 0,
+			"label": "Communication Hub",
+			"link_count": 0,
+			"link_to": "Communication Hub",
+			"link_type": "DocType",
+			"onboard": 0,
+			"type": "Link"
+		},
+		{
+			"hidden": 0,
+			"is_query_report": 0,
+			"label": "Communication Analytics",
+			"link_count": 0,
+			"link_to": "Communication Analytics",
+			"link_type": "DocType",
+			"onboard": 0,
+			"type": "Link"
+		},
+		{
+			"hidden": 0,
+			"is_query_report": 0,
+			"label": "Communication Message",
+			"link_count": 0,
+			"link_to": "Communication Message",
+			"link_type": "DocType",
+			"onboard": 0,
+			"type": "Link"
+		}
+	],
+	"modified": "2025-01-20 00:00:00.000000",
+	"modified_by": "Administrator",
+	"module": "AI Comms Hub",
+	"name": "AI Analytics",
+	"number_cards": [
+		{
+			"number_card_name": "Total Conversations"
+		},
+		{
+			"number_card_name": "Open Conversations"
+		},
+		{
+			"number_card_name": "Pending HITL Review"
+		},
+		{
+			"number_card_name": "Escalated Conversations"
+		},
+		{
+			"number_card_name": "Resolved Conversations"
+		},
+		{
+			"number_card_name": "AI Autonomous Conversations"
+		},
+		{
+			"number_card_name": "Agent Takeover Conversations"
+		}
+	],
+	"owner": "Administrator",
+	"parent_page": "",
+	"public": 1,
+	"restrict_to_domain": "",
+	"roles": [],
+	"sequence_id": 10,
+	"shortcuts": [
+		{
+			"color": "Blue",
+			"doc_view": "List",
+			"label": "Communication Hub",
+			"link_to": "Communication Hub",
+			"type": "DocType"
+		},
+		{
+			"color": "Green",
+			"doc_view": "List",
+			"label": "Communication Analytics",
+			"link_to": "Communication Analytics",
+			"type": "DocType"
+		},
+		{
+			"color": "Orange",
+			"label": "HITL Console",
+			"link_to": "hitl-console",
+			"type": "Page"
+		},
+		{
+			"color": "Purple",
+			"label": "Takeover Console",
+			"link_to": "takeover-console",
+			"type": "Page"
+		}
+	],
+	"title": "AI Analytics"
+}

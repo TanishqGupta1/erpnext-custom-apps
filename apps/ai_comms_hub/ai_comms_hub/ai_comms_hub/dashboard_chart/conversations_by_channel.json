@@ -1,0 +1,16 @@
+{
+	"doctype": "Dashboard Chart",
+	"name": "Conversations by Channel",
+	"chart_name": "Conversations by Channel",
+	"chart_type": "Group By",
+	"document_type": "Communication Hub",
+	"group_by_type": "Count",
+	"group_by_based_on": "channel",
+	"type": "Donut",
+	"is_public": 1,
+	"module": "AI Comms Hub",
+	"color": "#4299e1",
+	"filters_json": "[]",
+	"timeseries": 0,
+	"timespan": "Last Month"
+}
